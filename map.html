@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Riyadh Metro Map Demo</title>
+    <title>Riyadh Metro Map Mobile-Friendly</title>
 
     <!-- Mapbox CSS -->
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.15.0/mapbox-gl.css" rel="stylesheet">
@@ -13,8 +13,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
-        body,
-        html {
+        html,
+        body {
             margin: 0;
             padding: 0;
             height: 100%;
@@ -22,41 +22,54 @@
         }
 
         #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
             width: 100%;
-            height: 85vh;
         }
 
+        /* Controls container fixed on top */
         #controls {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            z-index: 10;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            padding: 10px;
-            background: #f0f0f0;
+            gap: 8px;
         }
 
         select,
         button {
-            padding: 10px;
-            margin: 5px;
+            padding: 10px 14px;
             font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
 
         button {
-            cursor: pointer;
-            background-color: #007bff;
+            background-color: #28a745;
             color: white;
             border: none;
-            border-radius: 5px;
+            cursor: pointer;
         }
 
         button:hover {
-            background-color: #0056b3;
+            background-color: #218838;
         }
 
         @media (max-width: 500px) {
+
             select,
             button {
                 width: 100%;
+                font-size: 16px;
             }
         }
     </style>
@@ -64,18 +77,16 @@
 
 <body>
     <div id="controls">
-        <button id="useMyLocation">Use My Location</button>
-        <label>End Station:</label>
+        <select id="startStation"></select>
         <select id="endStation"></select>
         <button onclick="showRoute()">Show Route</button>
     </div>
+
     <div id="map"></div>
 
     <script>
-        // Mapbox token
         mapboxgl.accessToken = 'pk.eyJ1IjoiYWRlbDUwMDBjYyIsImEiOiJjbWc1MTVyeWowNmU3MmlzOHF3aG5vamJqIn0.kCXWIIu2diuNmMfu-L2vdg';
 
-        // Initialize map
         const map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/streets-v12',
@@ -83,7 +94,6 @@
             zoom: 12
         });
 
-        // Sample metro stations
         const stations = [
             { name: "KAFD", coords: [46.6840, 24.7115], line: "Red" },
             { name: "Olaya", coords: [46.678, 24.712], line: "Red" },
@@ -91,7 +101,6 @@
             { name: "Kingdom Tower", coords: [46.670, 24.715], line: "Blue" }
         ];
 
-        // Populate End Station dropdown
         const endSelect = document.getElementById('endStation');
         stations.forEach((station, index) => {
             const optionEnd = document.createElement('option');
@@ -100,7 +109,6 @@
             endSelect.appendChild(optionEnd);
         });
 
-        // Add markers
         stations.forEach(station => {
             new mapboxgl.Marker({ color: station.line === "Red" ? "red" : "blue" })
                 .setLngLat(station.coords)
@@ -108,19 +116,6 @@
                 .addTo(map);
         });
 
-        // Draw basic metro lines
-        map.on('load', () => {
-            const redLineCoords = stations.filter(s => s.line === "Red").map(s => s.coords);
-            const blueLineCoords = stations.filter(s => s.line === "Blue").map(s => s.coords);
-
-            map.addSource('red-line', { type: 'geojson', data: { type: 'Feature', geometry: { type: 'LineString', coordinates: redLineCoords } } });
-            map.addLayer({ id: 'red-line-layer', type: 'line', source: 'red-line', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': 'red', 'line-width': 3 } });
-
-            map.addSource('blue-line', { type: 'geojson', data: { type: 'Feature', geometry: { type: 'LineString', coordinates: blueLineCoords } } });
-            map.addLayer({ id: 'blue-line-layer', type: 'line', source: 'blue-line', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': 'blue', 'line-width': 3 } });
-        });
-
-        // Geolocate control
         const geolocate = new mapboxgl.GeolocateControl({
             positionOptions: { enableHighAccuracy: true },
             trackUserLocation: true,
@@ -129,36 +124,32 @@
         map.addControl(geolocate);
 
         let userMarker;
+        let userCoordsGlobal = null; // 👉 تخزين الموقع هنا
 
-        // Use My Location button
         document.getElementById('useMyLocation').addEventListener('click', () => {
             geolocate.trigger();
         });
 
-        // When location obtained
+        // عند تحديد الموقع
         map.on('geolocate', (e) => {
-            const userCoords = [e.coords.longitude, e.coords.latitude];
+            userCoordsGlobal = [e.coords.longitude, e.coords.latitude]; // 👉 حفظ الإحداثيات
 
-            // Add or update marker
             if (userMarker) userMarker.remove();
             userMarker = new mapboxgl.Marker({ color: 'orange' })
-                .setLngLat(userCoords)
+                .setLngLat(userCoordsGlobal)
                 .setPopup(new mapboxgl.Popup().setText('My Location'))
                 .addTo(map);
 
-            // Center map on user
-            map.flyTo({ center: userCoords, zoom: 14 });
+            map.flyTo({ center: userCoordsGlobal, zoom: 14 });
         });
 
-        // Show route using Directions API
         async function showRoute() {
-            if (!userMarker) return alert("Please use 'Use My Location' first.");
+            if (!userCoordsGlobal) return alert("Please use 'Use My Location' first."); // ✅ ما رح تطلع إلا إذا ما حددت أبداً
 
-            const start = [userMarker.getLngLat().lng, userMarker.getLngLat().lat];
+            const start = userCoordsGlobal;
             const endIndex = parseInt(endSelect.value);
             const end = stations[endIndex].coords;
 
-            // Remove existing route
             if (map.getSource('route-line')) {
                 map.removeLayer('route-layer');
                 map.removeSource('route-line');
@@ -172,11 +163,15 @@
                 if (!data.routes || data.routes.length === 0) return alert("No route found");
 
                 const route = data.routes[0].geometry;
-
                 map.addSource('route-line', { type: 'geojson', data: { type: 'Feature', geometry: route } });
-                map.addLayer({ id: 'route-layer', type: 'line', source: 'route-line', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': 'green', 'line-width': 4 } });
+                map.addLayer({
+                    id: 'route-layer',
+                    type: 'line',
+                    source: 'route-line',
+                    layout: { 'line-join': 'round', 'line-cap': 'round' },
+                    paint: { 'line-color': 'green', 'line-width': 4 }
+                });
 
-                // Show distance
                 const distanceKm = (data.routes[0].distance / 1000).toFixed(2);
                 alert(`Estimated distance: ${distanceKm} km`);
             } catch (err) {
@@ -185,6 +180,7 @@
             }
         }
     </script>
+
 </body>
 
 </html>
