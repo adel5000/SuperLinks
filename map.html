@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Riyadh Metro Map Mobile-Friendly</title>
+
+    <!-- Mapbox CSS -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.15.0/mapbox-gl.css" rel="stylesheet">
+    <!-- Mapbox JS -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.15.0/mapbox-gl.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Controls container fixed on top */
+        #controls {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        select,
+        button {
+            padding: 10px 14px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        @media (max-width: 500px) {
+
+            select,
+            button {
+                width: 100%;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="controls">
+        <select id="startStation"></select>
+        <select id="endStation"></select>
+        <button onclick="showRoute()">Show Route</button>
+    </div>
+
+    <div id="map"></div>
+
+    <script>
+        // Mapbox Access Token
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYWRlbDUwMDBjYyIsImEiOiJjbWc1MTVyeWowNmU3MmlzOHF3aG5vamJqIn0.kCXWIIu2diuNmMfu-L2vdg';
+
+        // Initialize map
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v12',
+            center: [46.6753, 24.7136],
+            zoom: 12
+        });
+
+        // Stations data
+        const stations = [
+            { name: "KAFD", coords: [46.6840, 24.7115], line: "Red" },
+            { name: "Olaya", coords: [46.678, 24.712], line: "Red" },
+            { name: "Riyadh Station", coords: [46.693, 24.713], line: "Blue" },
+            { name: "Kingdom Tower", coords: [46.670, 24.715], line: "Blue" }
+        ];
+
+        // Populate dropdowns
+        const startSelect = document.getElementById('startStation');
+        const endSelect = document.getElementById('endStation');
+        stations.forEach((station, index) => {
+            const optionStart = document.createElement('option');
+            optionStart.value = index;
+            optionStart.textContent = station.name;
+            startSelect.appendChild(optionStart);
+
+            const optionEnd = document.createElement('option');
+            optionEnd.value = index;
+            optionEnd.textContent = station.name;
+            endSelect.appendChild(optionEnd);
+        });
+
+        // Add markers
+        stations.forEach(station => {
+            new mapboxgl.Marker({ color: station.line === "Red" ? "red" : "blue" })
+                .setLngLat(station.coords)
+                .setPopup(new mapboxgl.Popup().setText(station.name))
+                .addTo(map);
+        });
+
+        // Geolocation control
+        const geolocate = new mapboxgl.GeolocateControl({
+            positionOptions: { enableHighAccuracy: true },
+            trackUserLocation: true,
+            showUserHeading: true
+        });
+        map.addControl(geolocate);
+
+        // Line layers
+        map.on('load', () => {
+            const redLineCoords = stations.filter(s => s.line === "Red").map(s => s.coords);
+            const blueLineCoords = stations.filter(s => s.line === "Blue").map(s => s.coords);
+
+            map.addSource('red-line', { type: 'geojson', data: { type: 'Feature', geometry: { type: 'LineString', coordinates: redLineCoords } } });
+            map.addLayer({ id: 'red-line-layer', type: 'line', source: 'red-line', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': 'red', 'line-width': 4 } });
+
+            map.addSource('blue-line', { type: 'geojson', data: { type: 'Feature', geometry: { type: 'LineString', coordinates: blueLineCoords } } });
+            map.addLayer({ id: 'blue-line-layer', type: 'line', source: 'blue-line', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': 'blue', 'line-width': 4 } });
+        });
+
+        // Show route using Mapbox Directions API
+        async function showRoute() {
+            const startIndex = parseInt(startSelect.value);
+            const endIndex = parseInt(endSelect.value);
+            const start = stations[startIndex].coords;
+            const end = stations[endIndex].coords;
+
+            // Remove existing route if any
+            if (map.getSource('route-line')) {
+                if (map.getLayer('route-layer')) map.removeLayer('route-layer');
+                map.removeSource('route-line');
+            }
+
+            // Directions API request
+            const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}?geometries=geojson&access_token=${mapboxgl.accessToken}`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                if (!data.routes || data.routes.length === 0) return alert("No route found");
+
+                const route = data.routes[0].geometry;
+
+                map.addSource('route-line', { type: 'geojson', data: { type: 'Feature', geometry: route } });
+                map.addLayer({ id: 'route-layer', type: 'line', source: 'route-line', layout: { 'line-join': 'round', 'line-cap': 'round' }, paint: { 'line-color': 'green', 'line-width': 4 } });
+
+                const distanceKm = (data.routes[0].distance / 1000).toFixed(2);
+                alert(`Estimated distance: ${distanceKm} km`);
+            } catch (err) {
+                console.error(err);
+                alert("Error fetching route");
+            }
+        }
+    </script>
+</body>
+
+</html>
