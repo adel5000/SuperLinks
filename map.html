@@ -3,184 +3,157 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Riyadh Metro Map Mobile-Friendly</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خريطة مع تحديد الموقع والطريق</title>
 
     <!-- Mapbox CSS -->
-    <link href="https://api.mapbox.com/mapbox-gl-js/v3.15.0/mapbox-gl.css" rel="stylesheet">
-    <!-- Mapbox JS -->
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.15.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet">
+    <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.css"
+        rel="stylesheet">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
 
     <style>
-        html,
-        body {
+        body,
+        html {
             margin: 0;
             padding: 0;
             height: 100%;
-            font-family: Arial, sans-serif;
         }
 
         #map {
-            position: absolute;
-            top: 0;
-            bottom: 0;
             width: 100%;
+            height: 100%;
         }
 
-        /* Controls container fixed on top */
-        #controls {
+        .controls {
             position: absolute;
             top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.9);
-            padding: 12px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-            z-index: 10;
+            right: 10px;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        select,
-        button {
-            padding: 10px 14px;
-            font-size: 16px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1;
         }
 
         button {
-            background-color: #28a745;
-            color: white;
+            padding: 10px 15px;
+            font-size: 14px;
             border: none;
+            border-radius: 8px;
             cursor: pointer;
+            background: #0078ff;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         button:hover {
-            background-color: #218838;
-        }
-
-        @media (max-width: 500px) {
-
-            select,
-            button {
-                width: 100%;
-                font-size: 16px;
-            }
+            background: #005fcc;
         }
     </style>
 </head>
 
 <body>
-    <div id="controls">
-        <select id="startStation"></select>
-        <select id="endStation"></select>
-        <button onclick="showRoute()">Show Route</button>
+    <div id="map"></div>
+    <div class="controls">
+        <button id="locateBtn">📍 حدد موقعي</button>
+        <button id="routeBtn">🛣️ إظهار الطريق</button>
     </div>
 
-    <div id="map"></div>
+    <!-- Mapbox JS -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
+    <script
+        src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.js"></script>
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        mapboxgl.accessToken = 'pk.eyJ1IjoiYWRlbDUwMDBjYyIsImEiOiJjbWc1MTVyeWowNmU3MmlzOHF3aG5vamJqIn0.kCXWIIu2diuNmMfu-L2vdg';
+        // 🔑 ضع مفتاح Mapbox الخاص بك
+        mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN';
 
+        // إنشاء الخريطة
         const map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/streets-v12',
-            center: [46.6753, 24.7136],
+            center: [36.2765, 33.5138], // دمشق كمركز مبدئي
             zoom: 12
         });
 
-        const stations = [
-            { name: "KAFD", coords: [46.6840, 24.7115], line: "Red" },
-            { name: "Olaya", coords: [46.678, 24.712], line: "Red" },
-            { name: "Riyadh Station", coords: [46.693, 24.713], line: "Blue" },
-            { name: "Kingdom Tower", coords: [46.670, 24.715], line: "Blue" }
-        ];
+        let userLocation = null;
+        let destination = null;
 
-        const endSelect = document.getElementById('endStation');
-        stations.forEach((station, index) => {
-            const optionEnd = document.createElement('option');
-            optionEnd.value = index;
-            optionEnd.textContent = station.name;
-            endSelect.appendChild(optionEnd);
-        });
+        // إضافة زر التكبير/التصغير
+        map.addControl(new mapboxgl.NavigationControl());
 
-        stations.forEach(station => {
-            new mapboxgl.Marker({ color: station.line === "Red" ? "red" : "blue" })
-                .setLngLat(station.coords)
-                .setPopup(new mapboxgl.Popup().setText(station.name))
-                .addTo(map);
-        });
-
-        const geolocate = new mapboxgl.GeolocateControl({
-            positionOptions: { enableHighAccuracy: true },
-            trackUserLocation: true,
-            showUserHeading: true
-        });
-        map.addControl(geolocate);
-
-        let userMarker;
-        let userCoordsGlobal = null; // 👉 تخزين الموقع هنا
-
-        document.getElementById('useMyLocation').addEventListener('click', () => {
-            geolocate.trigger();
-        });
-
-        // عند تحديد الموقع
-        map.on('geolocate', (e) => {
-            userCoordsGlobal = [e.coords.longitude, e.coords.latitude]; // 👉 حفظ الإحداثيات
-
-            if (userMarker) userMarker.remove();
-            userMarker = new mapboxgl.Marker({ color: 'orange' })
-                .setLngLat(userCoordsGlobal)
-                .setPopup(new mapboxgl.Popup().setText('My Location'))
+        // Event: اختيار محطة النهاية عند الضغط على الخريطة
+        map.on('click', (e) => {
+            if (destination) destination.remove();
+            destination = new mapboxgl.Marker({ color: 'red' })
+                .setLngLat(e.lngLat)
                 .addTo(map);
 
-            map.flyTo({ center: userCoordsGlobal, zoom: 14 });
+            Swal.fire({
+                icon: 'info',
+                title: '📍 تم تحديد الوجهة',
+                text: 'الآن يمكنك الضغط على زر "إظهار الطريق"',
+                confirmButtonText: 'تمام'
+            });
         });
 
-        async function showRoute() {
-            if (!userCoordsGlobal) return alert("Please use 'Use My Location' first."); // ✅ ما رح تطلع إلا إذا ما حددت أبداً
+        // زر تحديد موقعي
+        document.getElementById('locateBtn').addEventListener('click', () => {
+            if (!navigator.geolocation) {
+                Swal.fire('❌ خطأ', 'المتصفح لا يدعم تحديد الموقع', 'error');
+                return;
+            }
+            navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                    const coords = [pos.coords.longitude, pos.coords.latitude];
+                    if (userLocation) userLocation.remove();
+                    userLocation = new mapboxgl.Marker({ color: 'blue' })
+                        .setLngLat(coords)
+                        .addTo(map);
+                    map.flyTo({ center: coords, zoom: 14 });
 
-            const start = userCoordsGlobal;
-            const endIndex = parseInt(endSelect.value);
-            const end = stations[endIndex].coords;
+                    Swal.fire('✅ تم تحديد موقعك', 'يمكنك اختيار الوجهة الآن', 'success');
+                },
+                () => {
+                    Swal.fire('❌ فشل', 'لم نتمكن من الوصول إلى موقعك', 'error');
+                }
+            );
+        });
 
-            if (map.getSource('route-line')) {
-                map.removeLayer('route-layer');
-                map.removeSource('route-line');
+        // Directions API
+        const directions = new MapboxDirections({
+            accessToken: mapboxgl.accessToken,
+            unit: 'metric',
+            profile: 'mapbox/driving',
+            interactive: false
+        });
+        map.addControl(directions, 'top-left');
+
+        // زر إظهار الطريق
+        document.getElementById('routeBtn').addEventListener('click', () => {
+            if (!userLocation) {
+                Swal.fire('⚠️ تنبيه', 'يرجى الضغط على "حدد موقعي" أولاً', 'warning');
+                return;
+            }
+            if (!destination) {
+                Swal.fire('⚠️ تنبيه', 'يرجى اختيار الوجهة من الخريطة', 'warning');
+                return;
             }
 
-            const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}?geometries=geojson&access_token=${mapboxgl.accessToken}`;
+            const start = userLocation.getLngLat();
+            const end = destination.getLngLat();
 
-            try {
-                const response = await fetch(url);
-                const data = await response.json();
-                if (!data.routes || data.routes.length === 0) return alert("No route found");
+            directions.setOrigin([start.lng, start.lat]);
+            directions.setDestination([end.lng, end.lat]);
 
-                const route = data.routes[0].geometry;
-                map.addSource('route-line', { type: 'geojson', data: { type: 'Feature', geometry: route } });
-                map.addLayer({
-                    id: 'route-layer',
-                    type: 'line',
-                    source: 'route-line',
-                    layout: { 'line-join': 'round', 'line-cap': 'round' },
-                    paint: { 'line-color': 'green', 'line-width': 4 }
-                });
-
-                const distanceKm = (data.routes[0].distance / 1000).toFixed(2);
-                alert(`Estimated distance: ${distanceKm} km`);
-            } catch (err) {
-                console.error(err);
-                alert("Error fetching route");
-            }
-        }
+            Swal.fire('🚀 جاري عرض الطريق', 'انتظر لحظة حتى يظهر المسار', 'info');
+        });
     </script>
-
 </body>
 
 </html>
