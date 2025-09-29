@@ -1,159 +1,160 @@
 <!DOCTYPE html>
-<html lang="ar">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>خريطة مع تحديد الموقع والطريق</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map with Route</title>
 
-    <!-- Mapbox CSS -->
-    <link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet">
-    <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.css"
-        rel="stylesheet">
+  <!-- Mapbox CSS -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet">
+  <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.css" rel="stylesheet">
 
-    <!-- SweetAlert2 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+  <!-- SweetAlert2 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
 
-    <style>
-        body,
-        html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-        }
-
-        #map {
-            width: 100%;
-            height: 100%;
-        }
-
-        .controls {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 1;
-        }
-
-        button {
-            padding: 10px 15px;
-            font-size: 14px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            background: #0078ff;
-            color: white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        button:hover {
-            background: #005fcc;
-        }
-    </style>
+  <style>
+    body, html { margin: 0; padding: 0; height: 100%; }
+    #map { width: 100%; height: 100%; }
+    .controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      z-index: 1;
+    }
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #0078ff;
+      color: white;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #005fcc;
+    }
+    @media (max-width: 600px) {
+      button {
+        font-size: 18px;
+        padding: 14px 22px;
+      }
+      .controls {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
 </head>
-
 <body>
-    <div id="map"></div>
-    <div class="controls">
-        <button id="locateBtn">📍 حدد موقعي</button>
-        <button id="routeBtn">🛣️ إظهار الطريق</button>
-    </div>
+  <div id="map"></div>
+  <div class="controls">
+    <button id="locateBtn">📍 Locate Me</button>
+    <button id="routeBtn">🛣 Show Route</button>
+  </div>
 
-    <!-- Mapbox JS -->
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
-    <script
-        src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.js"></script>
+  <!-- Mapbox JS -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.js"></script>
 
-    <!-- SweetAlert2 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- SweetAlert2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script>
-        // 🔑 ضع مفتاح Mapbox الخاص بك
-        mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN';
+  <script>
+    // 🔑 ضع مفتاحك من Mapbox
+    mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN';
 
-        // إنشاء الخريطة
-        const map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v12',
-            center: [36.2765, 33.5138], // دمشق كمركز مبدئي
-            zoom: 12
-        });
+    // إنشاء الخريطة
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v12',
+      center: [36.2765, 33.5138], // Default: Damascus
+      zoom: 12
+    });
 
-        let userLocation = null;
-        let destination = null;
+    let userLocation = null;
+    let destination = null;
 
-        // إضافة زر التكبير/التصغير
-        map.addControl(new mapboxgl.NavigationControl());
+    // Controls
+    map.addControl(new mapboxgl.NavigationControl());
 
-        // Event: اختيار محطة النهاية عند الضغط على الخريطة
-        map.on('click', (e) => {
-            if (destination) destination.remove();
-            destination = new mapboxgl.Marker({ color: 'red' })
-                .setLngLat(e.lngLat)
-                .addTo(map);
+    // Directions API
+    const directions = new MapboxDirections({
+      accessToken: mapboxgl.accessToken,
+      unit: 'metric',
+      profile: 'mapbox/driving', // 🚗 Driving only
+      alternatives: false,       // ❌ No alternative routes
+      interactive: false,        // ❌ No UI box
+      controls: {                // ❌ Hide other controls
+        inputs: false,
+        instructions: true,
+        profileSwitcher: false
+      }
+    });
+    map.addControl(directions, 'top-left');
 
-            Swal.fire({
-                icon: 'info',
-                title: '📍 تم تحديد الوجهة',
-                text: 'الآن يمكنك الضغط على زر "إظهار الطريق"',
-                confirmButtonText: 'تمام'
-            });
-        });
+    // Select destination on map
+    map.on('click', (e) => {
+      if (destination) destination.remove();
+      destination = new mapboxgl.Marker({ color: 'red' })
+        .setLngLat(e.lngLat)
+        .addTo(map);
 
-        // زر تحديد موقعي
-        document.getElementById('locateBtn').addEventListener('click', () => {
-            if (!navigator.geolocation) {
-                Swal.fire('❌ خطأ', 'المتصفح لا يدعم تحديد الموقع', 'error');
-                return;
-            }
-            navigator.geolocation.getCurrentPosition(
-                (pos) => {
-                    const coords = [pos.coords.longitude, pos.coords.latitude];
-                    if (userLocation) userLocation.remove();
-                    userLocation = new mapboxgl.Marker({ color: 'blue' })
-                        .setLngLat(coords)
-                        .addTo(map);
-                    map.flyTo({ center: coords, zoom: 14 });
+      Swal.fire({
+        icon: 'info',
+        title: 'Destination Selected',
+        text: 'Now press "Show Route".',
+        confirmButtonText: 'OK'
+      });
+    });
 
-                    Swal.fire('✅ تم تحديد موقعك', 'يمكنك اختيار الوجهة الآن', 'success');
-                },
-                () => {
-                    Swal.fire('❌ فشل', 'لم نتمكن من الوصول إلى موقعك', 'error');
-                }
-            );
-        });
+    // Locate Me
+    document.getElementById('locateBtn').addEventListener('click', () => {
+      if (!navigator.geolocation) {
+        Swal.fire('Error', 'Geolocation is not supported by your browser', 'error');
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const coords = [pos.coords.longitude, pos.coords.latitude];
+          if (userLocation) userLocation.remove();
+          userLocation = new mapboxgl.Marker({ color: 'blue' })
+            .setLngLat(coords)
+            .addTo(map);
+          map.flyTo({ center: coords, zoom: 14 });
 
-        // Directions API
-        const directions = new MapboxDirections({
-            accessToken: mapboxgl.accessToken,
-            unit: 'metric',
-            profile: 'mapbox/driving',
-            interactive: false
-        });
-        map.addControl(directions, 'top-left');
+          Swal.fire('Success', 'Your location has been set.', 'success');
+        },
+        () => {
+          Swal.fire('Error', 'Unable to retrieve your location.', 'error');
+        }
+      );
+    });
 
-        // زر إظهار الطريق
-        document.getElementById('routeBtn').addEventListener('click', () => {
-            if (!userLocation) {
-                Swal.fire('⚠️ تنبيه', 'يرجى الضغط على "حدد موقعي" أولاً', 'warning');
-                return;
-            }
-            if (!destination) {
-                Swal.fire('⚠️ تنبيه', 'يرجى اختيار الوجهة من الخريطة', 'warning');
-                return;
-            }
+    // Show Route
+    document.getElementById('routeBtn').addEventListener('click', () => {
+      if (!userLocation) {
+        Swal.fire('Warning', 'Please press "Locate Me" first.', 'warning');
+        return;
+      }
+      if (!destination) {
+        Swal.fire('Warning', 'Please click on the map to select a destination.', 'warning');
+        return;
+      }
 
-            const start = userLocation.getLngLat();
-            const end = destination.getLngLat();
+      const start = userLocation.getLngLat();
+      const end = destination.getLngLat();
 
-            directions.setOrigin([start.lng, start.lat]);
-            directions.setDestination([end.lng, end.lat]);
+      directions.setOrigin([start.lng, start.lat]);
+      directions.setDestination([end.lng, end.lat]);
 
-            Swal.fire('🚀 جاري عرض الطريق', 'انتظر لحظة حتى يظهر المسار', 'info');
-        });
-    </script>
+      Swal.fire('Loading...', 'Route is being calculated.', 'info');
+    });
+  </script>
 </body>
-
 </html>
