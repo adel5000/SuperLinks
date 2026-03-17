@@ -1,635 +1,806 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>روابط الهندسة المعلوماتية ITE</title>
 
     <!-- Basic SEO -->
-    <meta name="description" content="رابط يحتوي على جميع روابط قروبات الهندسة المعلوماتية ITE">
-    <meta name="keywords" content="الهندسة المعلوماتية, ITE, روابط, قروبات, جامعة">
-    <meta name="author" content="ITE">
+    <meta name="description" content="صفحة عصرية تحتوي على جميع روابط قروبات الهندسة المعلوماتية ITE" />
+    <meta name="keywords" content="الهندسة المعلوماتية, ITE, روابط, قروبات, جامعة" />
+    <meta name="author" content="ITE" />
 
-    <!-- Open Graph (Facebook, WhatsApp, Telegram...) -->
-    <meta property="og:title" content="روابط الهندسة المعلوماتية ITE">
-    <meta property="og:description" content="رابط يحتوي على جميع روابط قروبات الهندسة المعلوماتية ITE">
-    <meta property="og:image" content="https://i.imgur.com/WO97kCm.png">
-    <meta property="og:url" content="https://example.com"> <!-- غيّرها لرابط موقعك -->
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="ar_AR">
+    <!-- Open Graph -->
+    <meta property="og:title" content="روابط الهندسة المعلوماتية ITE" />
+    <meta property="og:description" content="صفحة عصرية تحتوي على جميع روابط قروبات الهندسة المعلوماتية ITE" />
+    <meta property="og:image" content="https://i.imgur.com/WO97kCm.png" />
+    <meta property="og:url" content="https://example.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ar_AR" />
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="روابط الهندسة المعلوماتية ITE">
-    <meta name="twitter:description" content="رابط يحتوي على جميع روابط قروبات الهندسة المعلوماتية ITE">
-    <meta name="twitter:image" content="https://i.imgur.com/WO97kCm.png">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="روابط الهندسة المعلوماتية ITE" />
+    <meta name="twitter:description" content="صفحة عصرية تحتوي على جميع روابط قروبات الهندسة المعلوماتية ITE" />
+    <meta name="twitter:image" content="https://i.imgur.com/WO97kCm.png" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="https://i.imgur.com/WO97kCm.png">
+    <link rel="icon" type="image/png" href="https://i.imgur.com/WO97kCm.png" />
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
     <style>
-        .subject-item {
+        :root {
+            --bg-1: #0f172a;
+            --bg-2: #111827;
+            --card: rgba(255, 255, 255, 0.08);
+            --card-border: rgba(255, 255, 255, 0.12);
+            --text: #e5e7eb;
+            --muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-2: #22c55e;
+            --danger: #ef4444;
+            --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+            --radius-xl: 24px;
+            --radius-lg: 18px;
+            --radius-md: 14px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Cairo", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top right, rgba(56, 189, 248, 0.18), transparent 22%),
+                radial-gradient(circle at bottom left, rgba(34, 197, 94, 0.12), transparent 25%),
+                linear-gradient(135deg, var(--bg-1), var(--bg-2));
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: min(1200px, calc(100% - 32px));
+            margin-inline: auto;
+        }
+
+        .hero {
+            padding: 48px 0 24px;
+        }
+
+        .hero-box {
+            position: relative;
+            overflow: hidden;
+            border-radius: 30px;
+            padding: 36px 28px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.18), rgba(255, 255, 255, 0.06));
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
+        }
+
+        .hero-box::before {
+            content: "";
+            position: absolute;
+            inset: auto -60px -60px auto;
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.28), transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: #dbeafe;
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 {
+            margin: 0 0 10px;
+            font-size: clamp(28px, 5vw, 46px);
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.9;
+            max-width: 760px;
+        }
+
+        .top-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-top: 22px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: 16px 18px;
+        }
+
+        .stat-card small {
+            display: block;
+            color: var(--muted);
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        .stat-card strong {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .panel {
+            margin-top: 22px;
+            margin-bottom: 24px;
+            padding: 18px;
+            border-radius: var(--radius-xl);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(14px);
+            box-shadow: var(--shadow);
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1.2fr;
+            gap: 14px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .field label {
+            font-size: 14px;
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+
+        .field select,
+        .field input {
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(15, 23, 42, 0.72);
+            color: var(--text);
+            border-radius: 14px;
+            padding: 14px 16px;
+            font-family: inherit;
+            font-size: 15px;
+            outline: none;
+            transition: 0.25s ease;
+        }
+
+        .field select:focus,
+        .field input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.12);
+        }
+
+        .actions {
+            margin-top: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .results-bar {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .btn {
+            border: 0;
+            cursor: pointer;
+            font-family: inherit;
+            padding: 12px 16px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.25s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #2563eb);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.25);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 50px;
+        }
+
+        .subject-card {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 22px;
+            padding: 18px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
+            transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.45);
+            background: rgba(255, 255, 255, 0.09);
+        }
+
+        .subject-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .subject-icon {
+            min-width: 46px;
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            font-size: 20px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.18), rgba(34, 197, 94, 0.18));
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .subject-title {
+            margin: 0;
+            font-size: 18px;
+            line-height: 1.7;
+            font-weight: 700;
+            color: #f8fafc;
+        }
+
+        .subject-code {
+            display: inline-block;
+            margin-top: 6px;
+            color: #93c5fd;
+            font-size: 13px;
+            font-weight: 700;
+            direction: ltr;
+        }
+
+        .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .chip {
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .chip.semester {
+            background: rgba(34, 197, 94, 0.12);
+            color: #bbf7d0;
+            border-color: rgba(34, 197, 94, 0.16);
+        }
+
+        .chip.specialty {
+            background: rgba(56, 189, 248, 0.12);
+            color: #bae6fd;
+            border-color: rgba(56, 189, 248, 0.16);
+        }
+
+        .subject-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .join-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 14px;
+            transition: 0.25s ease;
+        }
+
+        .join-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 24px rgba(18, 140, 126, 0.28);
+        }
+
+        .empty-state {
             display: none;
+            text-align: center;
+            padding: 50px 20px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            color: var(--muted);
+            margin-bottom: 40px;
+        }
+
+        .empty-state h3 {
+            color: #f8fafc;
+            margin-bottom: 8px;
+        }
+
+        footer {
+            padding: 0 0 30px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        @media (max-width: 992px) {
+            .top-stats,
+            .filters-grid,
+            .subjects-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .top-stats,
+            .filters-grid,
+            .subjects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-box {
+                padding: 26px 18px;
+            }
+
+            .actions {
+                align-items: stretch;
+            }
+
+            .actions > div:last-child {
+                width: 100%;
+                display: flex;
+                gap: 10px;
+            }
+
+            .actions .btn {
+                flex: 1;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="container mt-5">
-        <h2>ITE Groups</h2>
-        <!-- قائمة الفصل -->
-        <div class="form-group">
-            <label for="semesterFilter">اختر الفصل:</label>
-            <select id="semesterFilter" class="form-control">
-                <option value="">جميع الفصول</option>
-                <option value="1">الفصل الأول</option>
-                <option value="2">الفصل الثاني</option>
-                <option value="3">الفصل الثالث</option>
-                <option value="4">الفصل الرابع</option>
-                <option value="5">الفصل الخامس</option>
-                <option value="6">الفصل السادس</option>
-                <option value="7">الفصل السابع</option>
-                <option value="8">الفصل الثامن</option>
-                <option value="9">الفصل التاسع</option>
-                <option value="10">الفصل العاشر</option>
-            </select>
-        </div>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-box">
+                    <span class="hero-badge">🎓 ITE Groups Hub</span>
+                    <h1>روابط قروبات الهندسة المعلوماتية</h1>
+                    <p>
+                        صفحة عصرية وسهلة الاستخدام للوصول إلى جميع قروبات المواد حسب
+                        <strong>الفصل</strong> و<strong>الاختصاص</strong>، مع إمكانية البحث السريع داخل المواد.
+                    </p>
+
+                    <div class="top-stats">
+                        <div class="stat-card">
+                            <small>إجمالي المواد</small>
+                            <strong id="totalSubjects">0</strong>
+                        </div>
+                        <div class="stat-card">
+                            <small>عدد النتائج الحالية</small>
+                            <strong id="visibleSubjects">0</strong>
+                        </div>
+                        <div class="stat-card">
+                            <small>عدد الاختصاصات</small>
+                            <strong>6</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="panel">
+                <div class="filters-grid">
+                    <div class="field">
+                        <label for="semesterFilter">اختر الفصل</label>
+                        <select id="semesterFilter">
+                            <option value="">جميع الفصول</option>
+                            <option value="1">الفصل الأول</option>
+                            <option value="2">الفصل الثاني</option>
+                            <option value="3">الفصل الثالث</option>
+                            <option value="4">الفصل الرابع</option>
+                            <option value="5">الفصل الخامس</option>
+                            <option value="6">الفصل السادس</option>
+                            <option value="7">الفصل السابع</option>
+                            <option value="8">الفصل الثامن</option>
+                            <option value="9">الفصل التاسع</option>
+                            <option value="10">الفصل العاشر</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="specialtyFilter">اختر الاختصاص</label>
+                        <select id="specialtyFilter">
+                            <option value="">جميع الاختصاصات</option>
+                            <option value="none">مواد عامة</option>
+                            <option value="ML">تعلم الآلة - ML</option>
+                            <option value="IS">النُظم الذكية - IS</option>
+                            <option value="SD">تطوير البرمجيات - SD</option>
+                            <option value="DS">علم البيانات - DS</option>
+                            <option value="CS">الأمن السيبراني - CS</option>
+                            <option value="NS">النُظم الشبكية - NS</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="searchInput">ابحث عن مادة أو كود</label>
+                        <input type="text" id="searchInput" placeholder="مثال: برمجة، قواعد بيانات، BPR601..." />
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <div class="results-bar" id="resultsText">جاري تحميل المواد...</div>
+                    <div>
+                        <button class="btn btn-secondary" id="resetFilters">إعادة ضبط</button>
+                        <button class="btn btn-primary" id="scrollToResults">عرض النتائج</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div id="subjectsGrid" class="subjects-grid"></div>
+
+            <div class="empty-state" id="emptyState">
+                <h3>لا توجد نتائج</h3>
+                <p>جرّب تغيير الفصل أو الاختصاص أو كتابة كلمة بحث مختلفة.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">Made with ❤️ for ITE students</div>
+    </footer>
 
-        <!-- قائمة الاختصاص -->
-        <div class="form-group">
-            <label for="specialtyFilter">اختر الاختصاص:</label>
-            <select id="specialtyFilter" class="form-control">
-                <option value="">جميع الاختصاصات</option>
-                <option value="ML">تعلم الآلة - ML</option>
-                <option value="IS">النُظم الذكية - IS</option>
-                <option value="SD">تطوير البرمجيات - SD</option>
-                <option value="DS">علم البيانات - DS</option>
-                <option value="CS">الأمن السيبراني - CS</option>
-                <option value="NS">النُظم الشبكية - NS</option>
-            </select>
-        </div>
-
-        <!-- قائمة المواد -->
-        <div id="subjects">
-            <!-- 1 -->
-            <div class="subject-item semester-1 specialty-none">
-                <a href="https://chat.whatsapp.com/E6mMaaehzZhLITXahK1mqo">البرمجة 1 - BPG401</a>
-            </div>
-            <div class="subject-item semester-1 specialty-none">
-                <a href="https://chat.whatsapp.com/GjWFiSYmr5vAHK80qhn9wF">التحليل الرياضي 1 - BMA401</a>
-            </div>
-            <div class="subject-item semester-1 specialty-none">
-                <a href="https://chat.whatsapp.com/LFIlzqi4N04C7n9yHuPNth">الفيزياء - BPH401</a>
-            </div>
-            <div class="subject-item semester-1 specialty-none">
-                <a href="https://chat.whatsapp.com/EHgFIeoqsv08tUNg64MWIK">الهيكلة الجبرية - BAS401</a>
-            </div>
-            <div class="subject-item semester-1 specialty-none">
-                <a href="https://chat.whatsapp.com/FaazyHJMvIVAh6JTd3umVU">مهارات الحاسوب - GCS301</a>
-            </div>
-            <div class="subject-item semester-1 specialty-none">
-                <a href="https://chat.whatsapp.com/IHz2qxcoMMP2h2ZIuoY8gk">التعليم الإلكتروني - GOE301</a>
-            </div>
-            <!-- 2 -->
-            <div class="subject-item semester-2 specialty-none">
-                <a href="https://chat.whatsapp.com/KMla31jeUxLJ9neJ7TQk9j">مهارات التواصل - GWT301</a>
-            </div>
-            <div class="subject-item semester-2 specialty-none">
-                <a href="https://chat.whatsapp.com/Ky2sdsuUjAILbOQvlcXSOd">الجبر الخطي - BLA401</a>
-            </div>
-            <div class="subject-item semester-2 specialty-none">
-                <a href="https://chat.whatsapp.com/Bae8H5wdrFe8pIz09tfHfF">التحليل الرياضي 2 - BMA402</a>
-            </div>
-            <div class="subject-item semester-2 specialty-none">
-                <a href="https://chat.whatsapp.com/ICpv5HvRAN59ObkU0Hf1G6">الدارات الالكترونية - BEC401</a>
-            </div>
-            <div class="subject-item semester-2 specialty-none">
-                <a href="https://chat.whatsapp.com/KU99FH0wLyp0ToTWz5DTCb">الدارات المنطقية - BLC401</a>
-            </div>
-            <div class="subject-item semester-2 specialty-none">
-                <a href="https://chat.whatsapp.com/DdyigXAHARM03juLxYHo8u">البرمجة 2 - BPG402</a>
-            </div>
-            <!-- 3 -->
-            <div class="subject-item semester-3 specialty-none">
-                <a href="https://chat.whatsapp.com/KPkws847TuTGB7Mx9OvLRA">بنى المعطيات والخوارزميات١_BDA501</a>
-            </div>
-            <div class="subject-item semester-3 specialty-none">
-                <a href="https://chat.whatsapp.com/DtJjsUw1KeZC757k887iCi">تحليل عددي_BNA401</a>
-            </div>
-            <div class="subject-item semester-3 specialty-none">
-                <a href="https://chat.whatsapp.com/Hqb0LmKNgIaCCd65qdLNgM">برمجة الويب١_BWP401</a>
-            </div>
-            <div class="subject-item semester-3 specialty-none">
-                <a href="https://chat.whatsapp.com/BzlDHYWOjkf4HB78XktOBf">بنيان الحاسوب١_BCA501</a>
-            </div>
-            <div class="subject-item semester-3 specialty-none">
-                <a href="https://chat.whatsapp.com/BvsC0PBkaYYHv3EmLIxmEV">معالجة الاشارة_BSP501</a>
-            </div>
-            <!-- 4 -->
-            <div class="subject-item semester-4 specialty-none">
-                <a href="https://chat.whatsapp.com/HQ84TmcNKb3KkWhcbSq0Wt">أساسيات الإدارة - GMN401</a>
-            </div>
-            <div class="subject-item semester-4 specialty-none">
-                <a href="https://chat.whatsapp.com/BRKWFVhoJ4M9y8BtcRLjN2">نظم الإتصالات - BTS501</a>
-            </div>
-            <div class="subject-item semester-4 specialty-none">
-                <a href="https://chat.whatsapp.com/C8sxk5JpVwbJ64LY2mEsDV">رياضيات متقطعة - BDM501 </a>
-            </div>
-            <div class="subject-item semester-4 specialty-none">
-                <a href="https://chat.whatsapp.com/GMKSRWLKSsAFZskPsFP48J">نظم قواعد بيانات1_ BDB501 </a>
-            </div>
-            <div class="subject-item semester-4 specialty-none">
-                <a href="https://chat.whatsapp.com/CsBZNd8SNRRFC6mCg8eiJa">مخبر نظم قواعد البيانات - BDBL501 </a>
-            </div>
-            <div class="subject-item semester-4 specialty-none">
-                <a href="https://chat.whatsapp.com/I91PdWPLVPE25y6QlbbaOH">برمجة ويب٢ - BWP501 </a>
-            </div>
-            <!-- 5 -->
-            <div class="subject-item semester-5 specialty-none">
-                <a href="https://chat.whatsapp.com/DAX1XGvfDrgDE0sO1K9n60">الأوتومات واللغات الصورية - BAU501</a>
-            </div>
-
-            <div class="subject-item semester-5 specialty-none">
-                <a href="https://chat.whatsapp.com/E9gLNUEf9Y1KN4nDUoJrnc">نُظم التشغيل - BOS501</a>
-            </div>
-
-            <div class="subject-item semester-5 specialty-none">
-                <a href="https://chat.whatsapp.com/KEeSacsgaXu0vflFo24x3i">مخبر نُظم التشغيل - BOSL501</a>
-            </div>
-
-            <div class="subject-item semester-5 specialty-none">
-                <a href="https://chat.whatsapp.com/I9lRk5OBPNgGKPH13cLk90">الاِحتمالات والإحصاء - BPS</a>
-            </div>
-
-            <div class="subject-item semester-5 specialty-none">
-                <a href="https://chat.whatsapp.com/CQjtQEnsgYV2nYTqiwawKY">المحاسبة - GAC501</a>
-            </div>
-
-            <div class="subject-item semester-5 specialty-none">
-                <a href="https://chat.whatsapp.com/CFBK4GCBKqM7ZTWJwaEJaW">البرمجة٣ - BPG601</a>
-            </div>
-            <!-- الفصل 6 -->
-            <div class="subject-item semester-6 specialty-none">
-                <a href="https://chat.whatsapp.com/L3jpGyroOxY01eESYPbb81">الشبكات الحاسوبية - BNT</a>
-            </div>
-
-            <div class="subject-item semester-6 specialty-none">
-                <a href="https://chat.whatsapp.com/Hc3dgzoQVPZLks4SDdU5gF">الذكاء الصُنعي - BAI501</a>
-            </div>
-
-            <div class="subject-item semester-6 specialty-none">
-                <a href="https://chat.whatsapp.com/BlkUXJhQvLm53WKCt9RRWd">هندسة برمجيات - BSE601</a>
-            </div>
-
-            <div class="subject-item semester-6 specialty-none">
-                <a href="https://chat.whatsapp.com/FocADUoFhJA1UNV7zD1vuh">المُترجمات - BCM601</a>
-            </div>
-
-            <div class="subject-item semester-6 specialty-none">
-                <a href="https://chat.whatsapp.com/Lut9MPuKRO3IXjGt1hSWvJ">البيانيات - BCG601</a>
-            </div>
-
-            <!-- الفصل 7 -->
-            <div class="subject-item semester-7 specialty-none">
-                <a href="https://chat.whatsapp.com/EhzmRT8POZaGuBsV2wYVlB">إدارة المشاريع المعلوماتية - GPM601</a>
-            </div>
-
-            <div class="subject-item semester-7 specialty-none">
-                <a href="https://chat.whatsapp.com/L1MRxVM05GA5Pk9inHIwKs">الخوارزميات الذكية - BIA601</a>
-            </div>
-
-            <div class="subject-item semester-7 specialty-none">
-                <a href="https://chat.whatsapp.com/GfRwmpMGR0i3g68ZQRRm3p">برمجة تطبيقات النقال - BMP601</a>
-            </div>
-
-            <div class="subject-item semester-7 specialty-none">
-                <a href="https://chat.whatsapp.com/Cdv6xRFY76GBeuNRM2cSKZ">تحليل و تصميم نُظم المعلومات - BID601</a>
-            </div>
-
-            <div class="subject-item semester-7 specialty-none">
-                <a href="https://chat.whatsapp.com/GbM5yM3dlQh6F331Y8d5mL">نُظم الوسائط المُتعددة - BMM601</a>
-            </div>
-
-
-            <!-- 8 - ML -->
-            <div class="subject-item semester-8 specialty-ML">
-                <a href="https://chat.whatsapp.com/EcO7Tkd6qXc2jlcXgixbjl">أخلاقيات المهنة و المجتمع - GET601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-ML">
-                <a href="https://chat.whatsapp.com/GZaM2ujcp20IjBuDjXGQXF">تحليل البيانات الضخمة - MDA601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-ML">
-                <a href="https://chat.whatsapp.com/CvmE6DlqoP8A8846DXUlCK">مُعالجة الصورة الرقمية - AIP601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-ML">
-                <a href="https://chat.whatsapp.com/BRNIoRLx8goEPc9P9eeAFf">الشبكات العصبونية و المنطق العائم -
-                    ANN601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-ML">
-                <a href="https://chat.whatsapp.com/GYlHc2GnIap67NUliMdiCt">مشروع ١ - BPR601</a>
-            </div>
-            <div class="subject-item semester-9 specialty-ML">
-                <a href="https://chat.whatsapp.com/DNbLc9MIAyc5qOlt9TzTiC">أمن نُظم المعلومات - BIS601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-ML">
-                <a href="https://chat.whatsapp.com/ILWQwwOv09bEZqXgAUxGoW">الرؤية الحاسوبية - ACV601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-ML">
-                <a href="https://chat.whatsapp.com/Gf0kORICzGJLjKTp0SXqYN">معالجة اللغات الطبيعية - ANL601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-ML">
-                <a href="https://chat.whatsapp.com/BitwyutjNxwF4nqbgbQvRp">تعلم الآلة - AML601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-ML">
-                <a href="https://chat.whatsapp.com/GrOu6NW1hhK83rQZX0pScw">مشروع ٢ - BPR602</a>
-            </div>
-            <div class="subject-item semester-10 specialty-ML">
-                <a href="https://chat.whatsapp.com/IYoOlBKJTrh5rVPBvDJ3ch">نظرية المعرفة و علوم الحاسب - GEP601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-ML">
-                <a href="https://chat.whatsapp.com/D7VoyPG7llpCTogLb9vXVw">النمذجة والمُحاكاة و التحقق - BSM601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-ML">
-                <a href="https://chat.whatsapp.com/GGzLbhClc3e6ZQPd4rtHLd">استرجاع المعلومات - SIR601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-ML">
-                <a href="https://chat.whatsapp.com/JZZ4vbu4qcvBnlldtZz46s">إنترنت الأشياء وسلاسل الكتل - MBC601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-ML">
-                <a href="https://chat.whatsapp.com/Jg2J3mMJPy35jXs2LSRW8a">التعلم العميق - MDL601</a>
-            </div>
-            <!-- IS -->
-            <div class="subject-item semester-8 specialty-IS">
-                <a href="https://chat.whatsapp.com/EcO7Tkd6qXc2jlcXgixbjl">أخلاقيات المهنة و المجتمع - GET601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-IS">
-                <a href="https://chat.whatsapp.com/LAQA66mqyvy17FEyigJX3F">النُظم الخبيرة - AES601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-IS">
-                <a href="https://chat.whatsapp.com/CvmE6DlqoP8A8846DXUlCK">مُعالجة الصورة الرقمية - AIP601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-IS">
-                <a href="https://chat.whatsapp.com/BRNIoRLx8goEPc9P9eeAFf">الشبكات العصبونية و المنطق العائم -
-                    ANN601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-IS">
-                <a href="https://chat.whatsapp.com/GYlHc2GnIap67NUliMdiCt">مشروع ١ - BPR601</a>
-            </div>
-            <div class="subject-item semester-9 specialty-IS">
-                <a href="https://chat.whatsapp.com/DNbLc9MIAyc5qOlt9TzTiC">أمن نُظم المعلومات - BIS601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-IS">
-                <a href="https://chat.whatsapp.com/ILWQwwOv09bEZqXgAUxGoW">الرؤية الحاسوبية - ACV601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-IS">
-                <a href="https://chat.whatsapp.com/Gf0kORICzGJLjKTp0SXqYN">معالجة اللغات الطبيعية - ANL601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-IS">
-                <a href="https://chat.whatsapp.com/DObGHbBugrZ2c3UfB6MsV7">الويب الدلالي - SSW601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-IS">
-                <a href="https://chat.whatsapp.com/GrOu6NW1hhK83rQZX0pScw">مشروع ٢ - BPR602</a>
-            </div>
-            <div class="subject-item semester-10 specialty-IS">
-                <a href="https://chat.whatsapp.com/IYoOlBKJTrh5rVPBvDJ3ch">نظرية المعرفة و علوم الحاسب - GEP601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-IS">
-                <a href="https://chat.whatsapp.com/D7VoyPG7llpCTogLb9vXVw">النمذجة والمُحاكاة و التحقق - BSM601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-IS">
-                <a href="https://chat.whatsapp.com/GGzLbhClc3e6ZQPd4rtHLd">استرجاع المعلومات - SIR601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-IS">
-                <a href="https://chat.whatsapp.com/G7KMBHqBlrQ8DZoIMePczd">الواقع الاِفتراضي - AVR601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-IS">
-                <a href="https://chat.whatsapp.com/BitwyutjNxwF4nqbgbQvRp">تعلم الآلة - AML601</a>
-            </div>
-            <!-- SD -->
-            <!-- 🔹الفصل الثامن -->
-            <div class="subject-item semester-8 specialty-SD">
-                <a href="https://chat.whatsapp.com/EcO7Tkd6qXc2jlcXgixbjl">أخلاقيات المهنة و المجتمع - GET601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-SD">
-                <a href="https://chat.whatsapp.com/GTKIVVmr5ZWJiO7Sa2LeWu">هندسة البرمجيات ٢ - SSE602</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-SD">
-                <a href="https://chat.whatsapp.com/KVaAj2QEb0v2rqXJqcNd1p">بُنى المعطيات و الخوارزميات 2 - SDA601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-SD">
-                <a href="https://chat.whatsapp.com/BaIrruiKDnPBfEedK74xN7">نُظم قواعد البيانات - SBD601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-SD">
-                <a href="https://chat.whatsapp.com/K6jR0H8CFkmG91TZOxxe3D">مخبر نُظم قواعد البيانات ٢ - SDBL601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-SD">
-                <a href="https://chat.whatsapp.com/GYlHc2GnIap67NUliMdiCt">مشروع ١ - BPR601</a>
-            </div>
-
-            <!-- 🔹الفصل التاسع -->
-            <div class="subject-item semester-9 specialty-SD">
-                <a href="https://chat.whatsapp.com/DNbLc9MIAyc5qOlt9TzTiC">أمن نُظم المعلومات - BIS601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-SD">
-                <a href="https://chat.whatsapp.com/KCnqzBIgu8rIVyw7sWxJFX">تحليل وتصميم الخوارزميات - SAD601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-SD">
-                <a href="https://chat.whatsapp.com/EpYEJ98Pr6QAB74oWKvLXA">مشروع المُترجمات - SCP601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-SD">
-                <a href="https://chat.whatsapp.com/ChW5uyOeTb68xwkQNfXiZ6">تنقيب البيانات - SDE601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-SD">
-                <a href="https://chat.whatsapp.com/G4VhdVvcvICFjNrQKHije5">مشروع ٢ - BPR602</a>
-            </div>
-
-            <!-- 🔹الفصل العاشر -->
-            <div class="subject-item semester-10 specialty-SD">
-                <a href="https://chat.whatsapp.com/IYoOlBKJTrh5rVPBvDJ3ch">نظرية المعرفة و علوم الحاسب - GEP601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-SD">
-                <a href="https://chat.whatsapp.com/D7VoyPG7llpCTogLb9vXVw">النمذجة والمُحاكاة و التحقق - BSM601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-SD">
-                <a href="https://chat.whatsapp.com/GGzLbhClc3e6ZQPd4rtHLd">استرجاع المعلومات - SIR601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-SD">
-                <a href="https://chat.whatsapp.com/DObGHbBugrZ2c3UfB6MsV7">الويب الدلالي - SSW601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-SD">
-                <a href="https://chat.whatsapp.com/EX33ohylofgAGCDpCmZvFd">جودة البرمجيات - SSQ601</a>
-            </div>
-            <!-- 🔹الفصل الثامن -->
-            <div class="subject-item semester-8 specialty-DS">
-                <a href="https://chat.whatsapp.com/EcO7Tkd6qXc2jlcXgixbjl">أخلاقيات المهنة و المجتمع - GET601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-DS">
-                <a href="https://chat.whatsapp.com/H8AtMrkyu04Ixe91Oh70U3">برمجة خاصة بعلم البيانات - DPD601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-DS">
-                <a href="https://chat.whatsapp.com/Egw9Am9fqLd1qNu5iaKBfN">البيانات المفتوحة و البيانات الكبيرة -
-                    DOB601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-DS">
-                <a href="https://chat.whatsapp.com/BaIrruiKDnPBfEedK74xN7">نُظم قواعد البيانات٢ - SBD601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-DS">
-                <a href="https://chat.whatsapp.com/IVYxHVGCUyyAXGoOMZlw95">قواعد بيانات (NoSQL) - DNL601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-DS">
-                <a href="https://chat.whatsapp.com/GYlHc2GnIap67NUliMdiCt">مشروع ١ - BPR601</a>
-            </div>
-
-            <!-- 🔹الفصل التاسع -->
-            <div class="subject-item semester-9 specialty-DS">
-                <a href="https://chat.whatsapp.com/DNbLc9MIAyc5qOlt9TzTiC">أمن نُظم المعلومات - BIS601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-DS">
-                <a href="https://chat.whatsapp.com/GLNLUUAPTZT6c8gVLSgJnJ">الإحصاء وتحليل البيانات - DSA601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-DS">
-                <a href="https://chat.whatsapp.com/EBV0I8mM6cfJqI7FzT82cI">مواضيع مُتقدمة في البيانات الكبيرة -
-                    DBD601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-DS">
-                <a href="https://chat.whatsapp.com/ChW5uyOeTb68xwkQNfXiZ6">تنقيب البيانات - SDE601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-DS">
-                <a href="https://chat.whatsapp.com/G4VhdVvcvICFjNrQKHije5">مشروع ٢ - BPR602</a>
-            </div>
-
-            <!-- 🔹الفصل العاشر -->
-            <div class="subject-item semester-10 specialty-DS">
-                <a href="https://chat.whatsapp.com/IYoOlBKJTrh5rVPBvDJ3ch">نظرية المعرفة و علوم الحاسب - GEP601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-DS">
-                <a href="https://chat.whatsapp.com/D7VoyPG7llpCTogLb9vXVw">النمذجة والمُحاكاة و التحقق - BSM601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-DS">
-                <a href="https://chat.whatsapp.com/GGzLbhClc3e6ZQPd4rtHLd">استرجاع المعلومات - SIR601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-DS">
-                <a href="https://chat.whatsapp.com/DObGHbBugrZ2c3UfB6MsV7">الويب الدلالي - SSW601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-DS">
-                <a href="https://chat.whatsapp.com/KhugiRBfkLn55vJ1SQavZp">التمثيل المرئي للبيانات - DDV601</a>
-            </div>
-            <!-- CS -->
-            <!-- 🔸الفصل الثامن -->
-            <div class="subject-item semester-8 specialty-CS">
-                <a href="https://chat.whatsapp.com/EcO7Tkd6qXc2jlcXgixbjl">أخلاقيات المهنة و المجتمع - GET601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-CS">
-                <a href="https://chat.whatsapp.com/KqXKPfy91aY7WNiFy2EJpw">إدارة الأمن - CSM601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-CS">
-                <a href="https://chat.whatsapp.com/EB981tMB1mQ5UHjxYOPrOq">نُظم التعمية - CCR601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-CS">
-                <a href="https://chat.whatsapp.com/BJWFGLsVKeT2gSUPP2g8qw">نُظم التشغيل ٢ - NOS601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-CS">
-                <a href="https://chat.whatsapp.com/BgYXX5bBXbQ7Cbk5q6H14O">الاستجابة للأحداث الأمنية - CIR601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-CS">
-                <a href="https://chat.whatsapp.com/GYlHc2GnIap67NUliMdiCt">مشروع ١ - BPR601</a>
-            </div>
-
-            <!-- 🔸الفصل التاسع -->
-            <div class="subject-item semester-9 specialty-CS">
-                <a href="https://chat.whatsapp.com/DNbLc9MIAyc5qOlt9TzTiC">أمن نُظم المعلومات - BIS601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-CS">
-                <a href="https://chat.whatsapp.com/CtmNTma58V45iRXLQlG8k7">أمن نظم التشغيل - CSO601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-CS">
-                <a href="https://chat.whatsapp.com/Ll8QNWLxTJj4jOkbzQT3dF">الشبكات الحاسوبية ٢ - NNT601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-CS">
-                <a href="https://chat.whatsapp.com/L0CbZrGWFQ4I2x1lFNr8aX">النُظم الموزعة و السحابية - NDS601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-CS">
-                <a href="https://chat.whatsapp.com/DmyVED1pihW56JZbVkUihL">مشروع ٢ - BPR602</a>
-            </div>
-
-            <!-- 🔸الفصل العاشر -->
-            <div class="subject-item semester-10 specialty-CS">
-                <a href="https://chat.whatsapp.com/IYoOlBKJTrh5rVPBvDJ3ch">نظرية المعرفة و علوم الحاسب - GEP601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-CS">
-                <a href="https://chat.whatsapp.com/D7VoyPG7llpCTogLb9vXVw">النمذجة والمُحاكاة و التحقق - BSM601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-CS">
-                <a href="https://chat.whatsapp.com/BxMaD6VcricDWOs8UkfHKX">الأمن في النُظم الحديثة - CMS601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-CS">
-                <a href="https://chat.whatsapp.com/E4oYgi2VeLPCTcM152BVOa">أمن الشبكات الحاسوبية - NSS601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-CS">
-                <a href="https://chat.whatsapp.com/BdqTc67yS38CBqP2VlQlPa">الاختراق الأخلاقي - CEH601</a>
-            </div>
-            <!-- NS -->
-            <!-- 🔸الفصل الثامن -->
-            <div class="subject-item semester-8 specialty-NS">
-                <a href="https://chat.whatsapp.com/EcO7Tkd6qXc2jlcXgixbjl">أخلاقيات المهنة و المجتمع - GET601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-NS">
-                <a href="https://chat.whatsapp.com/J542ruKpFBq9lG1vN4R1Qb">بُنيان الحاسوب ٢ - NCA601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-NS">
-                <a href="https://chat.whatsapp.com/FZ0VWwLZ81wJIjNNNQM2zf">برمجة التطبيقات الشبكية - NNP601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-NS">
-                <a href="https://chat.whatsapp.com/BJWFGLsVKeT2gSUPP2g8qw">نُظم التشغيل ٢ - NOS601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-NS">
-                <a href="https://chat.whatsapp.com/CuQP4tdKbBr4fCKLo9iOTC">مخبر نُظم التشغيل ٢ - NOSL601</a>
-            </div>
-
-            <div class="subject-item semester-8 specialty-NS">
-                <a href="https://chat.whatsapp.com/GYlHc2GnIap67NUliMdiCt">مشروع ١ - BPR601</a>
-            </div>
-
-            <!-- 🔸الفصل التاسع -->
-            <div class="subject-item semester-9 specialty-NS">
-                <a href="https://chat.whatsapp.com/DNbLc9MIAyc5qOlt9TzTiC">أمن نُظم المعلومات - BIS601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-NS">
-                <a href="https://chat.whatsapp.com/CuN0rggecMTLS3q3dM1YCd">خدمات شبكية - NNS601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-NS">
-                <a href="https://chat.whatsapp.com/Ll8QNWLxTJj4jOkbzQT3dF">الشبكات الحاسوبية ٢ - NNT601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-NS">
-                <a href="https://chat.whatsapp.com/L0CbZrGWFQ4I2x1lFNr8aX">النُظم الموزعة و السحابية - NDS601</a>
-            </div>
-
-            <div class="subject-item semester-9 specialty-NS">
-                <a href="https://chat.whatsapp.com/DmyVED1pihW56JZbVkUihL">مشروع ٢ - BPR602</a>
-            </div>
-
-            <!-- 🔸الفصل العاشر -->
-            <div class="subject-item semester-10 specialty-NS">
-                <a href="https://chat.whatsapp.com/IYoOlBKJTrh5rVPBvDJ3ch">نظرية المعرفة و علوم الحاسب - GEP601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-NS">
-                <a href="https://chat.whatsapp.com/D7VoyPG7llpCTogLb9vXVw">النمذجة والمُحاكاة و التحقق - BSM601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-NS">
-                <a href="https://chat.whatsapp.com/B6eLtAcqgnRI8FUPYY5P7v">إدارة الشبكات - NNM601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-NS">
-                <a href="https://chat.whatsapp.com/E4oYgi2VeLPCTcM152BVOa">أمن الشبكات الحاسوبية - NSS601</a>
-            </div>
-
-            <div class="subject-item semester-10 specialty-NS">
-                <a href="https://chat.whatsapp.com/FyRApAHAGYY963S507ykvm">نُظم الزمن الحقيقي - NRT601</a>
-            </div>
-
-        </div>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
-        $(document).ready(function () {
-            function filterSubjects() {
-                var semester = $('#semesterFilter').val();
-                var specialty = $('#specialtyFilter').val();
+        // This array contains all subjects and their related metadata
+        const subjects = [
+            // Semester 1
+            { name: "البرمجة 1", code: "BPG401", semester: 1, specialty: "none", link: "https://chat.whatsapp.com/E6mMaaehzZhLITXahK1mqo" },
+            { name: "التحليل الرياضي 1", code: "BMA401", semester: 1, specialty: "none", link: "https://chat.whatsapp.com/GjWFiSYmr5vAHK80qhn9wF" },
+            { name: "الفيزياء", code: "BPH401", semester: 1, specialty: "none", link: "https://chat.whatsapp.com/LFIlzqi4N04C7n9yHuPNth" },
+            { name: "الهيكلة الجبرية", code: "BAS401", semester: 1, specialty: "none", link: "https://chat.whatsapp.com/EHgFIeoqsv08tUNg64MWIK" },
+            { name: "مهارات الحاسوب", code: "GCS301", semester: 1, specialty: "none", link: "https://chat.whatsapp.com/FaazyHJMvIVAh6JTd3umVU" },
+            { name: "التعليم الإلكتروني", code: "GOE301", semester: 1, specialty: "none", link: "https://chat.whatsapp.com/IHz2qxcoMMP2h2ZIuoY8gk" },
 
-                $('.subject-item').hide().filter(function () {
-                    var isSemesterMatch = !semester || $(this).hasClass('semester-' + semester);
-                    var isSpecialtyMatch = !specialty || $(this).hasClass('specialty-' + specialty);
-                    return isSemesterMatch && isSpecialtyMatch;
-                }).show();
+            // Semester 2
+            { name: "مهارات التواصل", code: "GWT301", semester: 2, specialty: "none", link: "https://chat.whatsapp.com/KMla31jeUxLJ9neJ7TQk9j" },
+            { name: "الجبر الخطي", code: "BLA401", semester: 2, specialty: "none", link: "https://chat.whatsapp.com/Ky2sdsuUjAILbOQvlcXSOd" },
+            { name: "التحليل الرياضي 2", code: "BMA402", semester: 2, specialty: "none", link: "https://chat.whatsapp.com/Bae8H5wdrFe8pIz09tfHfF" },
+            { name: "الدارات الالكترونية", code: "BEC401", semester: 2, specialty: "none", link: "https://chat.whatsapp.com/ICpv5HvRAN59ObkU0Hf1G6" },
+            { name: "الدارات المنطقية", code: "BLC401", semester: 2, specialty: "none", link: "https://chat.whatsapp.com/KU99FH0wLyp0ToTWz5DTCb" },
+            { name: "البرمجة 2", code: "BPG402", semester: 2, specialty: "none", link: "https://chat.whatsapp.com/DdyigXAHARM03juLxYHo8u" },
+
+            // Semester 3
+            { name: "بنى المعطيات والخوارزميات 1", code: "BDA501", semester: 3, specialty: "none", link: "https://chat.whatsapp.com/KPkws847TuTGB7Mx9OvLRA" },
+            { name: "تحليل عددي", code: "BNA401", semester: 3, specialty: "none", link: "https://chat.whatsapp.com/DtJjsUw1KeZC757k887iCi" },
+            { name: "برمجة الويب 1", code: "BWP401", semester: 3, specialty: "none", link: "https://chat.whatsapp.com/Hqb0LmKNgIaCCd65qdLNgM" },
+            { name: "بنيان الحاسوب 1", code: "BCA501", semester: 3, specialty: "none", link: "https://chat.whatsapp.com/BzlDHYWOjkf4HB78XktOBf" },
+            { name: "معالجة الاشارة", code: "BSP501", semester: 3, specialty: "none", link: "https://chat.whatsapp.com/BvsC0PBkaYYHv3EmLIxmEV" },
+
+            // Semester 4
+            { name: "أساسيات الإدارة", code: "GMN401", semester: 4, specialty: "none", link: "https://chat.whatsapp.com/HQ84TmcNKb3KkWhcbSq0Wt" },
+            { name: "نظم الإتصالات", code: "BTS501", semester: 4, specialty: "none", link: "https://chat.whatsapp.com/BRKWFVhoJ4M9y8BtcRLjN2" },
+            { name: "رياضيات متقطعة", code: "BDM501", semester: 4, specialty: "none", link: "https://chat.whatsapp.com/C8sxk5JpVwbJ64LY2mEsDV" },
+            { name: "نظم قواعد بيانات 1", code: "BDB501", semester: 4, specialty: "none", link: "https://chat.whatsapp.com/GMKSRWLKSsAFZskPsFP48J" },
+            { name: "مخبر نظم قواعد البيانات", code: "BDBL501", semester: 4, specialty: "none", link: "https://chat.whatsapp.com/CsBZNd8SNRRFC6mCg8eiJa" },
+            { name: "برمجة ويب 2", code: "BWP501", semester: 4, specialty: "none", link: "https://chat.whatsapp.com/I91PdWPLVPE25y6QlbbaOH" },
+
+            // Semester 5
+            { name: "الأوتومات واللغات الصورية", code: "BAU501", semester: 5, specialty: "none", link: "https://chat.whatsapp.com/DAX1XGvfDrgDE0sO1K9n60" },
+            { name: "نُظم التشغيل", code: "BOS501", semester: 5, specialty: "none", link: "https://chat.whatsapp.com/E9gLNUEf9Y1KN4nDUoJrnc" },
+            { name: "مخبر نُظم التشغيل", code: "BOSL501", semester: 5, specialty: "none", link: "https://chat.whatsapp.com/KEeSacsgaXu0vflFo24x3i" },
+            { name: "الاِحتمالات والإحصاء", code: "BPS", semester: 5, specialty: "none", link: "https://chat.whatsapp.com/I9lRk5OBPNgGKPH13cLk90" },
+            { name: "المحاسبة", code: "GAC501", semester: 5, specialty: "none", link: "https://chat.whatsapp.com/CQjtQEnsgYV2nYTqiwawKY" },
+            { name: "البرمجة 3", code: "BPG601", semester: 5, specialty: "none", link: "https://chat.whatsapp.com/CFBK4GCBKqM7ZTWJwaEJaW" },
+
+            // Semester 6
+            { name: "الشبكات الحاسوبية", code: "BNT", semester: 6, specialty: "none", link: "https://chat.whatsapp.com/L3jpGyroOxY01eESYPbb81" },
+            { name: "الذكاء الصُنعي", code: "BAI501", semester: 6, specialty: "none", link: "https://chat.whatsapp.com/Hc3dgzoQVPZLks4SDdU5gF" },
+            { name: "هندسة برمجيات", code: "BSE601", semester: 6, specialty: "none", link: "https://chat.whatsapp.com/BlkUXJhQvLm53WKCt9RRWd" },
+            { name: "المُترجمات", code: "BCM601", semester: 6, specialty: "none", link: "https://chat.whatsapp.com/FocADUoFhJA1UNV7zD1vuh" },
+            { name: "البيانيات", code: "BCG601", semester: 6, specialty: "none", link: "https://chat.whatsapp.com/Lut9MPuKRO3IXjGt1hSWvJ" },
+
+            // Semester 7
+            { name: "إدارة المشاريع المعلوماتية", code: "GPM601", semester: 7, specialty: "none", link: "https://chat.whatsapp.com/EhzmRT8POZaGuBsV2wYVlB" },
+            { name: "الخوارزميات الذكية", code: "BIA601", semester: 7, specialty: "none", link: "https://chat.whatsapp.com/L1MRxVM05GA5Pk9inHIwKs" },
+            { name: "برمجة تطبيقات النقال", code: "BMP601", semester: 7, specialty: "none", link: "https://chat.whatsapp.com/GfRwmpMGR0i3g68ZQRRm3p" },
+            { name: "تحليل و تصميم نُظم المعلومات", code: "BID601", semester: 7, specialty: "none", link: "https://chat.whatsapp.com/Cdv6xRFY76GBeuNRM2cSKZ" },
+            { name: "نُظم الوسائط المُتعددة", code: "BMM601", semester: 7, specialty: "none", link: "https://chat.whatsapp.com/GbM5yM3dlQh6F331Y8d5mL" },
+
+            // ML - Semester 8
+            { name: "أخلاقيات المهنة و المجتمع", code: "GET601", semester: 8, specialty: "ML", link: "https://chat.whatsapp.com/EcO7Tkd6qXc2jlcXgixbjl" },
+            { name: "تحليل البيانات الضخمة", code: "MDA601", semester: 8, specialty: "ML", link: "https://chat.whatsapp.com/GZaM2ujcp20IjBuDjXGQXF" },
+            { name: "مُعالجة الصورة الرقمية", code: "AIP601", semester: 8, specialty: "ML", link: "https://chat.whatsapp.com/CvmE6DlqoP8A8846DXUlCK" },
+            { name: "الشبكات العصبونية و المنطق العائم", code: "ANN601", semester: 8, specialty: "ML", link: "https://chat.whatsapp.com/BRNIoRLx8goEPc9P9eeAFf" },
+            { name: "مشروع 1", code: "BPR601", semester: 8, specialty: "ML", link: "https://chat.whatsapp.com/GYlHc2GnIap67NUliMdiCt" },
+
+            // ML - Semester 9
+            { name: "أمن نُظم المعلومات", code: "BIS601", semester: 9, specialty: "ML", link: "https://chat.whatsapp.com/DNbLc9MIAyc5qOlt9TzTiC" },
+            { name: "الرؤية الحاسوبية", code: "ACV601", semester: 9, specialty: "ML", link: "https://chat.whatsapp.com/ILWQwwOv09bEZqXgAUxGoW" },
+            { name: "معالجة اللغات الطبيعية", code: "ANL601", semester: 9, specialty: "ML", link: "https://chat.whatsapp.com/Gf0kORICzGJLjKTp0SXqYN" },
+            { name: "تعلم الآلة", code: "AML601", semester: 9, specialty: "ML", link: "https://chat.whatsapp.com/BitwyutjNxwF4nqbgbQvRp" },
+            { name: "مشروع 2", code: "BPR602", semester: 9, specialty: "ML", link: "https://chat.whatsapp.com/GrOu6NW1hhK83rQZX0pScw" },
+
+            // ML - Semester 10
+            { name: "نظرية المعرفة و علوم الحاسب", code: "GEP601", semester: 10, specialty: "ML", link: "https://chat.whatsapp.com/IYoOlBKJTrh5rVPBvDJ3ch" },
+            { name: "النمذجة والمُحاكاة و التحقق", code: "BSM601", semester: 10, specialty: "ML", link: "https://chat.whatsapp.com/D7VoyPG7llpCTogLb9vXVw" },
+            { name: "استرجاع المعلومات", code: "SIR601", semester: 10, specialty: "ML", link: "https://chat.whatsapp.com/GGzLbhClc3e6ZQPd4rtHLd" },
+            { name: "إنترنت الأشياء وسلاسل الكتل", code: "MBC601", semester: 10, specialty: "ML", link: "https://chat.whatsapp.com/JZZ4vbu4qcvBnlldtZz46s" },
+            { name: "التعلم العميق", code: "MDL601", semester: 10, specialty: "ML", link: "https://chat.whatsapp.com/Jg2J3mMJPy35jXs2LSRW8a" },
+
+            // IS - Semester 8
+            { name: "أخلاقيات المهنة و المجتمع", code: "GET601", semester: 8, specialty: "IS", link: "https://chat.whatsapp.com/EcO7Tkd6qXc2jlcXgixbjl" },
+            { name: "النُظم الخبيرة", code: "AES601", semester: 8, specialty: "IS", link: "https://chat.whatsapp.com/LAQA66mqyvy17FEyigJX3F" },
+            { name: "مُعالجة الصورة الرقمية", code: "AIP601", semester: 8, specialty: "IS", link: "https://chat.whatsapp.com/CvmE6DlqoP8A8846DXUlCK" },
+            { name: "الشبكات العصبونية و المنطق العائم", code: "ANN601", semester: 8, specialty: "IS", link: "https://chat.whatsapp.com/BRNIoRLx8goEPc9P9eeAFf" },
+            { name: "مشروع 1", code: "BPR601", semester: 8, specialty: "IS", link: "https://chat.whatsapp.com/GYlHc2GnIap67NUliMdiCt" },
+
+            // IS - Semester 9
+            { name: "أمن نُظم المعلومات", code: "BIS601", semester: 9, specialty: "IS", link: "https://chat.whatsapp.com/DNbLc9MIAyc5qOlt9TzTiC" },
+            { name: "الرؤية الحاسوبية", code: "ACV601", semester: 9, specialty: "IS", link: "https://chat.whatsapp.com/ILWQwwOv09bEZqXgAUxGoW" },
+            { name: "معالجة اللغات الطبيعية", code: "ANL601", semester: 9, specialty: "IS", link: "https://chat.whatsapp.com/Gf0kORICzGJLjKTp0SXqYN" },
+            { name: "الويب الدلالي", code: "SSW601", semester: 9, specialty: "IS", link: "https://chat.whatsapp.com/DObGHbBugrZ2c3UfB6MsV7" },
+            { name: "مشروع 2", code: "BPR602", semester: 9, specialty: "IS", link: "https://chat.whatsapp.com/GrOu6NW1hhK83rQZX0pScw" },
+
+            // IS - Semester 10
+            { name: "نظرية المعرفة و علوم الحاسب", code: "GEP601", semester: 10, specialty: "IS", link: "https://chat.whatsapp.com/IYoOlBKJTrh5rVPBvDJ3ch" },
+            { name: "النمذجة والمُحاكاة و التحقق", code: "BSM601", semester: 10, specialty: "IS", link: "https://chat.whatsapp.com/D7VoyPG7llpCTogLb9vXVw" },
+            { name: "استرجاع المعلومات", code: "SIR601", semester: 10, specialty: "IS", link: "https://chat.whatsapp.com/GGzLbhClc3e6ZQPd4rtHLd" },
+            { name: "الواقع الاِفتراضي", code: "AVR601", semester: 10, specialty: "IS", link: "https://chat.whatsapp.com/G7KMBHqBlrQ8DZoIMePczd" },
+            { name: "تعلم الآلة", code: "AML601", semester: 10, specialty: "IS", link: "https://chat.whatsapp.com/BitwyutjNxwF4nqbgbQvRp" },
+
+            // SD - Semester 8
+            { name: "أخلاقيات المهنة و المجتمع", code: "GET601", semester: 8, specialty: "SD", link: "https://chat.whatsapp.com/EcO7Tkd6qXc2jlcXgixbjl" },
+            { name: "هندسة البرمجيات 2", code: "SSE602", semester: 8, specialty: "SD", link: "https://chat.whatsapp.com/GTKIVVmr5ZWJiO7Sa2LeWu" },
+            { name: "بُنى المعطيات و الخوارزميات 2", code: "SDA601", semester: 8, specialty: "SD", link: "https://chat.whatsapp.com/KVaAj2QEb0v2rqXJqcNd1p" },
+            { name: "نُظم قواعد البيانات", code: "SBD601", semester: 8, specialty: "SD", link: "https://chat.whatsapp.com/BaIrruiKDnPBfEedK74xN7" },
+            { name: "مخبر نُظم قواعد البيانات 2", code: "SDBL601", semester: 8, specialty: "SD", link: "https://chat.whatsapp.com/K6jR0H8CFkmG91TZOxxe3D" },
+            { name: "مشروع 1", code: "BPR601", semester: 8, specialty: "SD", link: "https://chat.whatsapp.com/GYlHc2GnIap67NUliMdiCt" },
+
+            // SD - Semester 9
+            { name: "أمن نُظم المعلومات", code: "BIS601", semester: 9, specialty: "SD", link: "https://chat.whatsapp.com/DNbLc9MIAyc5qOlt9TzTiC" },
+            { name: "تحليل وتصميم الخوارزميات", code: "SAD601", semester: 9, specialty: "SD", link: "https://chat.whatsapp.com/KCnqzBIgu8rIVyw7sWxJFX" },
+            { name: "مشروع المُترجمات", code: "SCP601", semester: 9, specialty: "SD", link: "https://chat.whatsapp.com/EpYEJ98Pr6QAB74oWKvLXA" },
+            { name: "تنقيب البيانات", code: "SDE601", semester: 9, specialty: "SD", link: "https://chat.whatsapp.com/ChW5uyOeTb68xwkQNfXiZ6" },
+            { name: "مشروع 2", code: "BPR602", semester: 9, specialty: "SD", link: "https://chat.whatsapp.com/G4VhdVvcvICFjNrQKHije5" },
+
+            // SD - Semester 10
+            { name: "نظرية المعرفة و علوم الحاسب", code: "GEP601", semester: 10, specialty: "SD", link: "https://chat.whatsapp.com/IYoOlBKJTrh5rVPBvDJ3ch" },
+            { name: "النمذجة والمُحاكاة و التحقق", code: "BSM601", semester: 10, specialty: "SD", link: "https://chat.whatsapp.com/D7VoyPG7llpCTogLb9vXVw" },
+            { name: "استرجاع المعلومات", code: "SIR601", semester: 10, specialty: "SD", link: "https://chat.whatsapp.com/GGzLbhClc3e6ZQPd4rtHLd" },
+            { name: "الويب الدلالي", code: "SSW601", semester: 10, specialty: "SD", link: "https://chat.whatsapp.com/DObGHbBugrZ2c3UfB6MsV7" },
+            { name: "جودة البرمجيات", code: "SSQ601", semester: 10, specialty: "SD", link: "https://chat.whatsapp.com/EX33ohylofgAGCDpCmZvFd" },
+
+            // DS - Semester 8
+            { name: "أخلاقيات المهنة و المجتمع", code: "GET601", semester: 8, specialty: "DS", link: "https://chat.whatsapp.com/EcO7Tkd6qXc2jlcXgixbjl" },
+            { name: "برمجة خاصة بعلم البيانات", code: "DPD601", semester: 8, specialty: "DS", link: "https://chat.whatsapp.com/H8AtMrkyu04Ixe91Oh70U3" },
+            { name: "البيانات المفتوحة و البيانات الكبيرة", code: "DOB601", semester: 8, specialty: "DS", link: "https://chat.whatsapp.com/Egw9Am9fqLd1qNu5iaKBfN" },
+            { name: "نُظم قواعد البيانات 2", code: "SBD601", semester: 8, specialty: "DS", link: "https://chat.whatsapp.com/BaIrruiKDnPBfEedK74xN7" },
+            { name: "قواعد بيانات (NoSQL)", code: "DNL601", semester: 8, specialty: "DS", link: "https://chat.whatsapp.com/IVYxHVGCUyyAXGoOMZlw95" },
+            { name: "مشروع 1", code: "BPR601", semester: 8, specialty: "DS", link: "https://chat.whatsapp.com/GYlHc2GnIap67NUliMdiCt" },
+
+            // DS - Semester 9
+            { name: "أمن نُظم المعلومات", code: "BIS601", semester: 9, specialty: "DS", link: "https://chat.whatsapp.com/DNbLc9MIAyc5qOlt9TzTiC" },
+            { name: "الإحصاء وتحليل البيانات", code: "DSA601", semester: 9, specialty: "DS", link: "https://chat.whatsapp.com/GLNLUUAPTZT6c8gVLSgJnJ" },
+            { name: "مواضيع مُتقدمة في البيانات الكبيرة", code: "DBD601", semester: 9, specialty: "DS", link: "https://chat.whatsapp.com/EBV0I8mM6cfJqI7FzT82cI" },
+            { name: "تنقيب البيانات", code: "SDE601", semester: 9, specialty: "DS", link: "https://chat.whatsapp.com/ChW5uyOeTb68xwkQNfXiZ6" },
+            { name: "مشروع 2", code: "BPR602", semester: 9, specialty: "DS", link: "https://chat.whatsapp.com/G4VhdVvcvICFjNrQKHije5" },
+
+            // DS - Semester 10
+            { name: "نظرية المعرفة و علوم الحاسب", code: "GEP601", semester: 10, specialty: "DS", link: "https://chat.whatsapp.com/IYoOlBKJTrh5rVPBvDJ3ch" },
+            { name: "النمذجة والمُحاكاة و التحقق", code: "BSM601", semester: 10, specialty: "DS", link: "https://chat.whatsapp.com/D7VoyPG7llpCTogLb9vXVw" },
+            { name: "استرجاع المعلومات", code: "SIR601", semester: 10, specialty: "DS", link: "https://chat.whatsapp.com/GGzLbhClc3e6ZQPd4rtHLd" },
+            { name: "الويب الدلالي", code: "SSW601", semester: 10, specialty: "DS", link: "https://chat.whatsapp.com/DObGHbBugrZ2c3UfB6MsV7" },
+            { name: "التمثيل المرئي للبيانات", code: "DDV601", semester: 10, specialty: "DS", link: "https://chat.whatsapp.com/KhugiRBfkLn55vJ1SQavZp" },
+
+            // CS - Semester 8
+            { name: "أخلاقيات المهنة و المجتمع", code: "GET601", semester: 8, specialty: "CS", link: "https://chat.whatsapp.com/EcO7Tkd6qXc2jlcXgixbjl" },
+            { name: "إدارة الأمن", code: "CSM601", semester: 8, specialty: "CS", link: "https://chat.whatsapp.com/KqXKPfy91aY7WNiFy2EJpw" },
+            { name: "نُظم التعمية", code: "CCR601", semester: 8, specialty: "CS", link: "https://chat.whatsapp.com/EB981tMB1mQ5UHjxYOPrOq" },
+            { name: "نُظم التشغيل 2", code: "NOS601", semester: 8, specialty: "CS", link: "https://chat.whatsapp.com/BJWFGLsVKeT2gSUPP2g8qw" },
+            { name: "الاستجابة للأحداث الأمنية", code: "CIR601", semester: 8, specialty: "CS", link: "https://chat.whatsapp.com/BgYXX5bBXbQ7Cbk5q6H14O" },
+            { name: "مشروع 1", code: "BPR601", semester: 8, specialty: "CS", link: "https://chat.whatsapp.com/GYlHc2GnIap67NUliMdiCt" },
+
+            // CS - Semester 9
+            { name: "أمن نُظم المعلومات", code: "BIS601", semester: 9, specialty: "CS", link: "https://chat.whatsapp.com/DNbLc9MIAyc5qOlt9TzTiC" },
+            { name: "أمن نظم التشغيل", code: "CSO601", semester: 9, specialty: "CS", link: "https://chat.whatsapp.com/CtmNTma58V45iRXLQlG8k7" },
+            { name: "الشبكات الحاسوبية 2", code: "NNT601", semester: 9, specialty: "CS", link: "https://chat.whatsapp.com/Ll8QNWLxTJj4jOkbzQT3dF" },
+            { name: "النُظم الموزعة و السحابية", code: "NDS601", semester: 9, specialty: "CS", link: "https://chat.whatsapp.com/L0CbZrGWFQ4I2x1lFNr8aX" },
+            { name: "مشروع 2", code: "BPR602", semester: 9, specialty: "CS", link: "https://chat.whatsapp.com/DmyVED1pihW56JZbVkUihL" },
+
+            // CS - Semester 10
+            { name: "نظرية المعرفة و علوم الحاسب", code: "GEP601", semester: 10, specialty: "CS", link: "https://chat.whatsapp.com/IYoOlBKJTrh5rVPBvDJ3ch" },
+            { name: "النمذجة والمُحاكاة و التحقق", code: "BSM601", semester: 10, specialty: "CS", link: "https://chat.whatsapp.com/D7VoyPG7llpCTogLb9vXVw" },
+            { name: "الأمن في النُظم الحديثة", code: "CMS601", semester: 10, specialty: "CS", link: "https://chat.whatsapp.com/BxMaD6VcricDWOs8UkfHKX" },
+            { name: "أمن الشبكات الحاسوبية", code: "NSS601", semester: 10, specialty: "CS", link: "https://chat.whatsapp.com/E4oYgi2VeLPCTcM152BVOa" },
+            { name: "الاختراق الأخلاقي", code: "CEH601", semester: 10, specialty: "CS", link: "https://chat.whatsapp.com/BdqTc67yS38CBqP2VlQlPa" },
+
+            // NS - Semester 8
+            { name: "أخلاقيات المهنة و المجتمع", code: "GET601", semester: 8, specialty: "NS", link: "https://chat.whatsapp.com/EcO7Tkd6qXc2jlcXgixbjl" },
+            { name: "بُنيان الحاسوب 2", code: "NCA601", semester: 8, specialty: "NS", link: "https://chat.whatsapp.com/J542ruKpFBq9lG1vN4R1Qb" },
+            { name: "برمجة التطبيقات الشبكية", code: "NNP601", semester: 8, specialty: "NS", link: "https://chat.whatsapp.com/FZ0VWwLZ81wJIjNNNQM2zf" },
+            { name: "نُظم التشغيل 2", code: "NOS601", semester: 8, specialty: "NS", link: "https://chat.whatsapp.com/BJWFGLsVKeT2gSUPP2g8qw" },
+            { name: "مخبر نُظم التشغيل 2", code: "NOSL601", semester: 8, specialty: "NS", link: "https://chat.whatsapp.com/CuQP4tdKbBr4fCKLo9iOTC" },
+            { name: "مشروع 1", code: "BPR601", semester: 8, specialty: "NS", link: "https://chat.whatsapp.com/GYlHc2GnIap67NUliMdiCt" },
+
+            // NS - Semester 9
+            { name: "أمن نُظم المعلومات", code: "BIS601", semester: 9, specialty: "NS", link: "https://chat.whatsapp.com/DNbLc9MIAyc5qOlt9TzTiC" },
+            { name: "خدمات شبكية", code: "NNS601", semester: 9, specialty: "NS", link: "https://chat.whatsapp.com/CuN0rggecMTLS3q3dM1YCd" },
+            { name: "الشبكات الحاسوبية 2", code: "NNT601", semester: 9, specialty: "NS", link: "https://chat.whatsapp.com/Ll8QNWLxTJj4jOkbzQT3dF" },
+            { name: "النُظم الموزعة و السحابية", code: "NDS601", semester: 9, specialty: "NS", link: "https://chat.whatsapp.com/L0CbZrGWFQ4I2x1lFNr8aX" },
+            { name: "مشروع 2", code: "BPR602", semester: 9, specialty: "NS", link: "https://chat.whatsapp.com/DmyVED1pihW56JZbVkUihL" },
+
+            // NS - Semester 10
+            { name: "نظرية المعرفة و علوم الحاسب", code: "GEP601", semester: 10, specialty: "NS", link: "https://chat.whatsapp.com/IYoOlBKJTrh5rVPBvDJ3ch" },
+            { name: "النمذجة والمُحاكاة و التحقق", code: "BSM601", semester: 10, specialty: "NS", link: "https://chat.whatsapp.com/D7VoyPG7llpCTogLb9vXVw" },
+            { name: "إدارة الشبكات", code: "NNM601", semester: 10, specialty: "NS", link: "https://chat.whatsapp.com/B6eLtAcqgnRI8FUPYY5P7v" },
+            { name: "أمن الشبكات الحاسوبية", code: "NSS601", semester: 10, specialty: "NS", link: "https://chat.whatsapp.com/E4oYgi2VeLPCTcM152BVOa" },
+            { name: "نُظم الزمن الحقيقي", code: "NRT601", semester: 10, specialty: "NS", link: "https://chat.whatsapp.com/FyRApAHAGYY963S507ykvm" }
+        ];
+
+        // This object is used to convert specialty codes into readable Arabic labels
+        const specialtyNames = {
+            none: "مواد عامة",
+            ML: "تعلم الآلة",
+            IS: "النُظم الذكية",
+            SD: "تطوير البرمجيات",
+            DS: "علم البيانات",
+            CS: "الأمن السيبراني",
+            NS: "النُظم الشبكية"
+        };
+
+        // This function creates a single subject card
+        function createSubjectCard(subject) {
+            return `
+                <article class="subject-card">
+                    <div class="subject-top">
+                        <div>
+                            <h3 class="subject-title">${subject.name}</h3>
+                            <span class="subject-code">${subject.code}</span>
+                        </div>
+                        <div class="subject-icon">📘</div>
+                    </div>
+
+                    <div class="meta-row">
+                        <span class="chip semester">الفصل ${subject.semester}</span>
+                        <span class="chip specialty">${specialtyNames[subject.specialty] || subject.specialty}</span>
+                    </div>
+
+                    <div class="subject-footer">
+                        <a class="join-btn" href="${subject.link}" target="_blank" rel="noopener noreferrer">
+                            <span>انضم للقروب</span>
+                            <span>↗</span>
+                        </a>
+                    </div>
+                </article>
+            `;
+        }
+
+        // This function renders the visible subjects into the page
+        function renderSubjects(list) {
+            const subjectsGrid = document.getElementById("subjectsGrid");
+            const emptyState = document.getElementById("emptyState");
+
+            subjectsGrid.innerHTML = list.map(createSubjectCard).join("");
+
+            if (list.length === 0) {
+                emptyState.style.display = "block";
+            } else {
+                emptyState.style.display = "none";
             }
+        }
 
-            // تنفيذ التصفية عند تغيير القوائم
-            $('#semesterFilter, #specialtyFilter').on('change', filterSubjects);
+        // This function applies filters and search
+        function filterSubjects() {
+            const semester = document.getElementById("semesterFilter").value;
+            const specialty = document.getElementById("specialtyFilter").value;
+            const search = document.getElementById("searchInput").value.trim().toLowerCase();
 
-            // تطبيق الفلتر عند تحميل الصفحة
+            const filtered = subjects.filter(subject => {
+                const semesterMatch = !semester || String(subject.semester) === semester;
+                const specialtyMatch = !specialty || subject.specialty === specialty;
+                const searchMatch =
+                    !search ||
+                    subject.name.toLowerCase().includes(search) ||
+                    subject.code.toLowerCase().includes(search);
+
+                return semesterMatch && specialtyMatch && searchMatch;
+            });
+
+            renderSubjects(filtered);
+
+            // Update counters and result text
+            document.getElementById("totalSubjects").textContent = subjects.length;
+            document.getElementById("visibleSubjects").textContent = filtered.length;
+            document.getElementById("resultsText").textContent = `تم العثور على ${filtered.length} مادة من أصل ${subjects.length}`;
+        }
+
+        // This function resets all filters to default values
+        function resetFilters() {
+            document.getElementById("semesterFilter").value = "";
+            document.getElementById("specialtyFilter").value = "";
+            document.getElementById("searchInput").value = "";
             filterSubjects();
+        }
+
+        // Initial render
+        filterSubjects();
+
+        // Event listeners
+        document.getElementById("semesterFilter").addEventListener("change", filterSubjects);
+        document.getElementById("specialtyFilter").addEventListener("change", filterSubjects);
+        document.getElementById("searchInput").addEventListener("input", filterSubjects);
+        document.getElementById("resetFilters").addEventListener("click", resetFilters);
+
+        // Scroll to results section smoothly
+        document.getElementById("scrollToResults").addEventListener("click", () => {
+            document.getElementById("subjectsGrid").scrollIntoView({ behavior: "smooth", block: "start" });
         });
     </script>
 </body>
 
 </html>
-
-
-
