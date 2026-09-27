@@ -1128,6 +1128,100 @@
             height: 26px;
         }
 
+        /* ---------- Telegram bot card (accent tokens → follows every palette + dark/light) ---------- */
+        .tg-card {
+            grid-column: 1 / -1;
+            position: relative;
+            overflow: hidden;
+            align-items: center;
+            padding: 22px;
+            background:
+                radial-gradient(circle at 0% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 55%),
+                var(--surface);
+            border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+        }
+
+        /* Soft decorative glow in the palette's secondary colour */
+        .tg-card::after {
+            content: "";
+            position: absolute;
+            inset-inline-start: -60px;
+            bottom: -80px;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: radial-gradient(circle, color-mix(in srgb, var(--a2) 18%, transparent), transparent 70%);
+            pointer-events: none;
+        }
+
+        .tg-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .connect-icon.tg {
+            width: 60px;
+            height: 60px;
+            border-radius: 18px;
+            background: color-mix(in srgb, #229ed9 14%, transparent);
+        }
+
+        /* Telegram's brand blue stays recognisable in every theme (graphic, not text) */
+        .tg-logo {
+            width: 38px;
+            height: 38px;
+        }
+
+        .tg-desc {
+            margin: 4px 0 6px;
+            color: var(--muted);
+            font-size: calc(14px * var(--fs));
+            line-height: 1.8;
+            max-width: 620px;
+        }
+
+        .connect-sub.tg-username {
+            color: var(--accent);
+            font-weight: 800;
+        }
+
+        .connect-sub.tg-username:hover {
+            text-decoration: underline;
+        }
+
+        .tg-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tg-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--accent-btn);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: calc(14px * var(--fs));
+            white-space: nowrap;
+            transition: background-color 0.2s ease;
+        }
+
+        .tg-btn:hover {
+            background: var(--accent-btn-hover);
+        }
+
+        .tg-btn .tg-plane {
+            transition: transform 0.35s var(--ease);
+        }
+
+        /* The plane "takes off" (towards the reading direction) on hover */
+        .tg-btn:hover .tg-plane {
+            transform: translate(-4px, -3px) rotate(-8deg);
+        }
+
         .connect-icon.yt {
             background: color-mix(in srgb, var(--yt) 14%, transparent);
             color: #ef4444;
@@ -1293,8 +1387,17 @@
             }
 
             .yt-btn,
-            .dev-actions {
+            .dev-actions,
+            .tg-actions {
                 width: 100%;
+            }
+
+            .tg-btn {
+                flex: 1;
+            }
+
+            .tg-card {
+                padding: 18px;
             }
 
             .dev-actions .join-btn {
@@ -1330,6 +1433,284 @@
 
             .chip-row-label {
                 display: none;
+            }
+        }
+
+        /* ---------- Welcome dialog (feature tour) ---------- */
+        html:has(.welcome[open]) {
+            overflow: hidden; /* lock page scroll behind the modal */
+        }
+
+        .welcome {
+            width: min(580px, calc(100% - 32px));
+            max-height: min(86vh, 760px);
+            padding: 0;
+            border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
+            border-radius: 24px;
+            background:
+                radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 45%),
+                radial-gradient(circle at 0% 100%, color-mix(in srgb, var(--a2) 10%, transparent), transparent 45%),
+                var(--surface);
+            color: var(--text);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+            overflow: hidden;
+        }
+
+        .welcome[open] {
+            display: flex;
+            flex-direction: column;
+            animation: welcome-in 0.35s var(--ease);
+        }
+
+        .has-anime .welcome[open] {
+            animation: none; /* Anime.js plays the entrance instead */
+        }
+
+        @keyframes welcome-in {
+            from {
+                opacity: 0;
+                transform: translateY(16px) scale(0.97);
+            }
+        }
+
+        .welcome::backdrop {
+            background: rgba(2, 6, 23, 0.6);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+
+        .welcome-head {
+            position: relative;
+            padding: 24px 24px 12px;
+            text-align: center;
+        }
+
+        .welcome-close {
+            position: absolute;
+            top: 14px;
+            inset-inline-end: 14px;
+            display: grid;
+            place-items: center;
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            background: var(--surface);
+            color: var(--muted);
+            cursor: pointer;
+            transition: color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .welcome-close:hover {
+            color: var(--text-strong);
+            background: var(--surface-2);
+        }
+
+        .welcome-badge {
+            display: inline-grid;
+            place-items: center;
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .welcome-badge .icon {
+            width: 32px;
+            height: 32px;
+        }
+
+        .welcome-head h2 {
+            margin: 0 0 4px;
+            font-size: calc(22px * var(--fs));
+            font-weight: 800;
+            color: var(--text-strong);
+        }
+
+        .welcome-head p {
+            margin: 0;
+            color: var(--muted);
+            font-size: calc(14px * var(--fs));
+            line-height: 1.8;
+        }
+
+        .welcome-body {
+            overflow-y: auto;
+            padding: 8px 24px 16px;
+            display: grid;
+            gap: 10px;
+        }
+
+        .tip {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 16px;
+            background: color-mix(in srgb, var(--surface-2) 70%, transparent);
+            border: 1px solid var(--border);
+        }
+
+        .tip-icon {
+            display: grid;
+            place-items: center;
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            border-radius: 12px;
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .tip-icon .tg-logo {
+            width: 26px;
+            height: 26px;
+        }
+
+        .tip h3 {
+            margin: 0 0 2px;
+            font-size: calc(15px * var(--fs));
+            font-weight: 800;
+            color: var(--text-strong);
+        }
+
+        .tip p {
+            margin: 0;
+            color: var(--muted);
+            font-size: calc(13px * var(--fs));
+            line-height: 1.8;
+        }
+
+        .tip kbd {
+            display: inline-grid;
+            place-items: center;
+            min-width: 24px;
+            height: 22px;
+            padding: 0 6px;
+            border: 1px solid var(--border-strong);
+            border-bottom-width: 2px;
+            border-radius: 6px;
+            background: var(--surface);
+            color: var(--text-strong);
+            font-family: inherit;
+            font-size: calc(12px * var(--fs));
+            vertical-align: middle;
+        }
+
+        .tip-try {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .try-swatch {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            background: linear-gradient(135deg, var(--sw1), var(--sw2)) padding-box;
+            cursor: pointer;
+            transition: transform 0.2s var(--ease);
+        }
+
+        .try-swatch:hover {
+            transform: scale(1.12);
+        }
+
+        .try-swatch[aria-pressed="true"] {
+            box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--accent);
+        }
+
+        .try-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            font-family: inherit;
+            font-size: calc(13px * var(--fs));
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .try-btn:hover {
+            background: var(--surface-2);
+        }
+
+        .welcome-foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 24px 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .welcome-foot small {
+            color: var(--muted);
+            font-size: calc(12px * var(--fs));
+        }
+
+        .welcome-start {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 0;
+            background: var(--accent-btn);
+            color: #fff;
+            font-family: inherit;
+            font-size: calc(15px * var(--fs));
+            font-weight: 800;
+            padding: 12px 22px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .welcome-start:hover {
+            background: var(--accent-btn-hover);
+        }
+
+        .footer-link {
+            border: 0;
+            background: none;
+            padding: 0;
+            color: var(--accent);
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 640px) {
+            .welcome-head {
+                padding: 20px 16px 8px;
+            }
+
+            .welcome-body {
+                padding: 8px 16px 12px;
+            }
+
+            .welcome-foot {
+                flex-direction: column-reverse;
+                align-items: stretch;
+                padding: 12px 16px 16px;
+                text-align: center;
+            }
+
+            .welcome-start {
+                justify-content: center;
             }
         }
 
@@ -1422,6 +1803,11 @@
         <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></symbol>
         <symbol id="i-palette" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r="1"/><circle cx="17.5" cy="10.5" r="1"/><circle cx="8.5" cy="7.5" r="1"/><circle cx="6.5" cy="12.5" r="1"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.44-.18-.84-.44-1.13-.29-.29-.44-.65-.44-1.13a1.64 1.64 0 0 1 1.67-1.67h2c3.05 0 5.55-2.5 5.55-5.55C21.97 6.01 17.46 2 12 2z"/></symbol>
         <symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+        <symbol id="i-telegram" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#229ed9" stroke="none"/><path fill="#ffffff" stroke="none" d="M5.43 11.87 16.9 7.44c.53-.19 1 .13.83.93l-1.95 9.2c-.14.66-.53.81-1.08.51l-3-2.21-1.44 1.39c-.16.16-.3.29-.61.29l.21-3.04 5.53-5c.24-.21-.05-.33-.37-.12l-6.84 4.3-2.94-.92c-.64-.2-.65-.64.14-.95z"/></symbol>
+        <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.54 21.69a.5.5 0 0 0 .94-.03l6.5-19a.5.5 0 0 0-.64-.63l-19 6.5a.5.5 0 0 0-.02.93l7.93 3.18a2 2 0 0 1 1.11 1.11z"/><path d="m21.85 2.15-10.94 10.94"/></symbol>
+        <symbol id="i-type" viewBox="0 0 24 24"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></symbol>
+        <symbol id="i-text-size" viewBox="0 0 24 24"><path d="M3 7V5h10v2M8 5v14M6 19h4M14 13v-1h7v1M17.5 12v7M16 19h3"/></symbol>
+        <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M9.94 15.5A2 2 0 0 0 8.5 14.06l-6.14-1.58a.5.5 0 0 1 0-.96L8.5 9.94A2 2 0 0 0 9.94 8.5l1.58-6.14a.5.5 0 0 1 .96 0L14.06 8.5A2 2 0 0 0 15.5 9.94l6.14 1.58a.5.5 0 0 1 0 .96L15.5 14.06a2 2 0 0 0-1.44 1.44l-1.58 6.14a.5.5 0 0 1-.96 0z"/><path d="M20 3v4M22 5h-4"/></symbol>
         <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
     </svg>
 
@@ -1534,10 +1920,32 @@
 
         <section class="container connect" aria-labelledby="connectTitle">
             <div class="semester-head">
-                <h2 id="connectTitle">القناة والمطوّر</h2>
+                <h2 id="connectTitle">المجتمع والتواصل</h2>
             </div>
 
             <div class="connect-grid">
+                <!-- Telegram study-partner bot. To change the bot, replace "YourBotUsername" in the 3 places below. -->
+                <div class="connect-card tg-card">
+                    <span class="connect-icon tg" aria-hidden="true">
+                        <svg class="tg-logo" viewBox="0 0 24 24"><use href="#i-telegram"/></svg>
+                    </span>
+                    <div class="connect-body">
+                        <small>بوت تيليجرام · شريك الدراسة</small>
+                        <strong>ابحث عن زملاء لحل الوظائف معاً</strong>
+                        <p class="tg-desc">يربطك البوت بطلاب آخرين يريدون التعاون على الوظائف والمشاريع، لتدرسوا وتحلّوا معاً بدل العمل وحيداً.</p>
+                        <a class="connect-sub tg-username" href="https://t.me/YourBotUsername" target="_blank" rel="noopener noreferrer" dir="ltr">@YourBotUsername</a>
+                    </div>
+                    <div class="tg-actions">
+                        <a class="tg-btn" href="https://t.me/YourBotUsername" target="_blank" rel="noopener noreferrer">
+                            <svg class="icon tg-plane"><use href="#i-send"/></svg>
+                            <span>ابدأ مع البوت</span>
+                        </a>
+                        <button class="icon-btn" type="button" data-copy="@YourBotUsername" data-copy-label="تم نسخ اسم البوت" aria-label="نسخ اسم مستخدم البوت" title="نسخ اسم البوت">
+                            <svg class="icon"><use href="#i-copy"/></svg>
+                        </button>
+                    </div>
+                </div>
+
                 <a class="connect-card yt-card" href="https://www.youtube.com/svuhelp" target="_blank" rel="noopener noreferrer">
                     <span class="connect-icon yt"><svg class="icon"><use href="#i-youtube"/></svg></span>
                     <div class="connect-body">
@@ -1573,8 +1981,93 @@
     </main>
 
     <footer>
-        <div class="container">صُنع بحب لطلاب الهندسة المعلوماتية ITE · تطوير <a href="https://wa.me/963988038382" target="_blank" rel="noopener noreferrer">محمد عادل أيمن وتد</a></div>
+        <div class="container">صُنع بحب لطلاب الهندسة المعلوماتية ITE · تطوير <a href="https://wa.me/963988038382" target="_blank" rel="noopener noreferrer">محمد عادل أيمن وتد</a> · <button class="footer-link" id="openWelcome" type="button">دليل ميزات الصفحة</button></div>
     </footer>
+
+    <!-- Welcome / feature tour (shown once; remembered in localStorage) -->
+    <dialog class="welcome" id="welcome" aria-labelledby="welcomeTitle" aria-describedby="welcomeDesc">
+        <div class="welcome-head">
+            <button class="welcome-close" type="button" data-close-welcome aria-label="إغلاق">
+                <svg class="icon"><use href="#i-x"/></svg>
+            </button>
+            <span class="welcome-badge"><svg class="icon"><use href="#i-sparkles"/></svg></span>
+            <h2 id="welcomeTitle">أهلاً بك في دليل قروبات ITE</h2>
+            <p id="welcomeDesc">جولة سريعة على أهم الميزات لتستفيد من الصفحة بأفضل شكل.</p>
+        </div>
+
+        <div class="welcome-body">
+            <div class="tip">
+                <span class="tip-icon"><svg class="icon"><use href="#i-moon"/></svg></span>
+                <div>
+                    <h3>الوضع الليلي والنهاري</h3>
+                    <p>زر الشمس/القمر أعلى الصفحة يبدّل بين الوضعين، ويتذكر اختيارك في الزيارات القادمة.</p>
+                    <div class="tip-try">
+                        <button class="try-btn" type="button" id="tryTheme"><svg class="icon"><use href="#i-moon"/></svg> جرّب التبديل الآن</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tip">
+                <span class="tip-icon"><svg class="icon"><use href="#i-palette"/></svg></span>
+                <div>
+                    <h3>٥ ألوان للواجهة</h3>
+                    <p>من زر لوحة الألوان اختر اللون الذي يعجبك: المحيط، الزمرّد، البنفسجي، الغروب أو الوردي.</p>
+                    <div class="tip-try" id="trySwatches" role="group" aria-label="جرّب ألوان الواجهة"></div>
+                </div>
+            </div>
+
+            <div class="tip">
+                <span class="tip-icon"><svg class="icon"><use href="#i-type"/></svg></span>
+                <div>
+                    <h3>تبديل الخط</h3>
+                    <p>من نفس القائمة اختر خطك العربي المفضل: Cairo، Tajawal، Almarai وغيرها.</p>
+                </div>
+            </div>
+
+            <div class="tip">
+                <span class="tip-icon"><svg class="icon"><use href="#i-text-size"/></svg></span>
+                <div>
+                    <h3>تكبير وتصغير الخط</h3>
+                    <p>أزرار <kbd>أ+</kbd> و<kbd>أ−</kbd> أسفل القائمة تغيّر حجم النص من ٨٥٪ إلى ١٣٠٪ لراحة القراءة.</p>
+                </div>
+            </div>
+
+            <div class="tip">
+                <span class="tip-icon"><svg class="icon"><use href="#i-link"/></svg></span>
+                <div>
+                    <h3>نسخ رابط الصفحة</h3>
+                    <p>زر الرابط ينسخ الصفحة مع الفلاتر الحالية، فترسل لزملائك مواد فصلك واختصاصك مباشرةً.</p>
+                </div>
+            </div>
+
+            <div class="tip">
+                <span class="tip-icon"><svg class="tg-logo" viewBox="0 0 24 24"><use href="#i-telegram"/></svg></span>
+                <div>
+                    <h3>بوت تيليجرام لإيجاد شركاء الدراسة</h3>
+                    <p>في قسم «المجتمع والتواصل» أسفل الصفحة، بوت يربطك بطلاب يريدون حل الوظائف والمشاريع معاً.</p>
+                    <div class="tip-try">
+                        <button class="try-btn" type="button" id="goToBot"><svg class="icon"><use href="#i-arrow"/></svg> انتقل إلى القسم</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tip">
+                <span class="tip-icon"><svg class="icon"><use href="#i-search"/></svg></span>
+                <div>
+                    <h3>بحث ذكي وسريع</h3>
+                    <p>ابحث باسم المادة أو رمزها دون القلق من التشكيل أو الهمزات، واضغط <kbd>/</kbd> للانتقال إلى البحث مباشرةً.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="welcome-foot">
+            <small>يمكنك فتح هذا الدليل لاحقاً من أسفل الصفحة.</small>
+            <button class="welcome-start" type="button" data-close-welcome autofocus>
+                ابدأ التصفح
+                <svg class="icon flip"><use href="#i-arrow"/></svg>
+            </button>
+        </div>
+    </dialog>
 
     <button class="to-top" id="toTop" type="button" aria-label="العودة للأعلى">
         <svg class="icon"><use href="#i-up"/></svg>
@@ -2345,6 +2838,121 @@
             }
         });
 
+        // ---------- Welcome dialog ----------
+        // Bump this when new features are worth re-introducing to returning visitors.
+        const WELCOME_VERSION = "1";
+        const welcome = document.getElementById("welcome");
+
+        function welcomeSeen() {
+            try { return localStorage.getItem("ite-welcome-seen") === WELCOME_VERSION; }
+            catch (e) { return true; } // storage blocked: don't nag on every visit
+        }
+
+        function markWelcomeSeen() {
+            try { localStorage.setItem("ite-welcome-seen", WELCOME_VERSION); } catch (e) { }
+        }
+
+        function syncTrySwatches() {
+            const active = document.documentElement.dataset.palette || "ocean";
+            for (const sw of document.querySelectorAll("#trySwatches .try-swatch")) {
+                sw.setAttribute("aria-pressed", String(sw.dataset.palette === active));
+            }
+        }
+
+        function openWelcome() {
+            if (typeof welcome.showModal !== "function" || welcome.open) return;
+            syncTrySwatches();
+            welcome.showModal();
+            welcome.querySelector(".welcome-body").scrollTop = 0;
+            if (canAnimate()) {
+                A.animate(welcome, {
+                    opacity: [0, 1],
+                    y: [30, 0],
+                    scale: [0.94, 1],
+                    ease: A.spring({ bounce: 0.3, duration: 550 }),
+                    onComplete: clean
+                });
+                A.animate(welcome.querySelector(".welcome-badge"), {
+                    rotate: [-25, 0],
+                    scale: [0.4, 1],
+                    ease: A.spring({ bounce: 0.55, duration: 700 }),
+                    delay: 120,
+                    onComplete: clean
+                });
+                A.animate(welcome.querySelectorAll(".tip"), {
+                    opacity: [0, 1],
+                    x: [-20, 0],
+                    duration: 500,
+                    ease: "outExpo",
+                    delay: A.stagger(60, { start: 180 }),
+                    onComplete: clean
+                });
+            }
+        }
+
+        let welcomeClosing = false;
+        function closeWelcome() {
+            markWelcomeSeen();
+            if (!welcome.open || welcomeClosing) return;
+            if (!canAnimate()) { welcome.close(); return; }
+            welcomeClosing = true;
+            A.animate(welcome, {
+                opacity: 0,
+                y: 20,
+                scale: 0.96,
+                duration: 200,
+                ease: "inQuad",
+                onComplete: anim => {
+                    welcome.close();
+                    clean(anim);
+                    welcomeClosing = false;
+                }
+            });
+        }
+
+        function initWelcome() {
+            // "Try it" swatches reuse the real palette switcher, so the change is live and saved
+            const tryRow = document.getElementById("trySwatches");
+            for (const [id, label, c1, c2] of palettes) {
+                const sw = document.createElement("button");
+                sw.type = "button";
+                sw.className = "try-swatch";
+                sw.dataset.palette = id;
+                sw.style.setProperty("--sw1", c1);
+                sw.style.setProperty("--sw2", c2);
+                sw.setAttribute("aria-label", label);
+                sw.title = label;
+                sw.addEventListener("click", () => {
+                    setPalette(id);
+                    syncTrySwatches();
+                    popElement(sw, 0.7);
+                });
+                tryRow.appendChild(sw);
+            }
+
+            document.getElementById("tryTheme").addEventListener("click", () => document.getElementById("themeToggle").click());
+            document.getElementById("goToBot").addEventListener("click", () => {
+                closeWelcome();
+                setTimeout(() => document.querySelector(".tg-card").scrollIntoView({ behavior: "smooth", block: "center" }), 250);
+            });
+            for (const btn of welcome.querySelectorAll("[data-close-welcome]")) btn.addEventListener("click", closeWelcome);
+            document.getElementById("openWelcome").addEventListener("click", openWelcome);
+
+            // Esc: animate out instead of the instant native close
+            welcome.addEventListener("cancel", e => { e.preventDefault(); closeWelcome(); });
+            // Click on the backdrop (outside the dialog box) closes it
+            welcome.addEventListener("click", e => {
+                const r = welcome.getBoundingClientRect();
+                const outside = e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+                if (e.target === welcome && outside) closeWelcome();
+            });
+            // Any other way the dialog closes still counts as "seen"
+            welcome.addEventListener("close", markWelcomeSeen);
+
+            // First visit: show after the page intro has settled
+            if (!welcomeSeen()) setTimeout(openWelcome, canAnimate() ? 1500 : 400);
+        }
+
         // ---------- Toast + copy ----------
         let toastTimer;
         function showToast(message) {
@@ -2433,6 +3041,7 @@
         update();
         playIntro();
         setupScrollReveal();
+        initWelcome();
         loadVisitorCount();
 
         // Make sure a pre-selected chip (from a shared link) is visible in its scroll row
