@@ -1,0 +1,2472 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>روابط الهندسة المعلوماتية ITE</title>
+
+    <!-- Basic SEO -->
+    <meta name="description" content="جميع روابط قروبات مواد الهندسة المعلوماتية ITE مرتبة حسب الفصل والاختصاص، مع بحث سريع." />
+    <meta name="keywords" content="الهندسة المعلوماتية, ITE, روابط, قروبات, جامعة" />
+    <meta name="author" content="ITE" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f5f7fb" media="(prefers-color-scheme: light)" />
+
+    <!-- Open Graph (TODO: replace og:url with the real domain) -->
+    <meta property="og:title" content="روابط الهندسة المعلوماتية ITE" />
+    <meta property="og:description" content="جميع روابط قروبات مواد الهندسة المعلوماتية ITE مرتبة حسب الفصل والاختصاص." />
+    <meta property="og:image" content="https://i.imgur.com/WO97kCm.png" />
+    <meta property="og:url" content="https://example.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ar_AR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="روابط الهندسة المعلوماتية ITE" />
+    <meta name="twitter:description" content="جميع روابط قروبات مواد الهندسة المعلوماتية ITE مرتبة حسب الفصل والاختصاص." />
+    <meta name="twitter:image" content="https://i.imgur.com/WO97kCm.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.imgur.com/WO97kCm.png" />
+
+    <!-- Apply the saved theme, palette and font before first paint to avoid a flash -->
+    <script>
+        // Selectable Arabic fonts: [id, family, Google Fonts query]. Only the chosen one is downloaded.
+        window.ITE_FONTS = [
+            ["cairo", "Cairo", "Cairo:wght@400;500;600;700;800"],
+            ["tajawal", "Tajawal", "Tajawal:wght@400;500;700;800"],
+            ["almarai", "Almarai", "Almarai:wght@400;700;800"],
+            ["ibm", "IBM Plex Sans Arabic", "IBM+Plex+Sans+Arabic:wght@400;500;600;700"],
+            ["kufi", "Noto Kufi Arabic", "Noto+Kufi+Arabic:wght@400;500;600;700;800"],
+            ["readex", "Readex Pro", "Readex+Pro:wght@400;500;600;700"]
+        ];
+
+        window.applyFont = function (id) {
+            var font = ITE_FONTS.filter(function (f) { return f[0] === id; })[0] || ITE_FONTS[0];
+            var linkId = "font-css-" + font[0];
+            if (font[0] !== "cairo" && !document.getElementById(linkId)) {
+                var link = document.createElement("link");
+                link.id = linkId;
+                link.rel = "stylesheet";
+                link.href = "https://fonts.googleapis.com/css2?family=" + font[2] + "&display=swap";
+                document.head.appendChild(link);
+            }
+            document.documentElement.style.setProperty("--font-family", '"' + font[1] + '"');
+            document.documentElement.dataset.font = font[0];
+        };
+
+        (function () {
+            try {
+                var saved = localStorage.getItem("ite-theme");
+                if (saved === "light" || saved === "dark") document.documentElement.dataset.theme = saved;
+                var palette = localStorage.getItem("ite-palette");
+                if (/^(emerald|violet|sunset|rose)$/.test(palette)) document.documentElement.dataset.palette = palette;
+                var size = parseFloat(localStorage.getItem("ite-fs"));
+                if (size >= 0.85 && size <= 1.3) document.documentElement.style.setProperty("--fs", size);
+                var font = localStorage.getItem("ite-font");
+                if (font && font !== "cairo") applyFont(font);
+            } catch (e) { }
+
+            // Intro animation: hero starts hidden; a safety timer reveals it if Anime.js never runs
+            if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                document.documentElement.classList.add("intro");
+                setTimeout(function () { document.documentElement.classList.remove("intro"); }, 2500);
+            }
+        })();
+    </script>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <style>
+        /* ---------- Palette presets ----------
+           Each preset sets: accent for dark mode, accent for light mode,
+           button fill (white text, AA contrast) and a secondary glow colour. */
+        :root {
+            --fs: 1; /* text scale, set by the font-size control */
+            --a-dark: #38bdf8;
+            --a-light: #0369a1;
+            --a-btn: #2563eb;
+            --a-btn-hover: #1d4ed8;
+            --a2: #10b981;
+        }
+
+        :root[data-palette="emerald"] {
+            --a-dark: #34d399;
+            --a-light: #047857;
+            --a-btn: #047857;
+            --a-btn-hover: #065f46;
+            --a2: #22d3ee;
+        }
+
+        :root[data-palette="violet"] {
+            --a-dark: #a78bfa;
+            --a-light: #6d28d9;
+            --a-btn: #6d28d9;
+            --a-btn-hover: #5b21b6;
+            --a2: #f472b6;
+        }
+
+        :root[data-palette="sunset"] {
+            --a-dark: #fb923c;
+            --a-light: #c2410c;
+            --a-btn: #c2410c;
+            --a-btn-hover: #9a3412;
+            --a2: #f43f5e;
+        }
+
+        :root[data-palette="rose"] {
+            --a-dark: #f472b6;
+            --a-light: #be185d;
+            --a-btn: #be185d;
+            --a-btn-hover: #9d174d;
+            --a2: #a78bfa;
+        }
+
+        /* ---------- Theme tokens (dark / light) ---------- */
+        :root {
+            --bg: #0b1220;
+            --bg-glow-1: color-mix(in srgb, var(--a-dark) 14%, transparent);
+            --bg-glow-2: color-mix(in srgb, var(--a2) 10%, transparent);
+            --surface: #111a2e;
+            --surface-2: #16213a;
+            --surface-glass: rgba(17, 26, 46, 0.78);
+            --border: rgba(148, 163, 184, 0.16);
+            --border-strong: rgba(148, 163, 184, 0.3);
+            --text: #e6edf7;
+            --text-strong: #f8fafc;
+            --muted: #9aa8bd;
+            --accent: var(--a-dark);
+            --accent-soft: color-mix(in srgb, var(--a-dark) 14%, transparent);
+            --accent-btn: var(--a-btn);
+            --accent-btn-hover: var(--a-btn-hover);
+            --wa: #047857;
+            --wa-hover: #065f46;
+            --yt: #dc2626;
+            --yt-hover: #b91c1c;
+            --chip-bg: rgba(148, 163, 184, 0.12);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            --shadow-hover: 0 18px 40px rgba(0, 0, 0, 0.45);
+            --radius-xl: 24px;
+            --radius-lg: 18px;
+            --radius-md: 14px;
+            --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+            color-scheme: dark;
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root:not([data-theme="dark"]) {
+                --bg: #f5f7fb;
+                --bg-glow-1: color-mix(in srgb, var(--a-light) 12%, transparent);
+                --bg-glow-2: color-mix(in srgb, var(--a2) 8%, transparent);
+                --surface: #ffffff;
+                --surface-2: #eef2f8;
+                --surface-glass: rgba(255, 255, 255, 0.85);
+                --border: #dde4ee;
+                --border-strong: #c3cedd;
+                --text: #1e293b;
+                --text-strong: #0f172a;
+                --muted: #52607a;
+                --accent: var(--a-light);
+                --accent-soft: color-mix(in srgb, var(--a-light) 10%, transparent);
+                --chip-bg: #eef2f8;
+                --shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+                --shadow-hover: 0 14px 32px rgba(15, 23, 42, 0.12);
+                color-scheme: light;
+            }
+        }
+
+        :root[data-theme="light"] {
+            --bg: #f5f7fb;
+            --bg-glow-1: color-mix(in srgb, var(--a-light) 12%, transparent);
+            --bg-glow-2: color-mix(in srgb, var(--a2) 8%, transparent);
+            --surface: #ffffff;
+            --surface-2: #eef2f8;
+            --surface-glass: rgba(255, 255, 255, 0.85);
+            --border: #dde4ee;
+            --border-strong: #c3cedd;
+            --text: #1e293b;
+            --text-strong: #0f172a;
+            --muted: #52607a;
+            --accent: var(--a-light);
+            --accent-soft: color-mix(in srgb, var(--a-light) 10%, transparent);
+            --chip-bg: #eef2f8;
+            --shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+            --shadow-hover: 0 14px 32px rgba(15, 23, 42, 0.12);
+            color-scheme: light;
+        }
+
+        /* ---------- Base ---------- */
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 170px;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font-family, "Cairo"), "Cairo", system-ui, sans-serif;
+            color: var(--text);
+            background-color: var(--bg);
+            background-image:
+                radial-gradient(circle at 90% 0%, var(--bg-glow-1), transparent 35%),
+                radial-gradient(circle at 0% 100%, var(--bg-glow-2), transparent 35%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ---------- Scrollbars follow the theme + palette ---------- */
+        :root {
+            --scroll-track: var(--bg);
+            --scroll-thumb: color-mix(in srgb, var(--accent) 45%, var(--surface-2));
+            --scroll-thumb-hover: var(--accent);
+            /* Standard (Chrome 121+, Edge, Firefox); inherited by inner scrollers like the menu */
+            scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+        }
+
+        /* Safari and older Chromium */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--scroll-track);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--scroll-thumb);
+            border-radius: 999px;
+            border: 3px solid var(--scroll-track);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--scroll-thumb-hover);
+        }
+
+        .palette-menu {
+            --scroll-track: var(--surface);
+            scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+            scrollbar-width: thin;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        .icon {
+            width: 1.15em;
+            height: 1.15em;
+            flex-shrink: 0;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Arrows point "forward" in RTL */
+        .icon.flip {
+            transform: scaleX(-1);
+        }
+
+        .container {
+            width: min(1200px, calc(100% - 32px));
+            margin-inline: auto;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            white-space: nowrap;
+        }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            padding: 28px 0 8px;
+        }
+
+        .hero-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: calc(14px * var(--fs));
+            font-weight: 700;
+        }
+
+        .theme-toggle,
+        .palette-toggle,
+        .copy-page {
+            display: grid;
+            place-items: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s var(--ease), background-color 0.3s ease;
+        }
+
+        .theme-toggle:hover,
+        .palette-toggle:hover,
+        .copy-page:hover {
+            transform: rotate(-20deg) scale(1.05);
+        }
+
+        .theme-toggle .icon {
+            width: 20px;
+            height: 20px;
+            grid-area: 1 / 1;
+            transition: transform 0.45s var(--ease), opacity 0.3s ease;
+        }
+
+        /* Show the icon of the theme you would switch TO */
+        .theme-toggle .i-sun {
+            opacity: 1;
+            transform: rotate(0) scale(1);
+        }
+
+        .theme-toggle .i-moon {
+            opacity: 0;
+            transform: rotate(-90deg) scale(0.5);
+        }
+
+        [data-active-theme="light"] .theme-toggle .i-sun {
+            opacity: 0;
+            transform: rotate(90deg) scale(0.5);
+        }
+
+        [data-active-theme="light"] .theme-toggle .i-moon {
+            opacity: 1;
+            transform: rotate(0) scale(1);
+        }
+
+        .hero h1 {
+            margin: 0 0 8px;
+            font-size: calc(clamp(26px, 5vw, 42px) * var(--fs));
+            font-weight: 800;
+            line-height: 1.3;
+            color: var(--text-strong);
+        }
+
+        .hero p {
+            margin: 0;
+            color: var(--muted);
+            font-size: calc(16px * var(--fs));
+            line-height: 1.9;
+            max-width: 720px;
+        }
+
+        .top-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 14px 16px;
+            box-shadow: var(--shadow);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .stat-icon {
+            display: grid;
+            place-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .stat-card small {
+            display: block;
+            color: var(--muted);
+            font-size: calc(13px * var(--fs));
+        }
+
+        .stat-card strong {
+            font-size: calc(20px * var(--fs));
+            font-weight: 800;
+            color: var(--text-strong);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .stat-card.is-hidden {
+            display: none;
+        }
+
+        .stat-card .pulse {
+            position: relative;
+        }
+
+        /* Small "live" dot on the visitor icon */
+        .stat-card .pulse::after {
+            content: "";
+            position: absolute;
+            top: 6px;
+            inset-inline-end: 6px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 2s ease-out infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
+            100% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+        }
+
+        /* ---------- Sticky filter bar ---------- */
+        .toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            padding: 12px 0;
+        }
+
+        .panel {
+            padding: 14px;
+            border-radius: var(--radius-xl);
+            background: var(--surface-glass);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow: var(--shadow);
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 12px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .search-wrap {
+            position: relative;
+        }
+
+        .search-wrap > .icon {
+            position: absolute;
+            inset-inline-start: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+            pointer-events: none;
+        }
+
+        .search-wrap input {
+            width: 100%;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            border-radius: var(--radius-md);
+            padding: 12px 46px;
+            font-family: inherit;
+            font-size: max(16px, calc(16px * var(--fs))); /* never below 16px: prevents iOS zoom on focus */
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .search-wrap input::-webkit-search-cancel-button {
+            display: none;
+        }
+
+        .search-wrap input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-soft);
+        }
+
+        .clear-search {
+            position: absolute;
+            inset-inline-end: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
+            place-items: center;
+            width: 32px;
+            height: 32px;
+            border: 0;
+            border-radius: 50%;
+            background: var(--chip-bg);
+            color: var(--muted);
+            cursor: pointer;
+        }
+
+        .clear-search.is-visible {
+            display: grid;
+        }
+
+        .chip-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding-bottom: 2px;
+        }
+
+        .chip-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .chip-row-label {
+            flex-shrink: 0;
+            font-size: calc(13px * var(--fs));
+            font-weight: 700;
+            color: var(--muted);
+            min-width: 64px;
+        }
+
+        .filter-chip {
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            font-family: inherit;
+            font-size: calc(14px * var(--fs));
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+        }
+
+        .filter-chip:hover {
+            border-color: var(--border-strong);
+        }
+
+        .filter-chip:active {
+            transform: scale(0.96);
+        }
+
+        .filter-chip[aria-pressed="true"] {
+            background: var(--accent-btn);
+            border-color: var(--accent-btn);
+            color: #fff;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .results-bar {
+            color: var(--muted);
+            font-size: calc(14px * var(--fs));
+        }
+
+        .results-bar strong {
+            color: var(--text-strong);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            cursor: pointer;
+            font-family: inherit;
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: calc(14px * var(--fs));
+            font-weight: 700;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .btn:hover {
+            background: var(--surface-2);
+        }
+
+        .btn:hover .icon {
+            animation: spin-back 0.5s var(--ease);
+        }
+
+        @keyframes spin-back {
+            from { transform: rotate(0); }
+            to { transform: rotate(-360deg); }
+        }
+
+        .btn[hidden] {
+            display: none;
+        }
+
+        /* ---------- Results ---------- */
+        .semester-section {
+            margin-bottom: 28px;
+        }
+
+        /* Results updated while typing: no entrance animation, to avoid flicker */
+        .no-anim .subject-card {
+            animation: none;
+        }
+
+        .semester-head {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin: 8px 0 14px;
+        }
+
+        .semester-head h2 {
+            margin: 0;
+            font-size: calc(20px * var(--fs));
+            font-weight: 800;
+            color: var(--text-strong);
+        }
+
+        .semester-head span {
+            font-size: calc(13px * var(--fs));
+            color: var(--muted);
+        }
+
+        .semester-head::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .subject-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: transform 0.25s var(--ease), box-shadow 0.25s ease, border-color 0.25s ease, background-color 0.3s ease;
+            /* "backwards" (not "both") so the finished animation doesn't pin transform and block :hover */
+            animation: rise 0.4s var(--ease) backwards;
+            animation-delay: calc(var(--i, 0) * 35ms);
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+        }
+
+        .subject-card:hover {
+            transform: translateY(-4px);
+            border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .subject-top {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .subject-icon {
+            display: grid;
+            place-items: center;
+            width: 44px;
+            height: 44px;
+            flex-shrink: 0;
+            border-radius: 12px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            transition: transform 0.3s var(--ease);
+        }
+
+        .subject-card:hover .subject-icon {
+            transform: rotate(-8deg) scale(1.08);
+        }
+
+        .subject-title {
+            margin: 0;
+            font-size: calc(17px * var(--fs));
+            line-height: 1.6;
+            font-weight: 700;
+            color: var(--text-strong);
+        }
+
+        .subject-code {
+            display: inline-block;
+            margin-top: 2px;
+            color: var(--accent);
+            font-size: calc(13px * var(--fs));
+            font-weight: 700;
+            direction: ltr;
+            letter-spacing: 0.5px;
+        }
+
+        .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: calc(12px * var(--fs));
+            font-weight: 700;
+            background: var(--chip-bg);
+            color: var(--muted);
+        }
+
+        .chip::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--dot, var(--muted));
+        }
+
+        .subject-footer {
+            margin-top: auto;
+            display: flex;
+            gap: 8px;
+        }
+
+        .join-btn {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--wa);
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: calc(14px * var(--fs));
+            transition: background-color 0.2s ease, transform 0.2s var(--ease);
+        }
+
+        .join-btn:hover {
+            background: var(--wa-hover);
+        }
+
+        .join-btn .icon.flip {
+            transition: transform 0.25s var(--ease);
+        }
+
+        .join-btn:hover .icon.flip {
+            transform: scaleX(-1) translate(3px, -3px);
+        }
+
+        .icon-btn {
+            display: grid;
+            place-items: center;
+            width: 44px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--muted);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .icon-btn:hover {
+            color: var(--text-strong);
+            background: var(--surface-2);
+        }
+
+        .empty-state {
+            display: none;
+            text-align: center;
+            padding: 50px 20px;
+            border-radius: 22px;
+            background: var(--surface);
+            border: 1px dashed var(--border-strong);
+            color: var(--muted);
+            margin-bottom: 40px;
+        }
+
+        .empty-state.is-visible {
+            display: block;
+            animation: rise 0.35s var(--ease) backwards;
+        }
+
+        .empty-state .icon {
+            width: 40px;
+            height: 40px;
+            color: var(--muted);
+        }
+
+        .empty-state h3 {
+            color: var(--text-strong);
+            margin: 10px 0 6px;
+        }
+
+        .empty-state .btn {
+            margin-top: 12px;
+        }
+
+        /* ---------- Palette menu ---------- */
+        .hero-controls {
+            position: relative;
+            display: flex;
+            gap: 8px;
+        }
+
+        .palette-toggle .icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .palette-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            z-index: 30;
+            display: grid;
+            gap: 2px;
+            width: calc(270px * var(--fs));
+            max-width: calc(100vw - 32px);
+            max-height: calc(100vh - 100px);
+            overflow-x: hidden;
+            overflow-y: auto;
+            padding: 8px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: var(--shadow-hover);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-6px) scale(0.97);
+            transform-origin: top left;
+            transition: opacity 0.2s ease, transform 0.2s var(--ease), visibility 0.2s;
+        }
+
+        .palette-menu.is-open {
+            opacity: 1;
+            visibility: visible;
+            transform: none;
+            /* Become visible instantly on open so options can receive focus right away */
+            transition: opacity 0.2s ease, transform 0.2s var(--ease), visibility 0s;
+        }
+
+        .palette-menu [role="radiogroup"] {
+            display: grid;
+            gap: 2px;
+        }
+
+        .palette-menu-title + [role="radiogroup"] + .palette-menu-title,
+        .size-title {
+            margin-top: 6px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+        }
+
+        .font-sample {
+            font-size: calc(15px * var(--fs));
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .font-name {
+            font-size: calc(11px * var(--fs));
+            color: var(--muted);
+            direction: ltr;
+            white-space: nowrap;
+        }
+
+        .palette-option .check.font-check {
+            margin-inline-start: 0;
+        }
+
+        .font-option .font-name {
+            margin-inline-start: auto;
+        }
+
+        .size-control {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 2px 4px 4px;
+        }
+
+        .size-btn {
+            display: grid;
+            place-items: center;
+            width: 40px;
+            height: 36px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface);
+            color: var(--text);
+            font-family: inherit;
+            font-weight: 800;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.15s ease;
+        }
+
+        .size-btn:hover:not(:disabled) {
+            background: var(--surface-2);
+        }
+
+        .size-btn:active:not(:disabled) {
+            transform: scale(0.94);
+        }
+
+        .size-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* Fixed px on purpose: the control itself should not jump around while resizing */
+        .size-btn.smaller {
+            font-size: 13px;
+        }
+
+        .size-btn.bigger {
+            font-size: 18px;
+        }
+
+        .size-value {
+            flex: 1;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-strong);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .size-reset {
+            border: 0;
+            background: transparent;
+            color: var(--accent);
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 4px 6px;
+            border-radius: 8px;
+        }
+
+        .size-reset:hover {
+            background: var(--accent-soft);
+        }
+
+        .copy-page .icon {
+            width: 20px;
+            height: 20px;
+            grid-area: 1 / 1;
+            transition: transform 0.35s var(--ease), opacity 0.2s ease;
+        }
+
+        .copy-page .i-done {
+            opacity: 0;
+            transform: scale(0.4) rotate(-45deg);
+            color: #10b981;
+        }
+
+        .copy-page.is-done .i-link-icon {
+            opacity: 0;
+            transform: scale(0.4) rotate(45deg);
+        }
+
+        .copy-page.is-done .i-done {
+            opacity: 1;
+            transform: none;
+        }
+
+        .palette-menu-title {
+            font-size: calc(12px * var(--fs));
+            font-weight: 700;
+            color: var(--muted);
+            padding: 4px 10px 6px;
+        }
+
+        .palette-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            border: 0;
+            background: transparent;
+            color: var(--text);
+            font: inherit;
+            font-size: calc(14px * var(--fs));
+            font-weight: 600;
+            padding: 8px 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: start;
+            transition: background-color 0.2s ease;
+        }
+
+        .palette-option:hover {
+            background: var(--surface-2);
+        }
+
+        .palette-option[aria-checked="true"] {
+            background: var(--accent-soft);
+        }
+
+        .swatch {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--sw1), var(--sw2));
+            box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.25);
+            transition: transform 0.25s var(--ease);
+        }
+
+        .palette-option:hover .swatch {
+            transform: scale(1.15);
+        }
+
+        .palette-option .check {
+            margin-inline-start: auto;
+            color: var(--accent);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: opacity 0.2s ease, transform 0.25s var(--ease);
+        }
+
+        .palette-option[aria-checked="true"] .check {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* ---------- Channel & developer ---------- */
+        .connect {
+            margin-bottom: 28px;
+        }
+
+        .connect-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .connect-card {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 14px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 18px;
+            box-shadow: var(--shadow);
+            transition: transform 0.25s var(--ease), box-shadow 0.25s ease, border-color 0.25s ease, background-color 0.3s ease;
+        }
+
+        .connect-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+        }
+
+        .yt-card:hover {
+            border-color: color-mix(in srgb, var(--yt) 45%, transparent);
+        }
+
+        .connect-icon {
+            display: grid;
+            place-items: center;
+            width: 52px;
+            height: 52px;
+            flex-shrink: 0;
+            border-radius: 14px;
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .connect-icon .icon {
+            width: 26px;
+            height: 26px;
+        }
+
+        .connect-icon.yt {
+            background: color-mix(in srgb, var(--yt) 14%, transparent);
+            color: #ef4444;
+        }
+
+        .connect-card:hover .connect-icon {
+            animation: wiggle 0.5s var(--ease);
+        }
+
+        @keyframes wiggle {
+            25% { transform: rotate(-8deg) scale(1.08); }
+            75% { transform: rotate(6deg) scale(1.08); }
+        }
+
+        .connect-body {
+            flex: 1;
+            min-width: 160px;
+        }
+
+        .connect-body small {
+            display: block;
+            color: var(--muted);
+            font-size: calc(13px * var(--fs));
+        }
+
+        .connect-body strong {
+            display: block;
+            font-size: calc(18px * var(--fs));
+            font-weight: 800;
+            color: var(--text-strong);
+        }
+
+        .connect-sub {
+            display: inline-block;
+            color: var(--muted);
+            font-size: calc(14px * var(--fs));
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        a.connect-sub:hover {
+            color: var(--accent);
+        }
+
+        .yt-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--yt);
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: calc(14px * var(--fs));
+            transition: background-color 0.2s ease;
+        }
+
+        .yt-card:hover .yt-btn {
+            background: var(--yt-hover);
+        }
+
+        .dev-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dev-actions .join-btn {
+            flex: none;
+            padding-inline: 18px;
+        }
+
+        footer a {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* ---------- Footer, toast, back-to-top ---------- */
+        footer {
+            padding: 20px 0 36px;
+            text-align: center;
+            color: var(--muted);
+            font-size: calc(14px * var(--fs));
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            /* Centred without transform so Anime.js can own the transform */
+            left: 0;
+            right: 0;
+            margin-inline: auto;
+            width: max-content;
+            max-width: calc(100% - 32px);
+            transform: translateY(20px);
+            background: var(--text-strong);
+            color: var(--bg);
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: calc(14px * var(--fs));
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s var(--ease);
+            z-index: 50;
+        }
+
+        .toast.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .to-top {
+            position: fixed;
+            bottom: 20px;
+            inset-inline-start: 20px;
+            display: grid;
+            place-items: center;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(12px);
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s var(--ease);
+            z-index: 40;
+        }
+
+        .to-top.is-visible {
+            opacity: 1;
+            transform: none;
+            pointer-events: auto;
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 992px) {
+            .subjects-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .top-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            /* The filter panel is tall on phones, so it scrolls away instead of sticking */
+            html {
+                scroll-padding-top: 16px;
+            }
+
+            .toolbar {
+                position: static;
+            }
+
+            .connect-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .yt-btn,
+            .dev-actions {
+                width: 100%;
+            }
+
+            .dev-actions .join-btn {
+                flex: 1;
+            }
+
+            .subjects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .top-stats {
+                gap: 8px;
+            }
+
+            .stat-card {
+                padding: 10px 12px;
+                gap: 10px;
+            }
+
+            .stat-icon {
+                width: 34px;
+                height: 34px;
+            }
+
+            .stat-card strong {
+                font-size: calc(17px * var(--fs));
+            }
+
+            .panel {
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .chip-row-label {
+                display: none;
+            }
+        }
+
+        /* ---------- Anime.js hand-off ----------
+           .has-anime is set only when Anime.js loaded and motion is allowed.
+           CSS transitions on transform/opacity would fight Anime.js, so they are
+           switched off for elements while Anime.js drives them. */
+        .intro .hero-badge,
+        .intro .hero-controls > button,
+        .intro .hero h1,
+        .intro .hero p,
+        .intro .top-stats .stat-card,
+        .intro .toolbar .panel {
+            opacity: 0;
+        }
+
+        .intro * {
+            transition: none !important;
+        }
+
+        .has-anime .subject-card,
+        .has-anime .empty-state.is-visible {
+            animation: none;
+        }
+
+        .is-animating .subject-card,
+        .is-animating .semester-head {
+            opacity: 0;
+            transition: none;
+        }
+
+        .has-anime .filter-chip {
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .has-anime .palette-menu {
+            transition: visibility 0.18s;
+        }
+
+        .has-anime .palette-menu.is-open {
+            transition: visibility 0s;
+        }
+
+        .has-anime .toast {
+            transition: none;
+        }
+
+        .connect.is-revealing .connect-card {
+            opacity: 0;
+            transition: none;
+        }
+
+        .hero h1 .word {
+            display: inline-block;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Icon sprite (Lucide-style stroke icons, inline so there is no external dependency) -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="i-cap" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></symbol>
+        <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+        <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+        <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+        <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6L4.5 18.5A2 2 0 0 0 6.2 21.5h11.6a2 2 0 0 0 1.7-3L14 9V3"/><path d="M7 15h10"/></symbol>
+        <symbol id="i-folder" viewBox="0 0 24 24"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></symbol>
+        <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+        <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></symbol>
+        <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+        <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></symbol>
+        <symbol id="i-filter" viewBox="0 0 24 24"><path d="M22 3H2l8 9.46V19l4 2v-8.54z"/></symbol>
+        <symbol id="i-chat" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+        <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+        <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+        <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol>
+        <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+        <symbol id="i-up" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></symbol>
+        <symbol id="i-youtube" viewBox="0 0 24 24"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></symbol>
+        <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></symbol>
+        <symbol id="i-palette" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r="1"/><circle cx="17.5" cy="10.5" r="1"/><circle cx="8.5" cy="7.5" r="1"/><circle cx="6.5" cy="12.5" r="1"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.44-.18-.84-.44-1.13-.29-.29-.44-.65-.44-1.13a1.64 1.64 0 0 1 1.67-1.67h2c3.05 0 5.55-2.5 5.55-5.55C21.97 6.01 17.46 2 12 2z"/></symbol>
+        <symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+        <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    </svg>
+
+    <main>
+        <header class="hero">
+            <div class="container">
+                <div class="hero-top">
+                    <span class="hero-badge"><svg class="icon"><use href="#i-cap"/></svg> ITE Groups Hub</span>
+                    <div class="hero-controls">
+                        <button class="copy-page" id="copyPageLink" type="button" aria-label="نسخ رابط الصفحة" title="نسخ رابط الصفحة">
+                            <svg class="icon i-link-icon"><use href="#i-link"/></svg>
+                            <svg class="icon i-done"><use href="#i-check"/></svg>
+                        </button>
+                        <button class="palette-toggle" id="paletteToggle" type="button" aria-label="إعدادات المظهر: اللون والخط" aria-expanded="false" aria-controls="paletteMenu">
+                            <svg class="icon"><use href="#i-palette"/></svg>
+                        </button>
+                        <button class="theme-toggle" id="themeToggle" type="button" aria-label="تبديل الوضع الليلي / النهاري">
+                            <svg class="icon i-sun"><use href="#i-sun"/></svg>
+                            <svg class="icon i-moon"><use href="#i-moon"/></svg>
+                        </button>
+                        <div class="palette-menu" id="paletteMenu" role="dialog" aria-label="إعدادات المظهر">
+                            <div class="palette-menu-title" id="paletteTitle">لون الواجهة</div>
+                            <div role="radiogroup" id="paletteGroup" aria-labelledby="paletteTitle"></div>
+                            <div class="palette-menu-title" id="fontTitle">الخط</div>
+                            <div role="radiogroup" id="fontGroup" aria-labelledby="fontTitle"></div>
+                            <div class="palette-menu-title size-title" id="sizeTitle">حجم الخط</div>
+                            <div class="size-control" role="group" aria-labelledby="sizeTitle">
+                                <button class="size-btn bigger" id="sizeUp" type="button" aria-label="تكبير الخط">أ+</button>
+                                <span class="size-value" id="sizeValue" aria-live="polite">100%</span>
+                                <button class="size-btn smaller" id="sizeDown" type="button" aria-label="تصغير الخط">أ−</button>
+                                <button class="size-reset" id="sizeReset" type="button">افتراضي</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h1>روابط قروبات الهندسة المعلوماتية</h1>
+                <p>اختر فصلك واختصاصك أو ابحث باسم المادة أو رمزها، ثم انضم للقروب مباشرةً.</p>
+
+                <div class="top-stats">
+                    <div class="stat-card">
+                        <span class="stat-icon"><svg class="icon"><use href="#i-book"/></svg></span>
+                        <div><small>إجمالي المواد</small><strong id="totalSubjects">0</strong></div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-icon"><svg class="icon"><use href="#i-filter"/></svg></span>
+                        <div><small>النتائج الحالية</small><strong id="visibleSubjects">0</strong></div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-icon"><svg class="icon"><use href="#i-layers"/></svg></span>
+                        <div><small>الاختصاصات</small><strong id="specialtyCount">0</strong></div>
+                    </div>
+                    <div class="stat-card is-hidden" id="visitorCard">
+                        <span class="stat-icon pulse"><svg class="icon"><use href="#i-eye"/></svg></span>
+                        <div><small>عدد الزوار</small><strong id="visitorCount">—</strong></div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="toolbar">
+            <div class="container">
+                <div class="panel" role="search">
+                    <div class="search-wrap">
+                        <label for="searchInput" class="sr-only">ابحث عن مادة أو رمز</label>
+                        <svg class="icon"><use href="#i-search"/></svg>
+                        <input type="search" id="searchInput" autocomplete="off" placeholder="ابحث باسم المادة أو رمزها… مثال: نظم تشغيل، BPR601" />
+                        <button class="clear-search" id="clearSearch" type="button" aria-label="مسح البحث">
+                            <svg class="icon"><use href="#i-x"/></svg>
+                        </button>
+                    </div>
+
+                    <div class="chip-row" id="semesterChips" role="group" aria-label="الفصل">
+                        <span class="chip-row-label">الفصل</span>
+                    </div>
+
+                    <div class="chip-row" id="specialtyChips" role="group" aria-label="الاختصاص">
+                        <span class="chip-row-label">الاختصاص</span>
+                    </div>
+
+                    <div class="actions">
+                        <div class="results-bar" id="resultsText" aria-live="polite">جاري تحميل المواد...</div>
+                        <button class="btn" id="resetFilters" type="button" hidden>
+                            <svg class="icon"><use href="#i-reset"/></svg> إعادة ضبط
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="container" id="results">
+            <div id="subjectsList"></div>
+
+            <noscript>
+                <div class="empty-state is-visible">
+                    <h3>يرجى تفعيل JavaScript</h3>
+                    <p>هذه الصفحة تحتاج JavaScript لعرض المواد وروابط القروبات.</p>
+                </div>
+            </noscript>
+
+            <div class="empty-state" id="emptyState">
+                <svg class="icon"><use href="#i-search"/></svg>
+                <h3>لا توجد نتائج</h3>
+                <p>جرّب تغيير الفصل أو الاختصاص أو كتابة كلمة بحث مختلفة.</p>
+                <button class="btn" type="button" data-reset>
+                    <svg class="icon"><use href="#i-reset"/></svg> عرض كل المواد
+                </button>
+            </div>
+        </section>
+
+        <section class="container connect" aria-labelledby="connectTitle">
+            <div class="semester-head">
+                <h2 id="connectTitle">القناة والمطوّر</h2>
+            </div>
+
+            <div class="connect-grid">
+                <a class="connect-card yt-card" href="https://www.youtube.com/svuhelp" target="_blank" rel="noopener noreferrer">
+                    <span class="connect-icon yt"><svg class="icon"><use href="#i-youtube"/></svg></span>
+                    <div class="connect-body">
+                        <small>قناتنا على يوتيوب</small>
+                        <strong>SVU Help</strong>
+                        <span class="connect-sub" dir="ltr">youtube.com/svuhelp</span>
+                    </div>
+                    <span class="yt-btn">
+                        <svg class="icon"><use href="#i-youtube"/></svg>
+                        زيارة القناة
+                    </span>
+                </a>
+
+                <div class="connect-card">
+                    <span class="connect-icon"><svg class="icon"><use href="#i-user"/></svg></span>
+                    <div class="connect-body">
+                        <small>مطوّر الصفحة</small>
+                        <strong>محمد عادل أيمن وتد</strong>
+                        <a class="connect-sub" href="tel:+963988038382" dir="ltr">0988 038 382</a>
+                    </div>
+                    <div class="dev-actions">
+                        <a class="join-btn" href="https://wa.me/963988038382" target="_blank" rel="noopener noreferrer">
+                            <svg class="icon"><use href="#i-chat"/></svg>
+                            <span>واتساب</span>
+                        </a>
+                        <button class="icon-btn" type="button" data-copy="0988038382" data-copy-label="تم نسخ الرقم" aria-label="نسخ رقم الهاتف" title="نسخ الرقم">
+                            <svg class="icon"><use href="#i-copy"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">صُنع بحب لطلاب الهندسة المعلوماتية ITE · تطوير <a href="https://wa.me/963988038382" target="_blank" rel="noopener noreferrer">محمد عادل أيمن وتد</a></div>
+    </footer>
+
+    <button class="to-top" id="toTop" type="button" aria-label="العودة للأعلى">
+        <svg class="icon"><use href="#i-up"/></svg>
+    </button>
+    <div class="toast" id="toast" role="status"></div>
+
+    <!-- Anime.js v4 (animation engine). If it fails to load, the page simply runs without motion. -->
+    <script src="https://cdn.jsdelivr.net/npm/animejs@4.5.0/dist/bundles/anime.umd.min.js"
+        integrity="sha384-InMmvD3VoYcY7hGjSC80aLb2bNNE4CzpX+Eq6FVDlmB0IKgDvmfPw4UY8L/M++iG"
+        crossorigin="anonymous"
+        onerror="document.documentElement.classList.remove('intro')"></script>
+
+    <script>
+        // Raw data: one entry per (subject, specialty). Shared subjects are merged at runtime.
+        const subjects = [
+            // Semester 1
+            { name: "البرمجة 1", code: "BPG401", semester: 1, specialty: "none", link: "https://chat.whatsapp.com/E6mMaaehzZhLITXahK1mqo" },
+            { name: "التحليل الرياضي 1", code: "BMA401", semester: 1, specialty: "none", link: "https://chat.whatsapp.com/GjWFiSYmr5vAHK80qhn9wF" },
+            { name: "الفيزياء", code: "BPH401", semester: 1, specialty: "none", link: "https://chat.whatsapp.com/B5unF46GCQI3IfKcZ4m0jD" },
+            { name: "الهيكلة الجبرية", code: "BAS401", semester: 1, specialty: "none", link: "https://chat.whatsapp.com/EHgFIeoqsv08tUNg64MWIK" },
+            { name: "مهارات الحاسوب", code: "GCS301", semester: 1, specialty: "none", link: "https://chat.whatsapp.com/Lc2UrwWUiu2HfGL8XfSZ4O" },
+            { name: "التعليم الإلكتروني", code: "GOE301", semester: 1, specialty: "none", link: "https://chat.whatsapp.com/IHz2qxcoMMP2h2ZIuoY8gk" },
+
+            // Semester 2
+            { name: "مهارات التواصل", code: "GWT301", semester: 2, specialty: "none", link: "https://chat.whatsapp.com/KMla31jeUxLJ9neJ7TQk9j" },
+            { name: "الجبر الخطي", code: "BLA401", semester: 2, specialty: "none", link: "https://chat.whatsapp.com/Ky2sdsuUjAILbOQvlcXSOd" },
+            { name: "التحليل الرياضي 2", code: "BMA402", semester: 2, specialty: "none", link: "https://chat.whatsapp.com/Bae8H5wdrFe8pIz09tfHfF" },
+            { name: "الدارات الالكترونية", code: "BEC401", semester: 2, specialty: "none", link: "https://chat.whatsapp.com/ICpv5HvRAN59ObkU0Hf1G6" },
+            { name: "الدارات المنطقية", code: "BLC401", semester: 2, specialty: "none", link: "https://chat.whatsapp.com/KU99FH0wLyp0ToTWz5DTCb" },
+            { name: "البرمجة 2", code: "BPG402", semester: 2, specialty: "none", link: "https://chat.whatsapp.com/DdyigXAHARM03juLxYHo8u" },
+
+            // Semester 3
+            { name: "بنى المعطيات والخوارزميات 1", code: "BDA501", semester: 3, specialty: "none", link: "https://chat.whatsapp.com/KPkws847TuTGB7Mx9OvLRA" },
+            { name: "تحليل عددي", code: "BNA401", semester: 3, specialty: "none", link: "https://chat.whatsapp.com/DtJjsUw1KeZC757k887iCi" },
+            { name: "برمجة الويب 1", code: "BWP401", semester: 3, specialty: "none", link: "https://chat.whatsapp.com/Hqb0LmKNgIaCCd65qdLNgM" },
+            { name: "بنيان الحاسوب 1", code: "BCA501", semester: 3, specialty: "none", link: "https://chat.whatsapp.com/BzlDHYWOjkf4HB78XktOBf" },
+            { name: "معالجة الاشارة", code: "BSP501", semester: 3, specialty: "none", link: "https://chat.whatsapp.com/BvsC0PBkaYYHv3EmLIxmEV" },
+
+            // Semester 4
+            { name: "أساسيات الإدارة", code: "GMN401", semester: 4, specialty: "none", link: "https://chat.whatsapp.com/HQ84TmcNKb3KkWhcbSq0Wt" },
+            { name: "نظم الإتصالات", code: "BTS501", semester: 4, specialty: "none", link: "https://chat.whatsapp.com/BRKWFVhoJ4M9y8BtcRLjN2" },
+            { name: "رياضيات متقطعة", code: "BDM501", semester: 4, specialty: "none", link: "https://chat.whatsapp.com/C8sxk5JpVwbJ64LY2mEsDV" },
+            { name: "نظم قواعد بيانات 1", code: "BDB501", semester: 4, specialty: "none", link: "https://chat.whatsapp.com/GMKSRWLKSsAFZskPsFP48J" },
+            { name: "مخبر نظم قواعد البيانات", code: "BDBL501", semester: 4, specialty: "none", link: "https://chat.whatsapp.com/CsBZNd8SNRRFC6mCg8eiJa" },
+            { name: "برمجة ويب 2", code: "BWP501", semester: 4, specialty: "none", link: "https://chat.whatsapp.com/I91PdWPLVPE25y6QlbbaOH" },
+
+            // Semester 5
+            { name: "الأوتومات واللغات الصورية", code: "BAU501", semester: 5, specialty: "none", link: "https://chat.whatsapp.com/DAX1XGvfDrgDE0sO1K9n60" },
+            { name: "نُظم التشغيل", code: "BOS501", semester: 5, specialty: "none", link: "https://chat.whatsapp.com/E9gLNUEf9Y1KN4nDUoJrnc" },
+            { name: "مخبر نُظم التشغيل", code: "BOSL501", semester: 5, specialty: "none", link: "https://chat.whatsapp.com/KEeSacsgaXu0vflFo24x3i" },
+            { name: "الاِحتمالات والإحصاء", code: "BPS", semester: 5, specialty: "none", link: "https://chat.whatsapp.com/I9lRk5OBPNgGKPH13cLk90" },
+            { name: "المحاسبة", code: "GAC501", semester: 5, specialty: "none", link: "https://chat.whatsapp.com/CQjtQEnsgYV2nYTqiwawKY" },
+            { name: "البرمجة 3", code: "BPG601", semester: 5, specialty: "none", link: "https://chat.whatsapp.com/CFBK4GCBKqM7ZTWJwaEJaW" },
+
+            // Semester 6
+            { name: "الشبكات الحاسوبية", code: "BNT", semester: 6, specialty: "none", link: "https://chat.whatsapp.com/L3jpGyroOxY01eESYPbb81" },
+            { name: "الذكاء الصُنعي", code: "BAI501", semester: 6, specialty: "none", link: "https://chat.whatsapp.com/Hc3dgzoQVPZLks4SDdU5gF" },
+            { name: "هندسة برمجيات", code: "BSE601", semester: 6, specialty: "none", link: "https://chat.whatsapp.com/BlkUXJhQvLm53WKCt9RRWd" },
+            { name: "المُترجمات", code: "BCM601", semester: 6, specialty: "none", link: "https://chat.whatsapp.com/FocADUoFhJA1UNV7zD1vuh" },
+            { name: "البيانيات", code: "BCG601", semester: 6, specialty: "none", link: "https://chat.whatsapp.com/Lut9MPuKRO3IXjGt1hSWvJ" },
+
+            // Semester 7
+            { name: "إدارة المشاريع المعلوماتية", code: "GPM601", semester: 7, specialty: "none", link: "https://chat.whatsapp.com/EhzmRT8POZaGuBsV2wYVlB" },
+            { name: "الخوارزميات الذكية", code: "BIA601", semester: 7, specialty: "none", link: "https://chat.whatsapp.com/L1MRxVM05GA5Pk9inHIwKs" },
+            { name: "برمجة تطبيقات النقال", code: "BMP601", semester: 7, specialty: "none", link: "https://chat.whatsapp.com/GfRwmpMGR0i3g68ZQRRm3p" },
+            { name: "تحليل و تصميم نُظم المعلومات", code: "BID601", semester: 7, specialty: "none", link: "https://chat.whatsapp.com/Cdv6xRFY76GBeuNRM2cSKZ" },
+            { name: "نُظم الوسائط المُتعددة", code: "BMM601", semester: 7, specialty: "none", link: "https://chat.whatsapp.com/GbM5yM3dlQh6F331Y8d5mL" },
+
+            // ML - Semester 8
+            { name: "أخلاقيات المهنة و المجتمع", code: "GET601", semester: 8, specialty: "ML", link: "https://chat.whatsapp.com/EcO7Tkd6qXc2jlcXgixbjl" },
+            { name: "تحليل البيانات الضخمة", code: "MDA601", semester: 8, specialty: "ML", link: "https://chat.whatsapp.com/GZaM2ujcp20IjBuDjXGQXF" },
+            { name: "مُعالجة الصورة الرقمية", code: "AIP601", semester: 8, specialty: "ML", link: "https://chat.whatsapp.com/CvmE6DlqoP8A8846DXUlCK" },
+            { name: "الشبكات العصبونية و المنطق العائم", code: "ANN601", semester: 8, specialty: "ML", link: "https://chat.whatsapp.com/BRNIoRLx8goEPc9P9eeAFf" },
+            { name: "مشروع 1", code: "BPR601", semester: 8, specialty: "ML", link: "https://chat.whatsapp.com/GYlHc2GnIap67NUliMdiCt" },
+
+            // ML - Semester 9
+            { name: "أمن نُظم المعلومات", code: "BIS601", semester: 9, specialty: "ML", link: "https://chat.whatsapp.com/DNbLc9MIAyc5qOlt9TzTiC" },
+            { name: "الرؤية الحاسوبية", code: "ACV601", semester: 9, specialty: "ML", link: "https://chat.whatsapp.com/ILWQwwOv09bEZqXgAUxGoW" },
+            { name: "معالجة اللغات الطبيعية", code: "ANL601", semester: 9, specialty: "ML", link: "https://chat.whatsapp.com/Gf0kORICzGJLjKTp0SXqYN" },
+            { name: "تعلم الآلة", code: "AML601", semester: 9, specialty: "ML", link: "https://chat.whatsapp.com/BitwyutjNxwF4nqbgbQvRp" },
+            { name: "مشروع 2", code: "BPR602", semester: 9, specialty: "ML", link: "https://chat.whatsapp.com/GrOu6NW1hhK83rQZX0pScw" },
+
+            // ML - Semester 10
+            { name: "نظرية المعرفة و علوم الحاسب", code: "GEP601", semester: 10, specialty: "ML", link: "https://chat.whatsapp.com/IYoOlBKJTrh5rVPBvDJ3ch" },
+            { name: "النمذجة والمُحاكاة و التحقق", code: "BSM601", semester: 10, specialty: "ML", link: "https://chat.whatsapp.com/D7VoyPG7llpCTogLb9vXVw" },
+            { name: "استرجاع المعلومات", code: "SIR601", semester: 10, specialty: "ML", link: "https://chat.whatsapp.com/GGzLbhClc3e6ZQPd4rtHLd" },
+            { name: "إنترنت الأشياء وسلاسل الكتل", code: "MBC601", semester: 10, specialty: "ML", link: "https://chat.whatsapp.com/JZZ4vbu4qcvBnlldtZz46s" },
+            { name: "التعلم العميق", code: "MDL601", semester: 10, specialty: "ML", link: "https://chat.whatsapp.com/Jg2J3mMJPy35jXs2LSRW8a" },
+
+            // IS - Semester 8
+            { name: "أخلاقيات المهنة و المجتمع", code: "GET601", semester: 8, specialty: "IS", link: "https://chat.whatsapp.com/EcO7Tkd6qXc2jlcXgixbjl" },
+            { name: "النُظم الخبيرة", code: "AES601", semester: 8, specialty: "IS", link: "https://chat.whatsapp.com/LAQA66mqyvy17FEyigJX3F" },
+            { name: "مُعالجة الصورة الرقمية", code: "AIP601", semester: 8, specialty: "IS", link: "https://chat.whatsapp.com/CvmE6DlqoP8A8846DXUlCK" },
+            { name: "الشبكات العصبونية و المنطق العائم", code: "ANN601", semester: 8, specialty: "IS", link: "https://chat.whatsapp.com/BRNIoRLx8goEPc9P9eeAFf" },
+            { name: "مشروع 1", code: "BPR601", semester: 8, specialty: "IS", link: "https://chat.whatsapp.com/GYlHc2GnIap67NUliMdiCt" },
+
+            // IS - Semester 9
+            { name: "أمن نُظم المعلومات", code: "BIS601", semester: 9, specialty: "IS", link: "https://chat.whatsapp.com/DNbLc9MIAyc5qOlt9TzTiC" },
+            { name: "الرؤية الحاسوبية", code: "ACV601", semester: 9, specialty: "IS", link: "https://chat.whatsapp.com/ILWQwwOv09bEZqXgAUxGoW" },
+            { name: "معالجة اللغات الطبيعية", code: "ANL601", semester: 9, specialty: "IS", link: "https://chat.whatsapp.com/Gf0kORICzGJLjKTp0SXqYN" },
+            { name: "الويب الدلالي", code: "SSW601", semester: 9, specialty: "IS", link: "https://chat.whatsapp.com/DObGHbBugrZ2c3UfB6MsV7" },
+            { name: "مشروع 2", code: "BPR602", semester: 9, specialty: "IS", link: "https://chat.whatsapp.com/GrOu6NW1hhK83rQZX0pScw" },
+
+            // IS - Semester 10
+            { name: "نظرية المعرفة و علوم الحاسب", code: "GEP601", semester: 10, specialty: "IS", link: "https://chat.whatsapp.com/IYoOlBKJTrh5rVPBvDJ3ch" },
+            { name: "النمذجة والمُحاكاة و التحقق", code: "BSM601", semester: 10, specialty: "IS", link: "https://chat.whatsapp.com/D7VoyPG7llpCTogLb9vXVw" },
+            { name: "استرجاع المعلومات", code: "SIR601", semester: 10, specialty: "IS", link: "https://chat.whatsapp.com/GGzLbhClc3e6ZQPd4rtHLd" },
+            { name: "الواقع الاِفتراضي", code: "AVR601", semester: 10, specialty: "IS", link: "https://chat.whatsapp.com/G7KMBHqBlrQ8DZoIMePczd" },
+            { name: "تعلم الآلة", code: "AML601", semester: 10, specialty: "IS", link: "https://chat.whatsapp.com/BitwyutjNxwF4nqbgbQvRp" },
+
+            // SD - Semester 8
+            { name: "أخلاقيات المهنة و المجتمع", code: "GET601", semester: 8, specialty: "SD", link: "https://chat.whatsapp.com/EcO7Tkd6qXc2jlcXgixbjl" },
+            { name: "هندسة البرمجيات 2", code: "SSE602", semester: 8, specialty: "SD", link: "https://chat.whatsapp.com/GTKIVVmr5ZWJiO7Sa2LeWu" },
+            { name: "بُنى المعطيات و الخوارزميات 2", code: "SDA601", semester: 8, specialty: "SD", link: "https://chat.whatsapp.com/KVaAj2QEb0v2rqXJqcNd1p" },
+            { name: "نُظم قواعد البيانات", code: "SBD601", semester: 8, specialty: "SD", link: "https://chat.whatsapp.com/BaIrruiKDnPBfEedK74xN7" },
+            { name: "مخبر نُظم قواعد البيانات 2", code: "SDBL601", semester: 8, specialty: "SD", link: "https://chat.whatsapp.com/K6jR0H8CFkmG91TZOxxe3D" },
+            { name: "مشروع 1", code: "BPR601", semester: 8, specialty: "SD", link: "https://chat.whatsapp.com/GYlHc2GnIap67NUliMdiCt" },
+
+            // SD - Semester 9
+            { name: "أمن نُظم المعلومات", code: "BIS601", semester: 9, specialty: "SD", link: "https://chat.whatsapp.com/DNbLc9MIAyc5qOlt9TzTiC" },
+            { name: "تحليل وتصميم الخوارزميات", code: "SAD601", semester: 9, specialty: "SD", link: "https://chat.whatsapp.com/KCnqzBIgu8rIVyw7sWxJFX" },
+            { name: "مشروع المُترجمات", code: "SCP601", semester: 9, specialty: "SD", link: "https://chat.whatsapp.com/EpYEJ98Pr6QAB74oWKvLXA" },
+            { name: "تنقيب البيانات", code: "SDE601", semester: 9, specialty: "SD", link: "https://chat.whatsapp.com/ChW5uyOeTb68xwkQNfXiZ6" },
+            { name: "مشروع 2", code: "BPR602", semester: 9, specialty: "SD", link: "https://chat.whatsapp.com/G4VhdVvcvICFjNrQKHije5" },
+
+            // SD - Semester 10
+            { name: "نظرية المعرفة و علوم الحاسب", code: "GEP601", semester: 10, specialty: "SD", link: "https://chat.whatsapp.com/IYoOlBKJTrh5rVPBvDJ3ch" },
+            { name: "النمذجة والمُحاكاة و التحقق", code: "BSM601", semester: 10, specialty: "SD", link: "https://chat.whatsapp.com/D7VoyPG7llpCTogLb9vXVw" },
+            { name: "استرجاع المعلومات", code: "SIR601", semester: 10, specialty: "SD", link: "https://chat.whatsapp.com/GGzLbhClc3e6ZQPd4rtHLd" },
+            { name: "الويب الدلالي", code: "SSW601", semester: 10, specialty: "SD", link: "https://chat.whatsapp.com/DObGHbBugrZ2c3UfB6MsV7" },
+            { name: "جودة البرمجيات", code: "SSQ601", semester: 10, specialty: "SD", link: "https://chat.whatsapp.com/EX33ohylofgAGCDpCmZvFd" },
+
+            // DS - Semester 8
+            { name: "أخلاقيات المهنة و المجتمع", code: "GET601", semester: 8, specialty: "DS", link: "https://chat.whatsapp.com/EcO7Tkd6qXc2jlcXgixbjl" },
+            { name: "برمجة خاصة بعلم البيانات", code: "DPD601", semester: 8, specialty: "DS", link: "https://chat.whatsapp.com/H8AtMrkyu04Ixe91Oh70U3" },
+            { name: "البيانات المفتوحة و البيانات الكبيرة", code: "DOB601", semester: 8, specialty: "DS", link: "https://chat.whatsapp.com/Egw9Am9fqLd1qNu5iaKBfN" },
+            { name: "نُظم قواعد البيانات 2", code: "SBD601", semester: 8, specialty: "DS", link: "https://chat.whatsapp.com/BaIrruiKDnPBfEedK74xN7" },
+            { name: "قواعد بيانات (NoSQL)", code: "DNL601", semester: 8, specialty: "DS", link: "https://chat.whatsapp.com/IVYxHVGCUyyAXGoOMZlw95" },
+            { name: "مشروع 1", code: "BPR601", semester: 8, specialty: "DS", link: "https://chat.whatsapp.com/GYlHc2GnIap67NUliMdiCt" },
+
+            // DS - Semester 9
+            { name: "أمن نُظم المعلومات", code: "BIS601", semester: 9, specialty: "DS", link: "https://chat.whatsapp.com/DNbLc9MIAyc5qOlt9TzTiC" },
+            { name: "الإحصاء وتحليل البيانات", code: "DSA601", semester: 9, specialty: "DS", link: "https://chat.whatsapp.com/GLNLUUAPTZT6c8gVLSgJnJ" },
+            { name: "مواضيع مُتقدمة في البيانات الكبيرة", code: "DBD601", semester: 9, specialty: "DS", link: "https://chat.whatsapp.com/EBV0I8mM6cfJqI7FzT82cI" },
+            { name: "تنقيب البيانات", code: "SDE601", semester: 9, specialty: "DS", link: "https://chat.whatsapp.com/ChW5uyOeTb68xwkQNfXiZ6" },
+            { name: "مشروع 2", code: "BPR602", semester: 9, specialty: "DS", link: "https://chat.whatsapp.com/G4VhdVvcvICFjNrQKHije5" },
+
+            // DS - Semester 10
+            { name: "نظرية المعرفة و علوم الحاسب", code: "GEP601", semester: 10, specialty: "DS", link: "https://chat.whatsapp.com/IYoOlBKJTrh5rVPBvDJ3ch" },
+            { name: "النمذجة والمُحاكاة و التحقق", code: "BSM601", semester: 10, specialty: "DS", link: "https://chat.whatsapp.com/D7VoyPG7llpCTogLb9vXVw" },
+            { name: "استرجاع المعلومات", code: "SIR601", semester: 10, specialty: "DS", link: "https://chat.whatsapp.com/GGzLbhClc3e6ZQPd4rtHLd" },
+            { name: "الويب الدلالي", code: "SSW601", semester: 10, specialty: "DS", link: "https://chat.whatsapp.com/DObGHbBugrZ2c3UfB6MsV7" },
+            { name: "التمثيل المرئي للبيانات", code: "DDV601", semester: 10, specialty: "DS", link: "https://chat.whatsapp.com/KhugiRBfkLn55vJ1SQavZp" },
+
+            // CS - Semester 8
+            { name: "أخلاقيات المهنة و المجتمع", code: "GET601", semester: 8, specialty: "CS", link: "https://chat.whatsapp.com/EcO7Tkd6qXc2jlcXgixbjl" },
+            { name: "إدارة الأمن", code: "CSM601", semester: 8, specialty: "CS", link: "https://chat.whatsapp.com/KqXKPfy91aY7WNiFy2EJpw" },
+            { name: "نُظم التعمية", code: "CCR601", semester: 8, specialty: "CS", link: "https://chat.whatsapp.com/EB981tMB1mQ5UHjxYOPrOq" },
+            { name: "نُظم التشغيل 2", code: "NOS601", semester: 8, specialty: "CS", link: "https://chat.whatsapp.com/BJWFGLsVKeT2gSUPP2g8qw" },
+            { name: "الاستجابة للأحداث الأمنية", code: "CIR601", semester: 8, specialty: "CS", link: "https://chat.whatsapp.com/BgYXX5bBXbQ7Cbk5q6H14O" },
+            { name: "مشروع 1", code: "BPR601", semester: 8, specialty: "CS", link: "https://chat.whatsapp.com/GYlHc2GnIap67NUliMdiCt" },
+
+            // CS - Semester 9
+            { name: "أمن نُظم المعلومات", code: "BIS601", semester: 9, specialty: "CS", link: "https://chat.whatsapp.com/DNbLc9MIAyc5qOlt9TzTiC" },
+            { name: "أمن نظم التشغيل", code: "CSO601", semester: 9, specialty: "CS", link: "https://chat.whatsapp.com/CtmNTma58V45iRXLQlG8k7" },
+            { name: "الشبكات الحاسوبية 2", code: "NNT601", semester: 9, specialty: "CS", link: "https://chat.whatsapp.com/Ll8QNWLxTJj4jOkbzQT3dF" },
+            { name: "النُظم الموزعة و السحابية", code: "NDS601", semester: 9, specialty: "CS", link: "https://chat.whatsapp.com/L0CbZrGWFQ4I2x1lFNr8aX" },
+            { name: "مشروع 2", code: "BPR602", semester: 9, specialty: "CS", link: "https://chat.whatsapp.com/DmyVED1pihW56JZbVkUihL" },
+
+            // CS - Semester 10
+            { name: "نظرية المعرفة و علوم الحاسب", code: "GEP601", semester: 10, specialty: "CS", link: "https://chat.whatsapp.com/IYoOlBKJTrh5rVPBvDJ3ch" },
+            { name: "النمذجة والمُحاكاة و التحقق", code: "BSM601", semester: 10, specialty: "CS", link: "https://chat.whatsapp.com/D7VoyPG7llpCTogLb9vXVw" },
+            { name: "الأمن في النُظم الحديثة", code: "CMS601", semester: 10, specialty: "CS", link: "https://chat.whatsapp.com/BxMaD6VcricDWOs8UkfHKX" },
+            { name: "أمن الشبكات الحاسوبية", code: "NSS601", semester: 10, specialty: "CS", link: "https://chat.whatsapp.com/E4oYgi2VeLPCTcM152BVOa" },
+            { name: "الاختراق الأخلاقي", code: "CEH601", semester: 10, specialty: "CS", link: "https://chat.whatsapp.com/BdqTc67yS38CBqP2VlQlPa" },
+
+            // NS - Semester 8
+            { name: "أخلاقيات المهنة و المجتمع", code: "GET601", semester: 8, specialty: "NS", link: "https://chat.whatsapp.com/EcO7Tkd6qXc2jlcXgixbjl" },
+            { name: "بُنيان الحاسوب 2", code: "NCA601", semester: 8, specialty: "NS", link: "https://chat.whatsapp.com/J542ruKpFBq9lG1vN4R1Qb" },
+            { name: "برمجة التطبيقات الشبكية", code: "NNP601", semester: 8, specialty: "NS", link: "https://chat.whatsapp.com/FZ0VWwLZ81wJIjNNNQM2zf" },
+            { name: "نُظم التشغيل 2", code: "NOS601", semester: 8, specialty: "NS", link: "https://chat.whatsapp.com/BJWFGLsVKeT2gSUPP2g8qw" },
+            { name: "مخبر نُظم التشغيل 2", code: "NOSL601", semester: 8, specialty: "NS", link: "https://chat.whatsapp.com/CuQP4tdKbBr4fCKLo9iOTC" },
+            { name: "مشروع 1", code: "BPR601", semester: 8, specialty: "NS", link: "https://chat.whatsapp.com/GYlHc2GnIap67NUliMdiCt" },
+
+            // NS - Semester 9
+            { name: "أمن نُظم المعلومات", code: "BIS601", semester: 9, specialty: "NS", link: "https://chat.whatsapp.com/DNbLc9MIAyc5qOlt9TzTiC" },
+            { name: "خدمات شبكية", code: "NNS601", semester: 9, specialty: "NS", link: "https://chat.whatsapp.com/CuN0rggecMTLS3q3dM1YCd" },
+            { name: "الشبكات الحاسوبية 2", code: "NNT601", semester: 9, specialty: "NS", link: "https://chat.whatsapp.com/Ll8QNWLxTJj4jOkbzQT3dF" },
+            { name: "النُظم الموزعة و السحابية", code: "NDS601", semester: 9, specialty: "NS", link: "https://chat.whatsapp.com/L0CbZrGWFQ4I2x1lFNr8aX" },
+            { name: "مشروع 2", code: "BPR602", semester: 9, specialty: "NS", link: "https://chat.whatsapp.com/DmyVED1pihW56JZbVkUihL" },
+
+            // NS - Semester 10
+            { name: "نظرية المعرفة و علوم الحاسب", code: "GEP601", semester: 10, specialty: "NS", link: "https://chat.whatsapp.com/IYoOlBKJTrh5rVPBvDJ3ch" },
+            { name: "النمذجة والمُحاكاة و التحقق", code: "BSM601", semester: 10, specialty: "NS", link: "https://chat.whatsapp.com/D7VoyPG7llpCTogLb9vXVw" },
+            { name: "إدارة الشبكات", code: "NNM601", semester: 10, specialty: "NS", link: "https://chat.whatsapp.com/B6eLtAcqgnRI8FUPYY5P7v" },
+            { name: "أمن الشبكات الحاسوبية", code: "NSS601", semester: 10, specialty: "NS", link: "https://chat.whatsapp.com/E4oYgi2VeLPCTcM152BVOa" },
+            { name: "نُظم الزمن الحقيقي", code: "NRT601", semester: 10, specialty: "NS", link: "https://chat.whatsapp.com/FyRApAHAGYY963S507ykvm" }
+        ];
+
+        // Specialty codes -> Arabic labels and chip dot colours
+        const specialties = {
+            none: { name: "مواد عامة", color: "#94a3b8" },
+            ML: { name: "تعلم الآلة", color: "#a78bfa" },
+            IS: { name: "النُظم الذكية", color: "#f472b6" },
+            SD: { name: "تطوير البرمجيات", color: "#38bdf8" },
+            DS: { name: "علم البيانات", color: "#fbbf24" },
+            CS: { name: "الأمن السيبراني", color: "#f87171" },
+            NS: { name: "النُظم الشبكية", color: "#34d399" }
+        };
+
+        const semesterNames = ["", "الأول", "الثاني", "الثالث", "الرابع", "الخامس", "السادس", "السابع", "الثامن", "التاسع", "العاشر"];
+
+        // Merge entries that point to the same group (same semester + code + link)
+        // so a subject shared by 6 specialties shows as one card instead of six.
+        const courses = [];
+        const byKey = new Map();
+        for (const s of subjects) {
+            const key = `${s.semester}|${s.code}|${s.link}`;
+            if (!byKey.has(key)) {
+                const course = { ...s, id: courses.length, specialties: [] };
+                byKey.set(key, course);
+                courses.push(course);
+            }
+            const course = byKey.get(key);
+            if (!course.specialties.includes(s.specialty)) course.specialties.push(s.specialty);
+        }
+
+        // Arabic-aware normalisation: strips diacritics/tatweel and unifies letter variants,
+        // so "نظم" matches "نُظم" and "اداره" matches "إدارة".
+        function normalize(text) {
+            return String(text)
+                .toLowerCase()
+                .replace(/[ً-ٰٟـ]/g, "")
+                .replace(/[أإآٱ]/g, "ا")
+                .replace(/ى/g, "ي")
+                .replace(/ة/g, "ه")
+                .replace(/ؤ/g, "و")
+                .replace(/ئ/g, "ي")
+                .replace(/\s+/g, " ")
+                .trim();
+        }
+
+        for (const c of courses) c.searchText = normalize(`${c.name} ${c.code}`);
+
+        const escapeHtml = str => String(str).replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+
+        function iconFor(course) {
+            if (/L\d/.test(course.code)) return "i-flask";      // labs, e.g. BDBL501
+            if (course.code.startsWith("BPR")) return "i-folder"; // projects
+            if (course.code.startsWith("G")) return "i-globe";   // general-education
+            return "i-book";
+        }
+
+        // ---------- State (kept in the URL so filtered views can be shared) ----------
+        const state = { semester: "", specialty: "", search: "" };
+
+        function readStateFromUrl() {
+            const params = new URLSearchParams(location.search);
+            state.semester = params.get("s") || "";
+            state.specialty = params.get("sp") || "";
+            state.search = params.get("q") || "";
+            if (state.semester && !semesterNames[state.semester]) state.semester = "";
+            if (state.specialty && !specialties[state.specialty]) state.specialty = "";
+        }
+
+        function writeStateToUrl() {
+            const params = new URLSearchParams();
+            if (state.semester) params.set("s", state.semester);
+            if (state.specialty) params.set("sp", state.specialty);
+            if (state.search) params.set("q", state.search);
+            const qs = params.toString();
+            history.replaceState(null, "", qs ? `?${qs}` : location.pathname);
+        }
+
+        // ---------- Filter chips ----------
+        function buildChips(container, options, key) {
+            for (const [value, label] of options) {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "filter-chip";
+                btn.dataset.value = value;
+                btn.textContent = label;
+                btn.addEventListener("click", () => {
+                    state[key] = value;
+                    update();
+                    popElement(btn);
+                });
+                container.appendChild(btn);
+            }
+        }
+
+        function syncChips() {
+            for (const btn of document.querySelectorAll("#semesterChips .filter-chip")) {
+                btn.setAttribute("aria-pressed", String(btn.dataset.value === state.semester));
+            }
+            for (const btn of document.querySelectorAll("#specialtyChips .filter-chip")) {
+                btn.setAttribute("aria-pressed", String(btn.dataset.value === state.specialty));
+            }
+        }
+
+        // ---------- Motion (Anime.js) ----------
+        const A = window.anime;
+        const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+        const canAnimate = () => !!(A && A.animate) && !reduceMotion.matches;
+        if (canAnimate()) document.documentElement.classList.add("has-anime");
+        else document.documentElement.classList.remove("intro");
+
+        const clean = anim => A.cleanInlineStyles(anim);
+
+        // Count numbers up/down from whatever is currently shown
+        const numberState = new WeakMap();
+        function setNumber(el, to, duration = 600) {
+            if (!canAnimate()) { el.textContent = to.toLocaleString("en-US"); return; }
+            let obj = numberState.get(el);
+            if (!obj) {
+                obj = { v: parseFloat(el.textContent.replace(/,/g, "")) || 0 };
+                numberState.set(el, obj);
+            }
+            A.animate(obj, {
+                v: to,
+                duration,
+                ease: "outExpo",
+                onUpdate: () => { el.textContent = Math.round(obj.v).toLocaleString("en-US"); }
+            });
+        }
+
+        // Semester headings slide in, cards rise with a stagger
+        let cardsTimeline = null;
+        function animateResults(container, startDelay = 0) {
+            if (!canAnimate()) return;
+            const cards = container.querySelectorAll(".subject-card");
+            if (!cards.length) return;
+            if (cardsTimeline) cardsTimeline.cancel();
+            container.classList.add("is-animating");
+            cardsTimeline = A.createTimeline({
+                delay: startDelay,
+                onComplete: tl => {
+                    container.classList.remove("is-animating");
+                    clean(tl);
+                    cardsTimeline = null;
+                }
+            })
+                .add(container.querySelectorAll(".semester-head"), {
+                    opacity: [0, 1],
+                    x: [30, 0],
+                    duration: 600,
+                    ease: "outExpo",
+                    delay: A.stagger(70)
+                }, 0)
+                .add(cards, {
+                    opacity: [0, 1],
+                    y: [24, 0],
+                    scale: [0.96, 1],
+                    duration: 700,
+                    ease: "outExpo",
+                    delay: (el, i) => Math.min(i, 14) * 35
+                }, 60);
+        }
+
+        // Page intro: badge, controls, headline word by word, stats, filter panel
+        function playIntro() {
+            const root = document.documentElement;
+            if (!canAnimate() || !root.classList.contains("intro")) { root.classList.remove("intro"); return; }
+
+            const h1 = document.querySelector(".hero h1");
+            let words = [h1];
+            try {
+                // Words only: splitting Arabic into letters would break letter joining
+                words = A.splitText(h1, { words: { class: "word" } }).words;
+            } catch (e) { }
+
+            A.createTimeline({
+                defaults: { ease: "outExpo", duration: 700 },
+                onComplete: tl => { root.classList.remove("intro"); clean(tl); }
+            })
+                .add(".hero-badge", { opacity: [0, 1], y: [-14, 0] }, 0)
+                .add(".hero-controls > button", {
+                    opacity: [0, 1],
+                    scale: [0.5, 1],
+                    ease: A.spring({ bounce: 0.45, duration: 600 }),
+                    delay: A.stagger(70)
+                }, 80)
+                .set(h1, { opacity: 1 }, 120)
+                .add(words, {
+                    opacity: [0, 1],
+                    y: [26, 0],
+                    duration: 800,
+                    delay: A.stagger(70)
+                }, 120)
+                .add(".hero p", { opacity: [0, 1], y: [14, 0] }, 380)
+                .add(".top-stats .stat-card", {
+                    opacity: [0, 1],
+                    y: [22, 0],
+                    scale: [0.95, 1],
+                    delay: A.stagger(80)
+                }, 480)
+                .add(".toolbar .panel", { opacity: [0, 1], y: [22, 0] }, 650);
+        }
+
+        // Selected chip gets a springy pop
+        function popElement(el, from = 0.86) {
+            if (!canAnimate()) return;
+            A.animate(el, {
+                scale: [from, 1],
+                ease: A.spring({ bounce: 0.55, duration: 500 }),
+                onComplete: clean
+            });
+        }
+
+        // Scroll reveal for the channel / developer cards
+        function setupScrollReveal() {
+            if (!canAnimate() || !A.onScroll) return;
+            const section = document.querySelector(".connect");
+            section.classList.add("is-revealing");
+            A.animate(section.querySelectorAll(".connect-card"), {
+                opacity: [0, 1],
+                y: [40, 0],
+                duration: 900,
+                ease: "outExpo",
+                delay: A.stagger(120),
+                autoplay: A.onScroll({ target: section, enter: "bottom-=60 top" }),
+                onComplete: anim => { section.classList.remove("is-revealing"); clean(anim); }
+            });
+        }
+
+        // ---------- Rendering ----------
+        function createSubjectCard(course, index) {
+            const shownSpecialties = course.specialties.length === Object.keys(specialties).length - 1
+                ? [["all", "جميع الاختصاصات", "#94a3b8"]]
+                : course.specialties.map(sp => [sp, specialties[sp].name, specialties[sp].color]);
+
+            return `
+                <article class="subject-card" style="--i:${Math.min(index, 12)}">
+                    <div class="subject-top">
+                        <div class="subject-icon"><svg class="icon"><use href="#${iconFor(course)}"/></svg></div>
+                        <div>
+                            <h3 class="subject-title">${escapeHtml(course.name)}</h3>
+                            <span class="subject-code">${escapeHtml(course.code)}</span>
+                        </div>
+                    </div>
+
+                    <div class="meta-row">
+                        ${shownSpecialties.map(([, name, color]) => `<span class="chip" style="--dot:${color}">${name}</span>`).join("")}
+                    </div>
+
+                    <div class="subject-footer">
+                        <a class="join-btn" href="${escapeHtml(course.link)}" target="_blank" rel="noopener noreferrer">
+                            <svg class="icon"><use href="#i-chat"/></svg>
+                            <span>انضم للقروب</span>
+                            <svg class="icon flip"><use href="#i-arrow"/></svg>
+                        </a>
+                        <button class="icon-btn" type="button" data-copy="${escapeHtml(course.link)}" aria-label="نسخ رابط ${escapeHtml(course.name)}" title="نسخ الرابط">
+                            <svg class="icon"><use href="#i-link"/></svg>
+                        </button>
+                    </div>
+                </article>
+            `;
+        }
+
+        let lastRenderKey = null;
+        let isFirstRender = true;
+
+        function renderSubjects(list, animate) {
+            // Skip the DOM rebuild when the result set hasn't changed (e.g. typing a trailing space)
+            const renderKey = list.map(c => c.id).join(",");
+            if (renderKey === lastRenderKey) return;
+            lastRenderKey = renderKey;
+
+            const bySemester = new Map();
+            for (const c of list) {
+                if (!bySemester.has(c.semester)) bySemester.set(c.semester, []);
+                bySemester.get(c.semester).push(c);
+            }
+
+            let html = "";
+            for (const [semester, items] of [...bySemester].sort((a, b) => a[0] - b[0])) {
+                html += `
+                    <section class="semester-section" aria-labelledby="sem-${semester}">
+                        <div class="semester-head">
+                            <h2 id="sem-${semester}">الفصل ${semesterNames[semester]}</h2>
+                            <span>${items.length} ${items.length === 1 ? "مادة" : "مواد"}</span>
+                        </div>
+                        <div class="subjects-grid">${items.map(createSubjectCard).join("")}</div>
+                    </section>
+                `;
+            }
+
+            const container = document.getElementById("subjectsList");
+            container.classList.toggle("no-anim", !animate);
+            container.innerHTML = html;
+            const emptyState = document.getElementById("emptyState");
+            const wasEmpty = emptyState.classList.contains("is-visible");
+            emptyState.classList.toggle("is-visible", list.length === 0);
+
+            if (animate) animateResults(container, isFirstRender ? 450 : 0);
+            isFirstRender = false;
+
+            // Empty state: fade up and give the search icon a little "no" shake
+            if (list.length === 0 && !wasEmpty && canAnimate()) {
+                A.animate(emptyState, { opacity: [0, 1], y: [16, 0], duration: 500, ease: "outExpo", onComplete: clean });
+                A.animate(emptyState.querySelector(".icon"), { rotate: [0, -14, 12, -8, 0], duration: 700, ease: "inOutSine", onComplete: clean });
+            }
+        }
+
+        function filterCourses() {
+            const query = normalize(state.search);
+            const words = query ? query.split(" ") : [];
+
+            return courses.filter(c => {
+                const semesterMatch = !state.semester || String(c.semester) === state.semester;
+                // A specialty means "my track": its own subjects plus the common ones.
+                const specialtyMatch = !state.specialty
+                    || c.specialties.includes(state.specialty)
+                    || (state.specialty !== "none" && c.specialties.includes("none"));
+                const searchMatch = words.every(w => c.searchText.includes(w));
+                return semesterMatch && specialtyMatch && searchMatch;
+            });
+        }
+
+        function update({ animate = true } = {}) {
+            const filtered = filterCourses();
+            renderSubjects(filtered, animate);
+            syncChips();
+            writeStateToUrl();
+
+            const hasFilters = state.semester || state.specialty || state.search;
+            document.getElementById("resetFilters").hidden = !hasFilters;
+            document.getElementById("clearSearch").classList.toggle("is-visible", !!state.search);
+            setNumber(document.getElementById("visibleSubjects"), filtered.length, isFirstRender ? 1200 : 500);
+            document.getElementById("resultsText").innerHTML = hasFilters
+                ? `تم العثور على <strong>${filtered.length}</strong> من أصل ${courses.length} مادة`
+                : `عرض جميع المواد (<strong>${courses.length}</strong>)`;
+        }
+
+        function resetFilters() {
+            state.semester = "";
+            state.specialty = "";
+            state.search = "";
+            document.getElementById("searchInput").value = "";
+            update();
+        }
+
+        // ---------- Theme ----------
+        const themeMedia = matchMedia("(prefers-color-scheme: light)");
+
+        function activeTheme() {
+            return document.documentElement.dataset.theme || (themeMedia.matches ? "light" : "dark");
+        }
+
+        function syncThemeUi() {
+            document.body.dataset.activeTheme = activeTheme();
+            // Keep the mobile browser bar in step with the chosen theme, not just the OS setting
+            const bg = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim();
+            for (const meta of document.querySelectorAll('meta[name="theme-color"]')) meta.content = bg;
+        }
+
+        document.getElementById("themeToggle").addEventListener("click", () => {
+            const next = activeTheme() === "dark" ? "light" : "dark";
+            document.documentElement.dataset.theme = next;
+            try { localStorage.setItem("ite-theme", next); } catch (e) { }
+            syncThemeUi();
+        });
+        themeMedia.addEventListener("change", syncThemeUi);
+
+        // ---------- Palette presets ----------
+        const palettes = [
+            ["ocean", "المحيط", "#38bdf8", "#2563eb"],
+            ["emerald", "الزمرّد", "#34d399", "#047857"],
+            ["violet", "البنفسجي", "#a78bfa", "#6d28d9"],
+            ["sunset", "الغروب", "#fb923c", "#c2410c"],
+            ["rose", "الوردي", "#f472b6", "#be185d"]
+        ];
+
+        const paletteMenu = document.getElementById("paletteMenu");
+        const paletteToggle = document.getElementById("paletteToggle");
+
+        for (const [id, label, c1, c2] of palettes) {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "palette-option";
+            btn.setAttribute("role", "radio");
+            btn.dataset.palette = id;
+            btn.innerHTML = `<span class="swatch" style="--sw1:${c1};--sw2:${c2}"></span>${label}<svg class="icon check"><use href="#i-check"/></svg>`;
+            btn.addEventListener("click", () => setPalette(id));
+            document.getElementById("paletteGroup").appendChild(btn);
+        }
+
+        function syncPaletteUi() {
+            const active = document.documentElement.dataset.palette || "ocean";
+            for (const btn of document.querySelectorAll("#paletteGroup .palette-option")) {
+                btn.setAttribute("aria-checked", String(btn.dataset.palette === active));
+            }
+        }
+
+        // ---------- Font switcher (fonts list lives in the <head> script: ITE_FONTS) ----------
+        const fontSample = "روابط القروبات";
+        const fontGroup = document.getElementById("fontGroup");
+
+        for (const [id, family, query] of ITE_FONTS) {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "palette-option font-option";
+            btn.setAttribute("role", "radio");
+            btn.dataset.font = id;
+            btn.innerHTML = `<svg class="icon check font-check"><use href="#i-check"/></svg><span class="font-sample" style="font-family:'${family}'">${fontSample}</span><span class="font-name">${family}</span>`;
+            btn.addEventListener("click", () => setFont(id));
+            fontGroup.appendChild(btn);
+        }
+
+        // Previews download only the glyphs of the sample text (Google Fonts "text=" subset), once.
+        let fontPreviewsLoaded = false;
+        function loadFontPreviews() {
+            if (fontPreviewsLoaded) return;
+            fontPreviewsLoaded = true;
+            for (const [, , query] of ITE_FONTS) {
+                const link = document.createElement("link");
+                link.rel = "stylesheet";
+                link.href = `https://fonts.googleapis.com/css2?family=${query.split(":")[0]}:wght@700&text=${encodeURIComponent(fontSample)}&display=swap`;
+                document.head.appendChild(link);
+            }
+        }
+
+        function syncFontUi() {
+            const active = document.documentElement.dataset.font || "cairo";
+            for (const btn of fontGroup.querySelectorAll(".font-option")) {
+                btn.setAttribute("aria-checked", String(btn.dataset.font === active));
+            }
+        }
+
+        function setFont(id) {
+            applyFont(id);
+            try { localStorage.setItem("ite-font", id); } catch (e) { }
+            syncFontUi();
+        }
+
+        syncFontUi();
+
+        // ---------- Text size (scales every font-size via --fs) ----------
+        const sizeSteps = [0.85, 0.925, 1, 1.1, 1.2, 1.3];
+
+        function currentSize() {
+            const v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--fs"));
+            return Number.isFinite(v) ? v : 1;
+        }
+
+        function setSize(value) {
+            document.documentElement.style.setProperty("--fs", value);
+            try { localStorage.setItem("ite-fs", value); } catch (e) { }
+            syncSizeUi();
+        }
+
+        function stepSize(dir) {
+            const now = currentSize();
+            // nearest step index, then move one step
+            let i = sizeSteps.reduce((best, v, idx) => Math.abs(v - now) < Math.abs(sizeSteps[best] - now) ? idx : best, 0);
+            i = Math.max(0, Math.min(sizeSteps.length - 1, i + dir));
+            setSize(sizeSteps[i]);
+        }
+
+        function syncSizeUi() {
+            const now = currentSize();
+            const sizeValueEl = document.getElementById("sizeValue");
+            const label = Math.round(now * 100) + "%";
+            if (sizeValueEl.textContent !== label) {
+                sizeValueEl.textContent = label;
+                if (canAnimate()) A.animate(sizeValueEl, { scale: [1.35, 1], ease: A.spring({ bounce: 0.5, duration: 450 }), onComplete: clean });
+            }
+            document.getElementById("sizeDown").disabled = now <= sizeSteps[0];
+            document.getElementById("sizeUp").disabled = now >= sizeSteps[sizeSteps.length - 1];
+            document.getElementById("sizeReset").hidden = now === 1;
+        }
+
+        document.getElementById("sizeUp").addEventListener("click", () => stepSize(1));
+        document.getElementById("sizeDown").addEventListener("click", () => stepSize(-1));
+        document.getElementById("sizeReset").addEventListener("click", () => setSize(1));
+        syncSizeUi();
+
+        function setPalette(id) {
+            if (id === "ocean") delete document.documentElement.dataset.palette;
+            else document.documentElement.dataset.palette = id;
+            try { localStorage.setItem("ite-palette", id); } catch (e) { }
+            syncPaletteUi();
+        }
+
+        let menuAnim = null;
+        function setPaletteMenu(open) {
+            const isOpen = paletteMenu.classList.contains("is-open");
+            if (open === isOpen) return;
+            paletteToggle.setAttribute("aria-expanded", String(open));
+            if (menuAnim) { menuAnim.cancel(); menuAnim = null; }
+
+            if (open) {
+                paletteMenu.classList.add("is-open");
+                loadFontPreviews();
+                paletteMenu.querySelector('[aria-checked="true"]')?.focus();
+                if (canAnimate()) {
+                    menuAnim = A.animate(paletteMenu, {
+                        opacity: [0, 1],
+                        scale: [0.9, 1],
+                        y: [-10, 0],
+                        ease: A.spring({ bounce: 0.3, duration: 450 }),
+                        onComplete: anim => { clean(anim); menuAnim = null; }
+                    });
+                    A.animate(paletteMenu.querySelectorAll(".palette-option, .size-control"), {
+                        opacity: [0, 1],
+                        x: [-12, 0],
+                        duration: 400,
+                        ease: "outExpo",
+                        delay: A.stagger(18),
+                        onComplete: clean
+                    });
+                }
+            } else if (canAnimate()) {
+                menuAnim = A.animate(paletteMenu, {
+                    opacity: 0,
+                    scale: 0.95,
+                    y: -6,
+                    duration: 160,
+                    ease: "inQuad",
+                    onComplete: anim => { paletteMenu.classList.remove("is-open"); clean(anim); menuAnim = null; }
+                });
+            } else {
+                paletteMenu.classList.remove("is-open");
+            }
+        }
+
+        // Arrow keys move between presets while the menu is open
+        paletteMenu.addEventListener("keydown", e => {
+            if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(e.key)) return;
+            e.preventDefault();
+            const group = e.target.closest('[role="radiogroup"]');
+            if (!group) return;
+            const options = [...group.querySelectorAll('[role="radio"]')];
+            const i = options.indexOf(document.activeElement);
+            const next = e.key === "Home" ? 0
+                : e.key === "End" ? options.length - 1
+                : (i + (e.key === "ArrowDown" ? 1 : -1) + options.length) % options.length;
+            options[next].focus();
+        });
+
+        paletteToggle.addEventListener("click", e => {
+            e.stopPropagation();
+            setPaletteMenu(!paletteMenu.classList.contains("is-open"));
+        });
+        document.addEventListener("click", e => {
+            if (!paletteMenu.contains(e.target)) setPaletteMenu(false);
+        });
+        document.addEventListener("keydown", e => {
+            if (e.key === "Escape" && paletteMenu.classList.contains("is-open")) {
+                setPaletteMenu(false);
+                paletteToggle.focus();
+            }
+        });
+        syncPaletteUi();
+
+        // ---------- Copy page link (includes the current filters, so a filtered view can be shared) ----------
+        const copyPageBtn = document.getElementById("copyPageLink");
+        let copyPageTimer;
+        copyPageBtn.addEventListener("click", async () => {
+            try {
+                await copyText(location.href);
+                showToast("تم نسخ رابط الصفحة");
+                copyPageBtn.classList.add("is-done");
+                clearTimeout(copyPageTimer);
+                copyPageTimer = setTimeout(() => copyPageBtn.classList.remove("is-done"), 1600);
+            } catch (err) {
+                showToast("تعذّر النسخ");
+            }
+        });
+
+        // ---------- Toast + copy ----------
+        let toastTimer;
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.textContent = message;
+            toast.classList.add("is-visible");
+            clearTimeout(toastTimer);
+            if (canAnimate()) {
+                A.animate(toast, { opacity: [0, 1], y: [24, 0], scale: [0.9, 1], ease: A.spring({ bounce: 0.4, duration: 500 }), onComplete: clean });
+            }
+            toastTimer = setTimeout(() => {
+                if (!canAnimate()) { toast.classList.remove("is-visible"); return; }
+                A.animate(toast, {
+                    opacity: 0,
+                    y: 16,
+                    duration: 220,
+                    ease: "inQuad",
+                    onComplete: anim => { toast.classList.remove("is-visible"); clean(anim); }
+                });
+            }, 1800);
+        }
+
+        document.addEventListener("click", async e => {
+            const btn = e.target.closest("[data-copy]");
+            if (!btn) return;
+            try {
+                await copyText(btn.dataset.copy);
+                showToast(btn.dataset.copyLabel || "تم نسخ الرابط");
+            } catch (err) {
+                showToast("تعذّر النسخ");
+            }
+        });
+
+        // navigator.clipboard only exists on HTTPS and can still be refused (permissions, iframes);
+        // in either case fall back to execCommand
+        async function copyText(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                try {
+                    return await navigator.clipboard.writeText(text);
+                } catch (err) { /* fall through to the legacy path */ }
+            }
+            const area = document.createElement("textarea");
+            area.value = text;
+            area.setAttribute("readonly", "");
+            area.style.cssText = "position:fixed;opacity:0;pointer-events:none";
+            document.body.appendChild(area);
+            area.select();
+            const ok = document.execCommand("copy");
+            area.remove();
+            if (!ok) throw new Error("copy failed");
+        }
+
+        // ---------- Visitor counter (counter.php stores the total in data/visits.json) ----------
+        async function loadVisitorCount() {
+            // Count each browser once per day; later loads the same day only read the total.
+            const today = new Date().toISOString().slice(0, 10);
+            let alreadyCounted = false;
+            try { alreadyCounted = localStorage.getItem("ite-visit-day") === today; } catch (e) { }
+
+            try {
+                const res = await fetch("counter.php", { method: alreadyCounted ? "GET" : "POST", cache: "no-store" });
+                if (!res.ok) throw new Error(res.status);
+                const data = await res.json();
+                if (typeof data.total !== "number") throw new Error("bad payload");
+                if (!alreadyCounted) {
+                    try { localStorage.setItem("ite-visit-day", today); } catch (e) { }
+                }
+                document.getElementById("visitorCard").classList.remove("is-hidden");
+                setNumber(document.getElementById("visitorCount"), data.total, 1600);
+            } catch (err) {
+                // No PHP backend (e.g. opened from disk or static hosting): keep the card hidden.
+            }
+        }
+
+        // ---------- Init ----------
+        buildChips(document.getElementById("semesterChips"),
+            [["", "الكل"], ...semesterNames.slice(1).map((n, i) => [String(i + 1), n])], "semester");
+        buildChips(document.getElementById("specialtyChips"),
+            [["", "الكل"], ...Object.entries(specialties).map(([k, v]) => [k, k === "none" ? v.name : `${v.name} ${k}`])], "specialty");
+
+        readStateFromUrl();
+        document.getElementById("searchInput").value = state.search;
+        setNumber(document.getElementById("totalSubjects"), courses.length, 1400);
+        setNumber(document.getElementById("specialtyCount"), Object.keys(specialties).length - 1, 1400);
+        syncThemeUi();
+        update();
+        playIntro();
+        setupScrollReveal();
+        loadVisitorCount();
+
+        // Make sure a pre-selected chip (from a shared link) is visible in its scroll row
+        for (const btn of document.querySelectorAll(".filter-chip[aria-pressed=\"true\"]")) {
+            btn.scrollIntoView({ block: "nearest", inline: "center" });
+        }
+
+        document.getElementById("searchInput").addEventListener("input", e => {
+            state.search = e.target.value;
+            update({ animate: false });
+        });
+        document.getElementById("clearSearch").addEventListener("click", () => {
+            document.getElementById("searchInput").value = "";
+            state.search = "";
+            update();
+            document.getElementById("searchInput").focus();
+        });
+        document.getElementById("resetFilters").addEventListener("click", resetFilters);
+        document.querySelector("[data-reset]").addEventListener("click", resetFilters);
+
+        // "/" focuses search (desktop shortcut)
+        document.addEventListener("keydown", e => {
+            const typing = e.target.closest("input, textarea, select, [contenteditable]");
+            if (e.key === "/" && !typing && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                e.preventDefault();
+                document.getElementById("searchInput").focus();
+            }
+        });
+
+        // Back-to-top button
+        const toTop = document.getElementById("toTop");
+        addEventListener("scroll", () => toTop.classList.toggle("is-visible", scrollY > 600), { passive: true });
+        toTop.addEventListener("click", () => scrollTo({ top: 0 }));
+    </script>
+</body>
+
+</html>
