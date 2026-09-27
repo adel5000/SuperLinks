@@ -1336,7 +1336,7 @@
 
         .to-top {
             position: fixed;
-            bottom: 20px;
+            bottom: 88px; /* sits above the restart-tour button */
             inset-inline-start: 20px;
             display: grid;
             place-items: center;
@@ -1506,20 +1506,45 @@
             background: var(--surface-2);
         }
 
-        .welcome-badge {
-            display: inline-grid;
-            place-items: center;
-            width: 64px;
-            height: 64px;
-            border-radius: 20px;
-            background: var(--accent-soft);
-            color: var(--accent);
-            margin-bottom: 10px;
+        /* ---------- Fanak the fox (fixed brand colours, readable on every theme) ---------- */
+        .fox {
+            display: inline-block;
         }
 
-        .welcome-badge .icon {
-            width: 32px;
-            height: 32px;
+        .fox-svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .fox-head {
+            transform-box: fill-box;
+            transform-origin: 50% 90%;
+        }
+
+        .fox-eye {
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: fox-blink 4.5s infinite;
+        }
+
+        @keyframes fox-blink {
+            0%, 93%, 100% { transform: scaleY(1); }
+            96% { transform: scaleY(0.1); }
+        }
+
+        .welcome-fox {
+            width: 96px;
+            height: 96px;
+            margin-bottom: 4px;
+            filter: drop-shadow(0 10px 18px color-mix(in srgb, var(--accent) 25%, transparent));
+        }
+
+        .fox-sm {
+            width: 58px;
+            height: 58px;
+            flex-shrink: 0;
         }
 
         .welcome-head h2 {
@@ -1583,7 +1608,8 @@
             line-height: 1.8;
         }
 
-        .tip kbd {
+        .tip kbd,
+        .tour-bubble kbd {
             display: inline-grid;
             place-items: center;
             min-width: 24px;
@@ -1677,6 +1703,333 @@
 
         .welcome-start:hover {
             background: var(--accent-btn-hover);
+        }
+
+        .welcome-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tour-skip {
+            border: 0;
+            background: transparent;
+            color: var(--muted);
+            font-family: inherit;
+            font-size: calc(14px * var(--fs));
+            font-weight: 700;
+            padding: 10px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .tour-skip:hover {
+            color: var(--text-strong);
+            background: var(--surface-2);
+        }
+
+        /* ---------- Guided tour (spotlight + fox bubble) ---------- */
+        .tour {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+        }
+
+        .tour[hidden] {
+            display: none;
+        }
+
+        /* Blurred + dimmed page; a rounded hole (clip-path, even-odd) keeps the active section sharp */
+        .tour-shade {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 6, 23, 0.55);
+            backdrop-filter: blur(6px) saturate(0.85);
+            -webkit-backdrop-filter: blur(6px) saturate(0.85);
+        }
+
+        .tour-spot {
+            position: fixed;
+            border-radius: 16px;
+            box-shadow: 0 0 0 3px var(--accent), 0 0 36px color-mix(in srgb, var(--accent) 45%, transparent);
+            pointer-events: none;
+        }
+
+        /* Pulsing ring around the active section */
+        .tour-spot::after {
+            content: "";
+            position: absolute;
+            inset: -3px;
+            border-radius: inherit;
+            border: 2px solid var(--accent);
+            animation: spot-pulse 1.8s ease-out infinite;
+        }
+
+        @keyframes spot-pulse {
+            from {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: scale(1.05);
+            }
+        }
+
+        /* While touring, CSS transitions behind the overlay would fight the demo animations */
+        html.touring main * {
+            transition: none !important;
+        }
+
+        .tour-points {
+            list-style: none;
+            margin: 8px 0 0;
+            padding: 0;
+            display: grid;
+            gap: 6px;
+        }
+
+        .tour-points li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            color: var(--text);
+            font-size: calc(13px * var(--fs));
+            line-height: 1.7;
+        }
+
+        .tour-points li::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            margin-top: 0.65em;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft);
+            flex-shrink: 0;
+        }
+
+        /* Speech-bubble pointer aimed at the active section */
+        .tour-pointer {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: var(--surface);
+            border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
+            transform: rotate(45deg);
+        }
+
+        .tour-bubble[data-side="below"] .tour-pointer {
+            top: -9px;
+            border-right: 0;
+            border-bottom: 0;
+        }
+
+        .tour-bubble[data-side="above"] .tour-pointer {
+            bottom: -9px;
+            border-left: 0;
+            border-top: 0;
+        }
+
+        .tour-bubble[data-side="beside"] .tour-pointer {
+            left: -9px;
+            border-top: 0;
+            border-right: 0;
+        }
+
+        .tour-bubble {
+            position: fixed;
+            width: min(370px, calc(100vw - 32px));
+            display: grid;
+            gap: 12px;
+            padding: 16px;
+            background:
+                radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 55%),
+                var(--surface);
+            color: var(--text);
+            border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
+            border-radius: 20px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+        }
+
+        .tour-bubble-head {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .tour-count {
+            display: block;
+            color: var(--accent);
+            font-size: calc(12px * var(--fs));
+            font-weight: 800;
+        }
+
+        .tour-bubble h3 {
+            margin: 2px 0 4px;
+            font-size: calc(17px * var(--fs));
+            font-weight: 800;
+            color: var(--text-strong);
+        }
+
+        .tour-bubble p {
+            margin: 0;
+            color: var(--muted);
+            font-size: calc(14px * var(--fs));
+            line-height: 1.8;
+        }
+
+        .tour-bubble p b {
+            color: var(--accent);
+        }
+
+        .tour-dots {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+        }
+
+        .tour-dots .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: var(--border-strong);
+            transition: width 0.3s var(--ease), background-color 0.3s ease;
+        }
+
+        .tour-dots .dot.active {
+            width: 22px;
+            background: var(--accent);
+        }
+
+        .tour-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .tour-nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tour-nav .welcome-start {
+            padding: 9px 16px;
+            font-size: calc(14px * var(--fs));
+        }
+
+        .tour-nav [hidden] {
+            display: none;
+        }
+
+        @media (max-width: 640px) {
+            /* Phones: bubble docks to the bottom (or top when the target sits low) */
+            .tour-bubble {
+                left: 16px !important;
+                right: 16px;
+                top: auto !important;
+                bottom: 16px;
+                width: auto;
+            }
+
+            .tour-bubble.dock-top {
+                top: 16px !important;
+                bottom: auto;
+            }
+
+            .tour-pointer {
+                display: none;
+            }
+
+            .welcome-actions {
+                flex-direction: column-reverse;
+                align-items: stretch;
+            }
+        }
+
+        /* ---------- Floating "restart tour" button ---------- */
+        .tour-fab {
+            position: fixed;
+            bottom: 20px;
+            inset-inline-start: 20px;
+            z-index: 45;
+            display: inline-flex;
+            align-items: center;
+            gap: 0;
+            height: 54px;
+            min-width: 54px;
+            padding: 0 13px;
+            border: 0;
+            border-radius: 999px;
+            background: var(--accent-btn);
+            color: #fff;
+            font-family: inherit;
+            font-weight: 800;
+            font-size: calc(14px * var(--fs));
+            cursor: pointer;
+            box-shadow: 0 10px 26px color-mix(in srgb, var(--accent-btn) 45%, transparent);
+            transition: gap 0.35s var(--ease), background-color 0.2s ease, transform 0.2s var(--ease);
+        }
+
+        /* Soft pulse ring so it's noticeable without being noisy */
+        .tour-fab::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            animation: fab-pulse 2.8s ease-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes fab-pulse {
+            0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent-btn) 55%, transparent); }
+            70%, 100% { box-shadow: 0 0 0 16px transparent; }
+        }
+
+        .tour-fab:hover {
+            gap: 8px;
+            background: var(--accent-btn-hover);
+            transform: translateY(-2px);
+        }
+
+        .tour-fab:focus-visible {
+            gap: 8px;
+        }
+
+        .fab-emoji {
+            display: inline-block;
+            font-size: 26px;
+            line-height: 1;
+        }
+
+        .tour-fab:hover .fab-emoji {
+            animation: fab-wiggle 0.7s var(--ease);
+        }
+
+        @keyframes fab-wiggle {
+            25% { transform: rotate(-16deg) scale(1.12); }
+            60% { transform: rotate(12deg) scale(1.12); }
+        }
+
+        /* Label slides open on hover / keyboard focus */
+        .fab-label {
+            max-width: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            opacity: 0;
+            transition: max-width 0.35s var(--ease), opacity 0.25s ease;
+        }
+
+        .tour-fab:hover .fab-label,
+        .tour-fab:focus-visible .fab-label {
+            max-width: 130px;
+            opacity: 1;
+        }
+
+        html.touring .tour-fab {
+            display: none;
         }
 
         .footer-link {
@@ -1924,23 +2277,23 @@
             </div>
 
             <div class="connect-grid">
-                <!-- Telegram study-partner bot. To change the bot, replace "YourBotUsername" in the 3 places below. -->
+                <!-- Telegram partners bot (connects students who want to work on assignments together). Username appears in 3 places below. -->
                 <div class="connect-card tg-card">
                     <span class="connect-icon tg" aria-hidden="true">
                         <svg class="tg-logo" viewBox="0 0 24 24"><use href="#i-telegram"/></svg>
                     </span>
                     <div class="connect-body">
-                        <small>بوت تيليجرام · شريك الدراسة</small>
+                        <small>بوت تيليجرام · بوت الشركاء</small>
                         <strong>ابحث عن زملاء لحل الوظائف معاً</strong>
                         <p class="tg-desc">يربطك البوت بطلاب آخرين يريدون التعاون على الوظائف والمشاريع، لتدرسوا وتحلّوا معاً بدل العمل وحيداً.</p>
-                        <a class="connect-sub tg-username" href="https://t.me/YourBotUsername" target="_blank" rel="noopener noreferrer" dir="ltr">@YourBotUsername</a>
+                        <a class="connect-sub tg-username" href="https://t.me/Infomatrixteam_bot" target="_blank" rel="noopener noreferrer" dir="ltr">@Infomatrixteam_bot</a>
                     </div>
                     <div class="tg-actions">
-                        <a class="tg-btn" href="https://t.me/YourBotUsername" target="_blank" rel="noopener noreferrer">
+                        <a class="tg-btn" href="https://t.me/Infomatrixteam_bot" target="_blank" rel="noopener noreferrer">
                             <svg class="icon tg-plane"><use href="#i-send"/></svg>
                             <span>ابدأ مع البوت</span>
                         </a>
-                        <button class="icon-btn" type="button" data-copy="@YourBotUsername" data-copy-label="تم نسخ اسم البوت" aria-label="نسخ اسم مستخدم البوت" title="نسخ اسم البوت">
+                        <button class="icon-btn" type="button" data-copy="@Infomatrixteam_bot" data-copy-label="تم نسخ اسم البوت" aria-label="نسخ اسم مستخدم البوت" title="نسخ اسم البوت">
                             <svg class="icon"><use href="#i-copy"/></svg>
                         </button>
                     </div>
@@ -1981,7 +2334,7 @@
     </main>
 
     <footer>
-        <div class="container">صُنع بحب لطلاب الهندسة المعلوماتية ITE · تطوير <a href="https://wa.me/963988038382" target="_blank" rel="noopener noreferrer">محمد عادل أيمن وتد</a> · <button class="footer-link" id="openWelcome" type="button">دليل ميزات الصفحة</button></div>
+        <div class="container">صُنع بحب لطلاب الهندسة المعلوماتية ITE · تطوير <a href="https://wa.me/963988038382" target="_blank" rel="noopener noreferrer">محمد عادل أيمن وتد</a> · <button class="footer-link" id="openWelcome" type="button">جولة الميزات مع فَنَك</button></div>
     </footer>
 
     <!-- Welcome / feature tour (shown once; remembered in localStorage) -->
@@ -1990,9 +2343,9 @@
             <button class="welcome-close" type="button" data-close-welcome aria-label="إغلاق">
                 <svg class="icon"><use href="#i-x"/></svg>
             </button>
-            <span class="welcome-badge"><svg class="icon"><use href="#i-sparkles"/></svg></span>
-            <h2 id="welcomeTitle">أهلاً بك في دليل قروبات ITE</h2>
-            <p id="welcomeDesc">جولة سريعة على أهم الميزات لتستفيد من الصفحة بأفضل شكل.</p>
+            <span class="fox welcome-fox" data-fox></span>
+            <h2 id="welcomeTitle">أهلاً! أنا فَنَك، دليلك في الصفحة</h2>
+            <p id="welcomeDesc">دعني آخذك في جولة سريعة على الميزات، أو ألقِ نظرة على الملخص أدناه.</p>
         </div>
 
         <div class="welcome-body">
@@ -2043,8 +2396,8 @@
             <div class="tip">
                 <span class="tip-icon"><svg class="tg-logo" viewBox="0 0 24 24"><use href="#i-telegram"/></svg></span>
                 <div>
-                    <h3>بوت تيليجرام لإيجاد شركاء الدراسة</h3>
-                    <p>في قسم «المجتمع والتواصل» أسفل الصفحة، بوت يربطك بطلاب يريدون حل الوظائف والمشاريع معاً.</p>
+                    <h3>بوت الشركاء على تيليجرام</h3>
+                    <p>في قسم «المجتمع والتواصل» أسفل الصفحة، <b dir="ltr">@Infomatrixteam_bot</b> يربطك بطلاب يريدون حل الوظائف والعمل معاً كشركاء.</p>
                     <div class="tip-try">
                         <button class="try-btn" type="button" id="goToBot"><svg class="icon"><use href="#i-arrow"/></svg> انتقل إلى القسم</button>
                     </div>
@@ -2061,13 +2414,48 @@
         </div>
 
         <div class="welcome-foot">
-            <small>يمكنك فتح هذا الدليل لاحقاً من أسفل الصفحة.</small>
-            <button class="welcome-start" type="button" data-close-welcome autofocus>
-                ابدأ التصفح
-                <svg class="icon flip"><use href="#i-arrow"/></svg>
-            </button>
+            <small>تظهر الجولة مرة كل ٣٠ يوماً، ويمكنك فتحها متى شئت من أسفل الصفحة.</small>
+            <div class="welcome-actions">
+                <button class="tour-skip" type="button" data-close-welcome>تخطي</button>
+                <button class="welcome-start" type="button" id="startTour" autofocus>
+                    ابدأ الجولة مع فَنَك
+                    <svg class="icon flip"><use href="#i-arrow"/></svg>
+                </button>
+            </div>
         </div>
     </dialog>
+
+    <!-- Guided tour: dimmed page with a spotlight on each feature, Fanak explains it -->
+    <div class="tour" id="tour" hidden role="dialog" aria-modal="true" aria-labelledby="tourTitle" aria-describedby="tourText">
+        <div class="tour-shade"></div>
+        <div class="tour-spot"></div>
+        <div class="tour-bubble">
+            <span class="tour-pointer" aria-hidden="true"></span>
+            <div class="tour-bubble-head">
+                <span class="fox fox-sm" data-fox></span>
+                <div>
+                    <small class="tour-count" id="tourCount"></small>
+                    <h3 id="tourTitle"></h3>
+                    <p id="tourText" aria-live="polite"></p>
+                    <ul class="tour-points" id="tourPoints"></ul>
+                </div>
+            </div>
+            <div class="tour-dots" id="tourDots" aria-hidden="true"></div>
+            <div class="tour-actions">
+                <button class="tour-skip" type="button" id="tourSkip">تخطي الجولة</button>
+                <div class="tour-nav">
+                    <button class="try-btn" type="button" id="tourPrev">السابق</button>
+                    <button class="welcome-start" type="button" id="tourNext">التالي</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating "restart tour" button -->
+    <button class="tour-fab" id="tourFab" type="button" aria-label="إعادة الجولة التعريفية مع فَنَك" title="إعادة الجولة">
+        <span class="fab-emoji" aria-hidden="true">🦊</span>
+        <span class="fab-label">إعادة الجولة</span>
+    </button>
 
     <button class="to-top" id="toTop" type="button" aria-label="العودة للأعلى">
         <svg class="icon"><use href="#i-up"/></svg>
@@ -2753,7 +3141,8 @@
         }
 
         let menuAnim = null;
-        function setPaletteMenu(open) {
+        function setPaletteMenu(open, instant = false) {
+            const motion = canAnimate() && !instant;
             const isOpen = paletteMenu.classList.contains("is-open");
             if (open === isOpen) return;
             paletteToggle.setAttribute("aria-expanded", String(open));
@@ -2763,7 +3152,7 @@
                 paletteMenu.classList.add("is-open");
                 loadFontPreviews();
                 paletteMenu.querySelector('[aria-checked="true"]')?.focus();
-                if (canAnimate()) {
+                if (motion) {
                     menuAnim = A.animate(paletteMenu, {
                         opacity: [0, 1],
                         scale: [0.9, 1],
@@ -2780,7 +3169,7 @@
                         onComplete: clean
                     });
                 }
-            } else if (canAnimate()) {
+            } else if (motion) {
                 menuAnim = A.animate(paletteMenu, {
                     opacity: 0,
                     scale: 0.95,
@@ -2813,7 +3202,7 @@
             setPaletteMenu(!paletteMenu.classList.contains("is-open"));
         });
         document.addEventListener("click", e => {
-            if (!paletteMenu.contains(e.target)) setPaletteMenu(false);
+            if (!paletteMenu.contains(e.target) && !e.target.closest(".tour")) setPaletteMenu(false);
         });
         document.addEventListener("keydown", e => {
             if (e.key === "Escape" && paletteMenu.classList.contains("is-open")) {
@@ -2838,19 +3227,44 @@
             }
         });
 
-        // ---------- Welcome dialog ----------
-        // Bump this when new features are worth re-introducing to returning visitors.
-        const WELCOME_VERSION = "1";
+        // ---------- Welcome dialog + guided tour with Fanak the fox ----------
+        // Shown on the first visit, then at most once every TOUR_INTERVAL_DAYS.
+        // It is marked as shown the moment it appears, so closing the tab doesn't make it nag again.
+        const TOUR_INTERVAL_DAYS = 30;
+        const TOUR_KEY = "ite-tour-last";
         const welcome = document.getElementById("welcome");
 
-        function welcomeSeen() {
-            try { return localStorage.getItem("ite-welcome-seen") === WELCOME_VERSION; }
-            catch (e) { return true; } // storage blocked: don't nag on every visit
+        function tourDue() {
+            try {
+                const last = Number(localStorage.getItem(TOUR_KEY));
+                return !last || Date.now() - last >= TOUR_INTERVAL_DAYS * 24 * 60 * 60 * 1000;
+            } catch (e) {
+                return false; // storage blocked: never nag on every visit
+            }
         }
 
-        function markWelcomeSeen() {
-            try { localStorage.setItem("ite-welcome-seen", WELCOME_VERSION); } catch (e) { }
+        function markTourShown() {
+            try { localStorage.setItem(TOUR_KEY, String(Date.now())); } catch (e) { }
         }
+
+        function foxSvg() {
+            return `<svg class="fox-svg" viewBox="0 0 120 120" aria-hidden="true">
+                <g class="fox-head">
+                    <path d="M20 54 29 10 55 36Z" fill="#ea580c"/>
+                    <path d="M100 54 91 10 65 36Z" fill="#ea580c"/>
+                    <path d="M27 44 31 21 45 35Z" fill="#fed7aa"/>
+                    <path d="M93 44 89 21 75 35Z" fill="#fed7aa"/>
+                    <path d="M60 28c25 0 43 15 45 34 2 17-17 35-45 43-28-8-47-26-45-43 2-19 20-34 45-34Z" fill="#f97316"/>
+                    <path d="M60 105c-17-5-33-17-39-33 13 1 27-3 39 12 12-15 26-11 39-12-6 16-22 28-39 33Z" fill="#fff7ed"/>
+                    <g class="fox-eye"><ellipse cx="44" cy="62" rx="5" ry="6.5" fill="#1f2937"/><circle cx="45.8" cy="59.6" r="1.8" fill="#fff"/></g>
+                    <g class="fox-eye"><ellipse cx="76" cy="62" rx="5" ry="6.5" fill="#1f2937"/><circle cx="77.8" cy="59.6" r="1.8" fill="#fff"/></g>
+                    <ellipse cx="60" cy="84" rx="6.5" ry="4.8" fill="#1f2937"/>
+                    <circle cx="33" cy="76" r="5" fill="#fb7185" opacity=".35"/>
+                    <circle cx="87" cy="76" r="5" fill="#fb7185" opacity=".35"/>
+                </g>
+            </svg>`;
+        }
+        for (const el of document.querySelectorAll("[data-fox]")) el.innerHTML = foxSvg();
 
         function syncTrySwatches() {
             const active = document.documentElement.dataset.palette || "ocean";
@@ -2859,42 +3273,60 @@
             }
         }
 
+        // Every running dialog animation, so closing can stop them (no leftover inline styles)
+        let welcomeAnims = [];
+        function stopWelcomeAnims() {
+            for (const a of welcomeAnims) { a.cancel(); clean(a); }
+            welcomeAnims = [];
+        }
+
         function openWelcome() {
             if (typeof welcome.showModal !== "function" || welcome.open) return;
+            markTourShown();
             syncTrySwatches();
             welcome.showModal();
             welcome.querySelector(".welcome-body").scrollTop = 0;
             if (canAnimate()) {
-                A.animate(welcome, {
-                    opacity: [0, 1],
-                    y: [30, 0],
-                    scale: [0.94, 1],
-                    ease: A.spring({ bounce: 0.3, duration: 550 }),
-                    onComplete: clean
-                });
-                A.animate(welcome.querySelector(".welcome-badge"), {
-                    rotate: [-25, 0],
-                    scale: [0.4, 1],
-                    ease: A.spring({ bounce: 0.55, duration: 700 }),
-                    delay: 120,
-                    onComplete: clean
-                });
-                A.animate(welcome.querySelectorAll(".tip"), {
-                    opacity: [0, 1],
-                    x: [-20, 0],
-                    duration: 500,
-                    ease: "outExpo",
-                    delay: A.stagger(60, { start: 180 }),
-                    onComplete: clean
-                });
+                welcomeAnims = [
+                    A.animate(welcome, {
+                        opacity: [0, 1],
+                        y: [30, 0],
+                        scale: [0.94, 1],
+                        ease: A.spring({ bounce: 0.3, duration: 550 }),
+                        onComplete: clean
+                    }),
+                    A.animate(welcome.querySelector(".welcome-fox"), {
+                        y: [30, 0],
+                        scale: [0.4, 1],
+                        ease: A.spring({ bounce: 0.55, duration: 700 }),
+                        delay: 120,
+                        onComplete: clean
+                    }),
+                    // Fanak waves hello
+                    A.animate(welcome.querySelector(".welcome-fox .fox-head"), {
+                        rotate: [0, -12, 10, -6, 0],
+                        duration: 1300,
+                        delay: 500,
+                        ease: "inOutSine",
+                        onComplete: clean
+                    }),
+                    A.animate(welcome.querySelectorAll(".tip"), {
+                        opacity: [0, 1],
+                        x: [-20, 0],
+                        duration: 500,
+                        ease: "outExpo",
+                        delay: A.stagger(60, { start: 180 }),
+                        onComplete: clean
+                    })
+                ];
             }
         }
 
         let welcomeClosing = false;
-        function closeWelcome() {
-            markWelcomeSeen();
-            if (!welcome.open || welcomeClosing) return;
-            if (!canAnimate()) { welcome.close(); return; }
+        function closeWelcome(then) {
+            if (!welcome.open || welcomeClosing) { then?.(); return; }
+            stopWelcomeAnims();
+            if (!canAnimate()) { welcome.close(); then?.(); return; }
             welcomeClosing = true;
             A.animate(welcome, {
                 opacity: 0,
@@ -2906,9 +3338,308 @@
                     welcome.close();
                     clean(anim);
                     welcomeClosing = false;
+                    then?.();
                 }
             });
         }
+
+        // ----- Tour: walks the page section by section -----
+        // target: selector or list of selectors (the spotlight covers all of them)
+        // demo:   a short live animation on the real section while it is explained
+        const tourSteps = [
+            {
+                target: ".top-stats",
+                title: "لوحة الأرقام",
+                text: "نظرة سريعة على محتوى الصفحة، تتحدّث مباشرةً مع كل فلتر تختاره.",
+                points: ["إجمالي المواد المتاحة", "عدد النتائج الحالية حسب الفلاتر", "عدد الاختصاصات وعدد الزوار"],
+                demo: () => {
+                    A.animate(".top-stats .stat-icon", { scale: [1, 1.25, 1], rotate: [0, -12, 0], duration: 700, delay: A.stagger(120), ease: "outQuad", onComplete: clean });
+                    for (const id of ["totalSubjects", "specialtyCount"]) {
+                        const el = document.getElementById(id);
+                        const to = parseInt(el.textContent.replace(/,/g, ""), 10) || 0;
+                        el.textContent = "0";
+                        numberState.delete(el);
+                        setNumber(el, to, 1200);
+                    }
+                }
+            },
+            {
+                target: "#themeToggle",
+                title: "الوضع الليلي والنهاري",
+                text: "بدّل بين الوضع الليلي والنهاري بضغطة واحدة.",
+                points: ["يتبع إعدادات جهازك تلقائياً", "يتذكّر اختيارك في زيارتك القادمة"],
+                demo: () => A.animate("#themeToggle", { rotate: [0, -25, 20, 0], scale: [1, 1.15, 1], duration: 900, ease: "inOutSine", onComplete: clean })
+            },
+            {
+                target: "#paletteGroup", menu: true,
+                title: "٥ ألوان للواجهة",
+                text: "زر لوحة الألوان يفتح هذه القائمة، ومنها تختار لون الصفحة.",
+                points: ["المحيط، الزمرّد، البنفسجي، الغروب، الوردي", "كل لون يعمل مع الوضعين الليلي والنهاري"],
+                demo: () => A.animate("#paletteGroup .swatch", { scale: [1, 1.4, 1], duration: 500, delay: A.stagger(110, { start: 300 }), ease: "outQuad", onComplete: clean })
+            },
+            {
+                target: "#fontGroup", menu: true,
+                title: "اختر خطك",
+                text: "بدّل خط الصفحة بالكامل إلى الخط العربي الذي يريحك.",
+                points: ["Cairo، Tajawal، Almarai وغيرها", "كل خط يُعرض هنا بشكله الحقيقي"],
+                demo: () => A.animate("#fontGroup .font-sample", { opacity: [0.25, 1], x: [-10, 0], duration: 500, delay: A.stagger(90, { start: 300 }), ease: "outExpo", onComplete: clean })
+            },
+            {
+                target: ".size-control", menu: true,
+                title: "حجم الخط",
+                text: "كبّر أو صغّر نص الصفحة لراحة عينيك.",
+                points: ["من ٨٥٪ حتى ١٣٠٪", "زر «افتراضي» يعيد الحجم الأصلي"],
+                demo: () => {
+                    A.animate("#sizeUp, #sizeDown", { scale: [1, 1.2, 1], duration: 500, delay: A.stagger(250, { start: 300 }), ease: "outQuad", onComplete: clean });
+                    A.animate("#sizeValue", { scale: [1, 1.4, 1], duration: 600, delay: 800, ease: "outQuad", onComplete: clean });
+                }
+            },
+            {
+                target: "#copyPageLink",
+                title: "انسخ رابط الصفحة",
+                text: "ينسخ رابط الصفحة مع الفلاتر التي اخترتها.",
+                points: ["أرسل لزملائك مواد فصلك واختصاصك مباشرةً", "تتحول الأيقونة إلى علامة صح عند النسخ"],
+                demo: () => {
+                    const btn = document.getElementById("copyPageLink");
+                    setTimeout(() => {
+                        btn.classList.add("is-done");
+                        A.animate(btn, { scale: [1, 1.2, 1], duration: 500, ease: "outQuad", onComplete: clean });
+                        setTimeout(() => btn.classList.remove("is-done"), 1400);
+                    }, 400);
+                }
+            },
+            {
+                target: ".toolbar .panel",
+                title: "البحث والفلاتر",
+                text: "من هنا تصل لقروب أي مادة خلال ثوانٍ.",
+                points: ["اختر الفصل والاختصاص من الأزرار", "ابحث بالاسم أو الرمز دون القلق من التشكيل", "اضغط <kbd>/</kbd> للانتقال إلى البحث بسرعة"],
+                demo: () => {
+                    A.animate(".toolbar .filter-chip", { y: [0, -6, 0], duration: 500, delay: A.stagger(25, { start: 300 }), ease: "outQuad", onComplete: clean });
+                    A.animate(".search-wrap > .icon", { rotate: [0, -20, 15, 0], scale: [1, 1.3, 1], duration: 800, ease: "inOutSine", onComplete: clean });
+                }
+            },
+            {
+                target: ["#subjectsList .semester-head", "#subjectsList .subject-card"],
+                title: "بطاقات المواد",
+                text: "كل مادة في بطاقة، مرتّبة حسب الفصل.",
+                points: ["«انضم للقروب» يفتح قروب واتساب المادة", "زر الرابط بجانبه ينسخ رابط القروب", "الشارات تبيّن الاختصاصات التي تشمل المادة"],
+                demo: () => {
+                    const card = document.querySelector("#subjectsList .subject-card");
+                    A.animate(card.querySelector(".subject-icon"), { rotate: [0, -12, 0], scale: [1, 1.2, 1], duration: 700, ease: "outQuad", onComplete: clean });
+                    A.animate(card.querySelector(".join-btn"), { scale: [1, 1.06, 1], duration: 600, delay: 500, loop: 1, ease: "inOutSine", onComplete: clean });
+                }
+            },
+            {
+                target: ".tg-card",
+                title: "بوت الشركاء على تيليجرام",
+                text: "<b dir=\"ltr\">@Infomatrixteam_bot</b> يربطك بطلاب يريدون العمل معك.",
+                points: ["ابحث عن شريك لحل الوظائف", "تعاونوا على المشاريع بدل العمل وحيداً"],
+                demo: () => {
+                    A.animate(".tg-card .connect-icon", { y: [0, -12, 0], rotate: [0, -12, 0], duration: 700, ease: "outQuad", onComplete: clean });
+                    A.animate(".tg-card .tg-btn", { scale: [1, 1.06, 1], duration: 600, delay: 450, loop: 1, ease: "inOutSine", onComplete: clean });
+                }
+            },
+            {
+                target: [".yt-card", ".connect-grid > .connect-card:last-child"],
+                title: "القناة والمطوّر",
+                text: "تابع قناة SVU Help على يوتيوب، وتواصل مع مطوّر الصفحة.",
+                points: ["زر «زيارة القناة» يفتح يوتيوب", "واتساب المطوّر للاقتراحات والملاحظات"],
+                demo: () => A.animate(".yt-card .connect-icon, .connect-grid > .connect-card:last-child .connect-icon", { rotate: [0, -10, 8, 0], scale: [1, 1.15, 1], duration: 800, delay: A.stagger(200), ease: "inOutSine", onComplete: clean })
+            }
+        ];
+
+        const tour = document.getElementById("tour");
+        const tourShade = tour.querySelector(".tour-shade");
+        const tourSpot = tour.querySelector(".tour-spot");
+        const tourBubble = tour.querySelector(".tour-bubble");
+        const tourPointer = tour.querySelector(".tour-pointer");
+        const tourNext = document.getElementById("tourNext");
+        const tourPrev = document.getElementById("tourPrev");
+        let activeSteps = tourSteps;
+        let tourIndex = -1;
+
+        const stepElements = step => [].concat(step.target).map(sel => document.querySelector(sel)).filter(Boolean);
+
+        // Union of all target rects, in viewport coordinates
+        function stepRect(step) {
+            const rects = stepElements(step).map(el => el.getBoundingClientRect());
+            const left = Math.min(...rects.map(r => r.left)), top = Math.min(...rects.map(r => r.top));
+            const right = Math.max(...rects.map(r => r.right)), bottom = Math.max(...rects.map(r => r.bottom));
+            return { left, top, width: right - left, height: bottom - top, bottom };
+        }
+
+        // The spotlight box is one animated object: it drives the ring and the blur hole together
+        const spotBox = { left: 0, top: 0, width: 0, height: 0 };
+        let spotAnim = null;
+
+        function renderSpot() {
+            const { left: x, top: y, width: w, height: h } = spotBox;
+            Object.assign(tourSpot.style, { left: x + "px", top: y + "px", width: w + "px", height: h + "px" });
+            const r = Math.max(0, Math.min(16, w / 2, h / 2));
+            const W = innerWidth, H = innerHeight;
+            tourShade.style.clipPath = `path(evenodd, "M0 0H${W}V${H}H0Z M${x + r} ${y}H${x + w - r}A${r} ${r} 0 0 1 ${x + w} ${y + r}V${y + h - r}A${r} ${r} 0 0 1 ${x + w - r} ${y + h}H${x + r}A${r} ${r} 0 0 1 ${x} ${y + h - r}V${y + r}A${r} ${r} 0 0 1 ${x + r} ${y}Z")`;
+        }
+
+        function positionTour(animate = false) {
+            if (tourIndex < 0) return;
+            const step = activeSteps[tourIndex];
+            const r = stepRect(step);
+            const pad = 8;
+            const box = { left: r.left - pad, top: r.top - pad, width: r.width + pad * 2, height: r.height + pad * 2 };
+
+            if (spotAnim) { spotAnim.cancel(); spotAnim = null; }
+            if (animate && canAnimate()) {
+                spotAnim = A.animate(spotBox, { ...box, duration: 550, ease: "outExpo", onUpdate: renderSpot });
+            } else {
+                Object.assign(spotBox, box);
+                renderSpot();
+            }
+
+            // Phones: CSS docks the bubble; pick top or bottom so it never covers the section
+            if (innerWidth <= 640) {
+                tourBubble.classList.toggle("dock-top", box.top + box.height / 2 > innerHeight * 0.5);
+                return;
+            }
+
+            const bw = tourBubble.offsetWidth, bh = tourBubble.offsetHeight, gap = 16;
+            const cx = box.left + box.width / 2, cy = box.top + box.height / 2;
+            let left, top, side;
+            if (step.menu) {
+                // Beside the open menu, so the whole menu stays visible
+                side = "beside";
+                left = paletteMenu.getBoundingClientRect().right + gap;
+                top = cy - bh / 2;
+            } else {
+                side = "below";
+                top = box.top + box.height + gap;
+                if (top + bh > innerHeight - 12) { side = "above"; top = box.top - bh - gap; }
+                left = cx - bw / 2;
+            }
+            left = Math.max(16, Math.min(innerWidth - bw - 16, left));
+            top = Math.max(12, Math.min(innerHeight - bh - 12, top));
+            tourBubble.style.left = left + "px";
+            tourBubble.style.top = top + "px";
+            tourBubble.dataset.side = side;
+
+            // Aim the pointer at the section's centre
+            if (side === "beside") {
+                tourPointer.style.left = "";
+                tourPointer.style.top = Math.max(18, Math.min(bh - 34, cy - top - 8)) + "px";
+            } else {
+                tourPointer.style.top = "";
+                tourPointer.style.left = Math.max(18, Math.min(bw - 34, cx - left - 8)) + "px";
+            }
+        }
+
+        const onTourViewport = () => positionTour(false);
+
+        function goToStep(i) {
+            const step = activeSteps[i];
+            if (!step) return;
+            const first = tourIndex < 0;
+            tourIndex = i;
+
+            setPaletteMenu(!!step.menu, true);
+
+            // Bring the section into view (inside the menu too), leaving room for the bubble
+            const [el] = stepElements(step);
+            el.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "instant" });
+            const mobile = innerWidth <= 640;
+            const r = stepRect(step);
+            if (r.top < 16 || r.bottom > (mobile ? innerHeight * 0.55 : innerHeight - 16)) {
+                const offset = mobile ? r.top - 24 : r.top - Math.max(24, (innerHeight - r.height) / 2);
+                scrollBy({ top: offset, behavior: "instant" });
+            }
+
+            document.getElementById("tourCount").textContent = `الخطوة ${i + 1} من ${activeSteps.length}`;
+            document.getElementById("tourTitle").textContent = step.title;
+            document.getElementById("tourText").innerHTML = step.text;
+            document.getElementById("tourPoints").innerHTML = step.points.map(p => `<li>${p}</li>`).join("");
+            tourPrev.hidden = i === 0;
+            tourNext.textContent = i === activeSteps.length - 1 ? "إنهاء الجولة" : "التالي";
+            document.querySelectorAll("#tourDots .dot").forEach((d, n) => d.classList.toggle("active", n === i));
+
+            positionTour(!first);
+            tourNext.focus();
+
+            if (canAnimate()) {
+                A.animate(tourBubble, first
+                    ? { opacity: [0, 1], scale: [0.9, 1], ease: A.spring({ bounce: 0.35, duration: 500 }), onComplete: clean }
+                    : { opacity: [0.3, 1], y: [10, 0], duration: 350, ease: "outExpo", onComplete: clean });
+                // Title, sentence and bullet points reveal one after another
+                A.animate([document.getElementById("tourTitle"), document.getElementById("tourText"), ...document.querySelectorAll("#tourPoints li")], {
+                    opacity: [0, 1],
+                    x: [-14, 0],
+                    duration: 450,
+                    delay: A.stagger(90, { start: 120 }),
+                    ease: "outExpo",
+                    onComplete: clean
+                });
+                // Fanak hops on every step
+                A.animate(tourBubble.querySelector(".fox-head"), { y: [0, -10, 0], rotate: [0, -8, 0], duration: 600, ease: "outQuad", onComplete: clean });
+                // Live demo on the real section
+                try { step.demo?.(); } catch (e) { }
+            }
+        }
+
+        function startTour() {
+            if (tourIndex >= 0) endTour(false, true);
+            if (welcome.open) { closeWelcome(startTour); return; }
+            markTourShown();
+            // Skip steps whose section isn't on the page right now (e.g. no results for the current filters)
+            activeSteps = tourSteps.filter(step => stepElements(step).length === [].concat(step.target).length);
+            tourIndex = -1;
+            document.getElementById("tourDots").innerHTML = activeSteps.map(() => '<span class="dot"></span>').join("");
+            tour.hidden = false;
+            document.documentElement.classList.add("touring");
+            // Everything behind the tour is unreachable by keyboard / screen reader
+            document.querySelector("main").inert = true;
+            document.querySelector("footer").inert = true;
+            if (canAnimate()) A.animate(tour, { opacity: [0, 1], duration: 350, ease: "outQuad", onComplete: clean });
+            goToStep(0);
+            addEventListener("resize", onTourViewport);
+            addEventListener("scroll", onTourViewport, { passive: true });
+        }
+
+        function endTour(completed, immediate = false) {
+            if (tourIndex < 0) return;
+            tourIndex = -1;
+            if (spotAnim) { spotAnim.cancel(); spotAnim = null; }
+            removeEventListener("resize", onTourViewport);
+            removeEventListener("scroll", onTourViewport);
+            setPaletteMenu(false, true);
+            document.querySelector("main").inert = false;
+            document.querySelector("footer").inert = false;
+            document.documentElement.classList.remove("touring");
+            const finish = () => {
+                tour.hidden = true;
+                for (const el of [tour, tourShade, tourSpot, tourBubble, tourPointer]) el.removeAttribute("style");
+                tourBubble.classList.remove("dock-top");
+            };
+            if (canAnimate() && !immediate) {
+                A.animate(tour, { opacity: 0, duration: 250, ease: "inQuad", onComplete: anim => { clean(anim); finish(); } });
+            } else {
+                finish();
+            }
+            if (completed) showToast("انتهت الجولة! زر 🦊 في الزاوية يعيدها متى شئت");
+        }
+
+        tourNext.addEventListener("click", () => {
+            if (tourIndex >= activeSteps.length - 1) endTour(true);
+            else goToStep(tourIndex + 1);
+        });
+        tourPrev.addEventListener("click", () => goToStep(tourIndex - 1));
+        document.getElementById("tourSkip").addEventListener("click", () => endTour(false));
+        document.addEventListener("keydown", e => {
+            if (tourIndex < 0) return;
+            if (e.key === "Escape") { e.preventDefault(); endTour(false); }
+            // RTL: left arrow moves forward, right arrow moves back
+            else if (e.key === "ArrowLeft") tourNext.click();
+            else if (e.key === "ArrowRight" && tourIndex > 0) tourPrev.click();
+        });
+
+        // Floating "restart tour" button
+        document.getElementById("tourFab").addEventListener("click", () => startTour());
 
         function initWelcome() {
             // "Try it" swatches reuse the real palette switcher, so the change is live and saved
@@ -2931,11 +3662,11 @@
             }
 
             document.getElementById("tryTheme").addEventListener("click", () => document.getElementById("themeToggle").click());
-            document.getElementById("goToBot").addEventListener("click", () => {
-                closeWelcome();
-                setTimeout(() => document.querySelector(".tg-card").scrollIntoView({ behavior: "smooth", block: "center" }), 250);
-            });
-            for (const btn of welcome.querySelectorAll("[data-close-welcome]")) btn.addEventListener("click", closeWelcome);
+            // Scroll only after the dialog has closed (its scroll lock is released then)
+            document.getElementById("goToBot").addEventListener("click", () =>
+                closeWelcome(() => document.querySelector(".tg-card").scrollIntoView({ behavior: "smooth", block: "center" })));
+            document.getElementById("startTour").addEventListener("click", () => closeWelcome(startTour));
+            for (const btn of welcome.querySelectorAll("[data-close-welcome]")) btn.addEventListener("click", () => closeWelcome());
             document.getElementById("openWelcome").addEventListener("click", openWelcome);
 
             // Esc: animate out instead of the instant native close
@@ -2946,11 +3677,9 @@
                 const outside = e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
                 if (e.target === welcome && outside) closeWelcome();
             });
-            // Any other way the dialog closes still counts as "seen"
-            welcome.addEventListener("close", markWelcomeSeen);
 
-            // First visit: show after the page intro has settled
-            if (!welcomeSeen()) setTimeout(openWelcome, canAnimate() ? 1500 : 400);
+            // First visit (or 30+ days since the last tour): show after the page intro has settled
+            if (tourDue()) setTimeout(openWelcome, canAnimate() ? 1500 : 400);
         }
 
         // ---------- Toast + copy ----------
