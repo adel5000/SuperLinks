@@ -1541,6 +1541,103 @@
             filter: drop-shadow(0 10px 18px color-mix(in srgb, var(--accent) 25%, transparent));
         }
 
+        /* Talking: the mouth opens and closes, the whole fox bobs a little */
+        .fox-mouth {
+            transform-box: fill-box;
+            transform-origin: 50% 0;
+            transform: scaleY(0.2);
+        }
+
+        .fox.is-talking .fox-mouth {
+            animation: fox-talk 0.2s ease-in-out infinite alternate;
+        }
+
+        .fox.is-talking .fox-svg {
+            animation: fox-bob 0.45s ease-in-out infinite alternate;
+        }
+
+        @keyframes fox-talk {
+            from { transform: scaleY(0.2); }
+            to { transform: scaleY(1); }
+        }
+
+        @keyframes fox-bob {
+            from { transform: translateY(0) rotate(0); }
+            to { transform: translateY(-2px) rotate(-2deg); }
+        }
+
+        .tour-bubble p .w {
+            display: inline-block;
+        }
+
+        /* Voice row in the tour bubble: mute toggle + voice picker */
+        .tour-voice {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 8px;
+            border-radius: 12px;
+            background: color-mix(in srgb, var(--surface-2) 70%, transparent);
+            border: 1px solid var(--border);
+        }
+
+        .tour-voice[hidden] {
+            display: none;
+        }
+
+        .fox-voice {
+            display: grid;
+            place-items: center;
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            background: var(--surface);
+            color: var(--accent);
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .fox-voice:hover {
+            background: var(--accent-soft);
+        }
+
+        .fox-voice[aria-pressed="false"] {
+            color: var(--muted);
+        }
+
+        .tour-voice label {
+            color: var(--muted);
+            font-size: calc(12px * var(--fs));
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .tour-voice select {
+            flex: 1;
+            min-width: 0;
+            height: 32px;
+            padding: 0 10px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface);
+            color: var(--text);
+            font-family: inherit;
+            font-size: calc(13px * var(--fs));
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .tour-voice select:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 1px;
+        }
+
+        .welcome-head h2 .w {
+            display: inline-block;
+        }
+
         .fox-sm {
             width: 58px;
             height: 58px;
@@ -2382,6 +2479,8 @@
         <symbol id="i-text-size" viewBox="0 0 24 24"><path d="M3 7V5h10v2M8 5v14M6 19h4M14 13v-1h7v1M17.5 12v7M16 19h3"/></symbol>
         <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M9.94 15.5A2 2 0 0 0 8.5 14.06l-6.14-1.58a.5.5 0 0 1 0-.96L8.5 9.94A2 2 0 0 0 9.94 8.5l1.58-6.14a.5.5 0 0 1 .96 0L14.06 8.5A2 2 0 0 0 15.5 9.94l6.14 1.58a.5.5 0 0 1 0 .96L15.5 14.06a2 2 0 0 0-1.44 1.44l-1.58 6.14a.5.5 0 0 1-.96 0z"/><path d="M20 3v4M22 5h-4"/></symbol>
         <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+        <symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 4.7a.7.7 0 0 0-1.2-.5L6.4 7.6A1.4 1.4 0 0 1 5.4 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.4a1.4 1.4 0 0 1 1 .4l3.4 3.4a.7.7 0 0 0 1.2-.5z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.4 18.4a9 9 0 0 0 0-12.8"/></symbol>
+        <symbol id="i-volume-x" viewBox="0 0 24 24"><path d="M11 4.7a.7.7 0 0 0-1.2-.5L6.4 7.6A1.4 1.4 0 0 1 5.4 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.4a1.4 1.4 0 0 1 1 .4l3.4 3.4a.7.7 0 0 0 1.2-.5z"/><path d="m22 9-6 6M16 9l6 6"/></symbol>
     </svg>
 
     <!-- Icon libraries: path data for the icons this page uses, inlined (~40 KB) so switching is instant.
@@ -2705,6 +2804,13 @@
                     <p id="tourText" aria-live="polite"></p>
                     <ul class="tour-points" id="tourPoints"></ul>
                 </div>
+            </div>
+            <div class="tour-voice" id="tourVoice" hidden>
+                <button class="fox-voice" id="foxVoiceBtn" type="button" aria-pressed="true" aria-label="صوت فَنَك">
+                    <svg class="icon"><use href="#i-volume"/></svg>
+                </button>
+                <label for="foxVoiceSelect">صوت فَنَك</label>
+                <select id="foxVoiceSelect"></select>
             </div>
             <div class="tour-dots" id="tourDots" aria-hidden="true"></div>
             <div class="tour-actions">
@@ -3539,6 +3645,7 @@
                     <g class="fox-eye"><ellipse cx="44" cy="62" rx="5" ry="6.5" fill="#1f2937"/><circle cx="45.8" cy="59.6" r="1.8" fill="#fff"/></g>
                     <g class="fox-eye"><ellipse cx="76" cy="62" rx="5" ry="6.5" fill="#1f2937"/><circle cx="77.8" cy="59.6" r="1.8" fill="#fff"/></g>
                     <ellipse cx="60" cy="84" rx="6.5" ry="4.8" fill="#1f2937"/>
+                    <ellipse class="fox-mouth" cx="60" cy="94" rx="4.5" ry="3.6" fill="#7f1d1d"/>
                     <circle cx="33" cy="76" r="5" fill="#fb7185" opacity=".35"/>
                     <circle cx="87" cy="76" r="5" fill="#fb7185" opacity=".35"/>
                 </g>
@@ -3566,6 +3673,16 @@
             syncTrySwatches();
             welcome.showModal();
             welcome.querySelector(".welcome-body").scrollTop = 0;
+
+            // Fanak "says" the greeting: mouth moves while the headline appears word by word
+            // (silent here: browsers only allow speech after a click, and this can open on its own)
+            const welcomeFox = welcome.querySelector(".welcome-fox");
+            setTalking(welcomeFox, true);
+            setTimeout(() => setTalking(welcomeFox, false), 1900);
+            const greetingWords = wrapWords(document.getElementById("welcomeTitle"));
+            if (canAnimate()) {
+                A.animate(greetingWords, { opacity: [0, 1], y: [8, 0], duration: 320, delay: A.stagger(140, { start: 300 }), ease: "outQuad", onComplete: clean });
+            }
             if (canAnimate()) {
                 welcomeAnims = [
                     A.animate(welcome, {
@@ -3736,6 +3853,46 @@
             }
         ];
 
+        // What Fanak says aloud for each step (keyed by title): fully voweled for correct pronunciation.
+        // The bubble keeps the easier-to-read unvoweled text.
+        const TOUR_SPEECH = {
+            "لوحة الأرقام":
+                "لَوْحَةُ الْأَرْقَامِ. نَظْرَةٌ سَرِيعَةٌ عَلَى مُحْتَوَى الصَّفْحَةِ، تَتَحَدَّثُ مُبَاشَرَةً مَعَ كُلِّ فِلْتَرٍ تَخْتَارُهُ. " +
+                "إِجْمَالِيُّ الْمَوَادِّ الْمُتَاحَةِ، وَعَدَدُ النَّتَائِجِ الْحَالِيَّةِ حَسَبَ الْفَلَاتِرِ، وَعَدَدُ الِاخْتِصَاصَاتِ وَعَدَدُ الزُّوَّارِ.",
+            "الوضع الليلي والنهاري":
+                "الْوَضْعُ اللَّيْلِيُّ وَالنَّهَارِيُّ. بَدِّلْ بَيْنَ الْوَضْعِ اللَّيْلِيِّ وَالنَّهَارِيِّ بِضَغْطَةٍ وَاحِدَةٍ. " +
+                "يَتْبَعُ إِعْدَادَاتِ جِهَازِكَ تِلْقَائِيًّا، وَيَتَذَكَّرُ اخْتِيَارَكَ فِي زِيَارَتِكَ الْقَادِمَةِ.",
+            "٥ ألوان للواجهة":
+                "خَمْسَةُ أَلْوَانٍ لِلْوَاجِهَةِ. زِرُّ لَوْحَةِ الْأَلْوَانِ يَفْتَحُ هَذِهِ الْقَائِمَةَ، وَمِنْهَا تَخْتَارُ لَوْنَ الصَّفْحَةِ: " +
+                "الْمُحِيطُ، وَالزُّمُرُّدُ، وَالْبَنَفْسَجِيُّ، وَالْغُرُوبُ، وَالْوَرْدِيُّ. وَكُلُّ لَوْنٍ يَعْمَلُ مَعَ الْوَضْعَيْنِ اللَّيْلِيِّ وَالنَّهَارِيِّ.",
+            "اختر خطك":
+                "اخْتَرْ خَطَّكَ. بَدِّلْ خَطَّ الصَّفْحَةِ بِالْكَامِلِ إِلَى الْخَطِّ الْعَرَبِيِّ الَّذِي يُرِيحُكَ، " +
+                "مِثْلَ كَايْرُو، وَتَجَوَّال، وَالْمَرَاعِي، وَغَيْرِهَا. وَكُلُّ خَطٍّ يُعْرَضُ هُنَا بِشَكْلِهِ الْحَقِيقِيِّ.",
+            "حجم الخط":
+                "حَجْمُ الْخَطِّ. كَبِّرْ أَوْ صَغِّرْ نَصَّ الصَّفْحَةِ لِرَاحَةِ عَيْنَيْكَ، " +
+                "مِنْ خَمْسَةٍ وَثَمَانِينَ بِالْمِئَةِ حَتَّى مِئَةٍ وَثَلَاثِينَ بِالْمِئَةِ. وَزِرُّ «افْتِرَاضِيّ» يُعِيدُ الْحَجْمَ الْأَصْلِيَّ.",
+            "انسخ رابط الصفحة":
+                "انْسَخْ رَابِطَ الصَّفْحَةِ. يَنْسَخُ رَابِطَ الصَّفْحَةِ مَعَ الْفَلَاتِرِ الَّتِي اخْتَرْتَهَا، " +
+                "فَتُرْسِلُ لِزُمَلَائِكَ مَوَادَّ فَصْلِكَ وَاخْتِصَاصِكَ مُبَاشَرَةً. وَتَتَحَوَّلُ الْأَيْقُونَةُ إِلَى عَلَامَةِ صَحٍّ عِنْدَ النَّسْخِ.",
+            "مكتبة الأيقونات":
+                "مَكْتَبَةُ الْأَيْقُونَاتِ. بَدِّلْ شَكْلَ أَيْقُونَاتِ الصَّفْحَةِ كُلِّهَا بَيْنَ خَمْسِ مَكْتَبَاتٍ مَشْهُورَةٍ: " +
+                "لُوسَايْد، وَفُونْت أُوسَم، وَهِيرُو آيْكُونْز، وَبُوتْسْتْرَاب آيْكُونْز، وَمَتِيرْيَال سِيمْبُولْز. وَيَتَذَكَّرُ الْمَكْتَبَةَ الَّتِي اخْتَرْتَهَا.",
+            "البحث والفلاتر":
+                "الْبَحْثُ وَالْفَلَاتِرُ. مِنْ هُنَا تَصِلُ إِلَى مَجْمُوعَةِ أَيِّ مَادَّةٍ خِلَالَ ثَوَانٍ. " +
+                "اخْتَرِ الْفَصْلَ وَالِاخْتِصَاصَ مِنَ الْأَزْرَارِ، وَابْحَثْ بِالِاسْمِ أَوِ الرَّمْزِ دُونَ الْقَلَقِ مِنَ التَّشْكِيلِ، " +
+                "وَاضْغَطْ مِفْتَاحَ الشَّرْطَةِ الْمَائِلَةِ لِلِانْتِقَالِ إِلَى الْبَحْثِ بِسُرْعَةٍ.",
+            "بطاقات المواد":
+                "بِطَاقَاتُ الْمَوَادِّ. كُلُّ مَادَّةٍ فِي بِطَاقَةٍ، مُرَتَّبَةٍ حَسَبَ الْفَصْلِ. " +
+                "زِرُّ الِانْضِمَامِ يَفْتَحُ مَجْمُوعَةَ الْوَاتْسَاب الْخَاصَّةَ بِالْمَادَّةِ، وَزِرُّ الرَّابِطِ بِجَانِبِهِ يَنْسَخُ رَابِطَ الْمَجْمُوعَةِ، " +
+                "وَالشَّارَاتُ تُبَيِّنُ الِاخْتِصَاصَاتِ الَّتِي تَشْمَلُ الْمَادَّةَ.",
+            "بوت الشركاء على تيليجرام":
+                "بُوتُ الشُّرَكَاءِ عَلَى تِيلِيغْرَام. بُوتُ إِنْفُومَاتْرِيكْس تِيم يَرْبِطُكَ بِطُلَّابٍ يُرِيدُونَ الْعَمَلَ مَعَكَ. " +
+                "ابْحَثْ عَنْ شَرِيكٍ لِحَلِّ الْوَظَائِفِ، وَتَعَاوَنُوا عَلَى الْمَشَارِيعِ بَدَلَ الْعَمَلِ وَحِيدًا.",
+            "القناة والمطوّر":
+                "الْقَنَاةُ وَالْمُطَوِّرُ. تَابِعْ قَنَاةَ إِسْ فِي يُو هِيلْب عَلَى يُوتْيُوب، وَتَوَاصَلْ مَعَ مُطَوِّرِ الصَّفْحَةِ. " +
+                "زِرُّ زِيَارَةِ الْقَنَاةِ يَفْتَحُ يُوتْيُوب، وَوَاتْسَاب الْمُطَوِّرِ لِلِاقْتِرَاحَاتِ وَالْمُلَاحَظَاتِ."
+        };
+
         const tour = document.getElementById("tour");
         const tourShade = tour.querySelector(".tour-shade");
         const tourSpot = tour.querySelector(".tour-spot");
@@ -3874,19 +4031,153 @@
                 A.animate(tourBubble, first
                     ? { opacity: [0, 1], scale: [0.9, 1], ease: A.spring({ bounce: 0.35, duration: 500 }), onComplete: clean }
                     : { opacity: [0.3, 1], y: [10, 0], duration: 350, ease: "outExpo", onComplete: clean });
-                // Title, sentence and bullet points reveal one after another
-                A.animate([document.getElementById("tourTitle"), document.getElementById("tourText"), ...document.querySelectorAll("#tourPoints li")], {
-                    opacity: [0, 1],
-                    x: [-14, 0],
-                    duration: 450,
-                    delay: A.stagger(90, { start: 120 }),
-                    ease: "outExpo",
-                    onComplete: clean
-                });
+                A.animate(document.getElementById("tourTitle"), { opacity: [0, 1], x: [-14, 0], duration: 450, ease: "outExpo", onComplete: clean });
                 // Fanak hops on every step
                 A.animate(tourBubble.querySelector(".fox-head"), { y: [0, -10, 0], rotate: [0, -8, 0], duration: 600, ease: "outQuad", onComplete: clean });
                 // Live demo on the real section
                 try { step.demo?.(); } catch (e) { }
+            }
+            // Fanak says the sentence (word by word, moving mouth, voice when available)
+            foxSay(step);
+        }
+
+        // ---------- Fanak talks: word-by-word bubble, moving mouth, optional voice ----------
+        // Curated natural Arabic voices (Edge / Windows names). Only the ones present on the device are offered;
+        // other devices fall back to their own Arabic voice. Never an English voice for Arabic text.
+        const FOX_VOICES = [
+            { key: "salma", match: /سلمى|Salma/i, lang: /^ar-EG/i, label: "سلمى (مصر)" },
+            { key: "sana", match: /سناء|Sana/i, lang: /^ar-JO/i, label: "سناء (الأردن)" },
+            { key: "laith", match: /ليث|Laith/i, lang: /^ar-SY/i, label: "ليث (سوريا)" },
+            { key: "amany", match: /أماني|Amany/i, lang: /^ar-SY/i, label: "أماني (سوريا)" }
+        ];
+        const foxVoice = { voice: null, key: null, enabled: true, options: [] };
+        try { foxVoice.enabled = localStorage.getItem("ite-fox-voice") !== "off"; } catch (e) { }
+        const foxVoiceBtn = document.getElementById("foxVoiceBtn");
+        const foxVoiceSelect = document.getElementById("foxVoiceSelect");
+        const tourVoiceRow = document.getElementById("tourVoice");
+        const canSpeak = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+
+        function loadVoices() {
+            const voices = speechSynthesis.getVoices();
+            foxVoice.options = FOX_VOICES
+                .map(c => ({ ...c, voice: voices.find(v => c.lang.test(v.lang) && c.match.test(v.name)) }))
+                .filter(c => c.voice);
+            if (!foxVoice.options.length) {
+                // Other platforms (Android, iPhone, Mac…): offer their Arabic voices instead
+                const natural = v => /natural|online|neural|enhanced|premium/i.test(v.name);
+                const arabic = voices.filter(v => /^ar\b/i.test(v.lang)).sort((a, b) => natural(b) - natural(a)).slice(0, 4);
+                foxVoice.options = arabic.map((v, i) => ({ key: "device-" + i, voice: v, label: v.name.replace(/^(Microsoft|Google|Apple)\s*/i, "") }));
+            }
+            let saved = null;
+            try { saved = localStorage.getItem("ite-fox-voice-name"); } catch (e) { }
+            const chosen = foxVoice.options.find(o => o.key === saved) || foxVoice.options[0] || null;
+            foxVoice.voice = chosen ? chosen.voice : null;
+            foxVoice.key = chosen ? chosen.key : null;
+            foxVoiceSelect.innerHTML = foxVoice.options.map(o => `<option value="${o.key}">${o.label}</option>`).join("");
+            if (chosen) foxVoiceSelect.value = chosen.key;
+            tourVoiceRow.hidden = !foxVoice.voice;
+        }
+
+        function syncVoiceBtn() {
+            foxVoiceBtn.setAttribute("aria-pressed", String(foxVoice.enabled));
+            foxVoiceBtn.title = foxVoice.enabled ? "كتم صوت فَنَك" : "تشغيل صوت فَنَك";
+            foxVoiceBtn.querySelector("use").setAttribute("href", foxVoice.enabled ? "#i-volume" : "#i-volume-x");
+            foxVoiceSelect.disabled = !foxVoice.enabled;
+        }
+
+        if (canSpeak) {
+            loadVoices();
+            speechSynthesis.addEventListener("voiceschanged", loadVoices);
+        }
+        syncVoiceBtn();
+
+        foxVoiceBtn.addEventListener("click", () => {
+            foxVoice.enabled = !foxVoice.enabled;
+            try { localStorage.setItem("ite-fox-voice", foxVoice.enabled ? "on" : "off"); } catch (e) { }
+            syncVoiceBtn();
+            if (tourIndex >= 0) foxSay(activeSteps[tourIndex]); // replay (or stop) the current step
+        });
+
+        // Picking a voice replays the current step with it, so students can compare
+        foxVoiceSelect.addEventListener("change", () => {
+            const option = foxVoice.options.find(o => o.key === foxVoiceSelect.value);
+            if (!option) return;
+            foxVoice.voice = option.voice;
+            foxVoice.key = option.key;
+            try { localStorage.setItem("ite-fox-voice-name", option.key); } catch (e) { }
+            if (tourIndex >= 0) foxSay(activeSteps[tourIndex]);
+        });
+
+        let talkToken = 0, talkTimer = null;
+        function setTalking(fox, on) { fox?.classList.toggle("is-talking", on); }
+
+        function stopTalking() {
+            talkToken++;
+            clearTimeout(talkTimer);
+            setTalking(tourBubble.querySelector(".fox"), false);
+            if (canSpeak) speechSynthesis.cancel();
+        }
+
+        // Wrap each word (and inline elements such as <b>/<kbd>) so they can appear one by one.
+        // Whole words only: splitting Arabic into letters would break letter joining.
+        function wrapWords(el) {
+            if (el.dataset.wrapped) return [...el.querySelectorAll(".w")];
+            el.dataset.wrapped = "1";
+            const units = [];
+            for (const node of [...el.childNodes]) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    const frag = document.createDocumentFragment();
+                    for (const part of node.textContent.split(/(\s+)/)) {
+                        if (!part) continue;
+                        if (/^\s+$/.test(part)) { frag.append(part); continue; }
+                        const span = document.createElement("span");
+                        span.className = "w";
+                        span.textContent = part;
+                        frag.append(span);
+                        units.push(span);
+                    }
+                    node.replaceWith(frag);
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    node.classList.add("w");
+                    units.push(node);
+                }
+            }
+            return units;
+        }
+
+        function foxSay(step) {
+            stopTalking();
+            const token = talkToken;
+            const fox = tourBubble.querySelector(".fox");
+            const textEl = document.getElementById("tourText");
+            delete textEl.dataset.wrapped;
+            const words = wrapWords(textEl);
+            const points = [...document.querySelectorAll("#tourPoints li")];
+            const PER_WORD = 120;
+            const typingMs = words.length * PER_WORD;
+
+            if (canAnimate()) {
+                A.animate(words, { opacity: [0, 1], y: [6, 0], duration: 260, delay: A.stagger(PER_WORD), ease: "outQuad", onComplete: clean });
+                A.animate(points, { opacity: [0, 1], x: [-14, 0], duration: 420, delay: A.stagger(110, { start: typingMs + 80 }), ease: "outExpo", onComplete: clean });
+            }
+
+            setTalking(fox, true);
+            const done = () => { if (token === talkToken) setTalking(fox, false); };
+
+            if (foxVoice.enabled && foxVoice.voice) {
+                // Speak the fully voweled script (correct pronunciation); fall back to the on-screen text
+                const script = TOUR_SPEECH[step.title] || [step.title, textEl.textContent, ...points.map(p => p.textContent)].join("، ");
+                const u = new SpeechSynthesisUtterance(script);
+                u.voice = foxVoice.voice;
+                u.lang = foxVoice.voice.lang;
+                u.rate = 0.95; // a touch slower: clearer for students
+                u.pitch = 1;   // natural voices sound artificial when pitch-shifted
+                u.onend = u.onerror = done;
+                speechSynthesis.speak(u);
+                talkTimer = setTimeout(done, 25000); // safety net if the engine never reports the end
+            } else {
+                // Silent: the mouth moves for as long as the words take to appear
+                talkTimer = setTimeout(done, Math.max(700, typingMs + 200));
             }
         }
 
@@ -3912,6 +4203,7 @@
         function endTour(completed, immediate = false) {
             if (tourIndex < 0) return;
             tourIndex = -1;
+            stopTalking();
             if (spotAnim) { spotAnim.cancel(); spotAnim = null; }
             removeEventListener("resize", onTourViewport);
             removeEventListener("scroll", onTourViewport);
