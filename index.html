@@ -2273,6 +2273,18 @@
             }
         }
 
+        /* ---------- Smoke trail canvas ----------
+           z-index -1 in the root stacking context: above the page background,
+           below all content (opaque cards hide it; the glass filter bar blurs it). */
+        .smoke-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
         /* ---------- Anime.js hand-off ----------
            .has-anime is set only when Anime.js loaded and motion is allowed.
            CSS transitions on transform/opacity would fight Anime.js, so they are
@@ -2339,6 +2351,8 @@
 </head>
 
 <body>
+    <!-- Background smoke trail that follows the mouse (drawn by the "Smoke trail" script) -->
+    <canvas class="smoke-canvas" id="smoke" aria-hidden="true"></canvas>
     <!-- Icon sprite (Lucide-style stroke icons, inline so there is no external dependency) -->
     <svg width="0" height="0" style="position:absolute" aria-hidden="true">
         <symbol id="i-cap" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></symbol>
@@ -4187,6 +4201,141 @@
                 // No PHP backend (e.g. opened from disk or static hosting): keep the card hidden.
             }
         }
+
+        // ---------- Smoke trail behind the cursor (custom canvas, no library) ----------
+        // Soft puffs in the palette colours spawn along the mouse path, then curl, rise, grow and fade.
+        (function smokeTrail() {
+            const canvas = document.getElementById("smoke");
+            const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+            const ctx = canvas.getContext && canvas.getContext("2d");
+            // Mouse/pen only (touch drags are scrolling), and never for reduced-motion users
+            if (!ctx || !finePointer || reduceMotion.matches) { canvas.remove(); return; }
+
+            const SCALE = 0.5;       // half-resolution: cheaper, and the upscale makes it softer
+            const MAX_PUFFS = 160;
+            const puffs = [];
+            let sprites = [], additive = true, maxAlpha = 0.2;
+            let last = null, running = false, prevTime = 0;
+
+            function resize() {
+                canvas.width = Math.ceil(innerWidth * SCALE);
+                canvas.height = Math.ceil(innerHeight * SCALE);
+            }
+
+            // A pre-rendered radial "puff" per colour; drawing images is far cheaper than gradients per frame
+            function makeSprite(color) {
+                const c = document.createElement("canvas");
+                c.width = c.height = 64;
+                const g = c.getContext("2d");
+                g.fillStyle = color; // let the browser normalise any CSS colour
+                const norm = g.fillStyle;
+                let rgb = [56, 189, 248];
+                if (norm.startsWith("#")) rgb = [1, 3, 5].map(i => parseInt(norm.slice(i, i + 2), 16));
+                else { const m = norm.match(/[\d.]+/g); if (m) rgb = m.slice(0, 3).map(Number); }
+                const [r, gg, b] = rgb;
+                const grad = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+                grad.addColorStop(0, `rgba(${r},${gg},${b},1)`);
+                grad.addColorStop(0.35, `rgba(${r},${gg},${b},0.5)`);
+                grad.addColorStop(1, `rgba(${r},${gg},${b},0)`);
+                g.fillStyle = grad;
+                g.fillRect(0, 0, 64, 64);
+                return c;
+            }
+
+            // Follow the active palette and mode
+            function refreshColors() {
+                const cs = getComputedStyle(document.documentElement);
+                const accent = cs.getPropertyValue("--accent").trim() || "#38bdf8";
+                const secondary = cs.getPropertyValue("--a2").trim() || accent;
+                const dark = activeTheme() === "dark";
+                additive = dark;               // glow on dark backgrounds…
+                maxAlpha = dark ? 0.22 : 0.13; // …soft tinted haze on light ones
+                const main = makeSprite(accent);
+                sprites = [main, main, makeSprite(secondary)]; // ~2/3 main colour, 1/3 secondary
+            }
+
+            function spawn(x, y, vx, vy) {
+                if (puffs.length >= MAX_PUFFS) puffs.shift();
+                puffs.push({
+                    x, y,
+                    vx: vx + (Math.random() - 0.5) * 0.6,
+                    vy: vy + (Math.random() - 0.5) * 0.6 - 0.35,
+                    r: 10 + Math.random() * 14,
+                    grow: 0.5 + Math.random() * 0.5,
+                    life: 0,
+                    ttl: 1300 + Math.random() * 1100,
+                    phase: Math.random() * Math.PI * 2,
+                    sprite: sprites[(Math.random() * sprites.length) | 0]
+                });
+            }
+
+            function frame(now) {
+                const dt = Math.min(50, prevTime ? now - prevTime : 16.7);
+                prevTime = now;
+                const f = dt / 16.7;
+
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.globalCompositeOperation = additive ? "lighter" : "source-over";
+                ctx.setTransform(SCALE, 0, 0, SCALE, 0, 0);
+
+                for (let i = puffs.length - 1; i >= 0; i--) {
+                    const p = puffs[i];
+                    p.life += dt;
+                    const k = p.life / p.ttl;
+                    if (k >= 1) { puffs.splice(i, 1); continue; }
+                    // curl sideways, drift up, slow down, spread out
+                    p.phase += 0.045 * f;
+                    p.x += (p.vx + Math.sin(p.phase) * 0.4) * f;
+                    p.y += p.vy * f;
+                    p.vx *= Math.pow(0.965, f);
+                    p.vy = p.vy * Math.pow(0.985, f) - 0.012 * f;
+                    p.r += p.grow * f;
+                    // quick fade-in, long soft fade-out
+                    ctx.globalAlpha = maxAlpha * Math.min(1, k * 8) * Math.pow(1 - k, 1.6);
+                    ctx.drawImage(p.sprite, p.x - p.r, p.y - p.r, p.r * 2, p.r * 2);
+                }
+                ctx.globalAlpha = 1;
+
+                if (puffs.length) {
+                    requestAnimationFrame(frame);
+                } else {
+                    // Nothing left: stop the loop entirely until the mouse moves again
+                    running = false;
+                    prevTime = 0;
+                }
+            }
+
+            function start() {
+                if (running) return;
+                running = true;
+                requestAnimationFrame(frame);
+            }
+
+            addEventListener("pointermove", e => {
+                if (e.pointerType !== "mouse" && e.pointerType !== "pen") return;
+                const x = e.clientX, y = e.clientY;
+                if (last) {
+                    const dx = x - last.x, dy = y - last.y;
+                    const n = Math.min(5, Math.floor(Math.hypot(dx, dy) / 10));
+                    // fill in puffs along the path so fast moves leave a continuous trail
+                    for (let i = 1; i <= n; i++) {
+                        spawn(last.x + (dx * i) / n, last.y + (dy * i) / n, (dx / n) * 0.15, (dy / n) * 0.15);
+                    }
+                    if (n) start();
+                }
+                last = { x, y };
+            }, { passive: true });
+            document.addEventListener("mouseleave", () => { last = null; });
+            addEventListener("blur", () => { last = null; });
+            addEventListener("resize", resize);
+
+            new MutationObserver(refreshColors).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme", "data-palette"] });
+            themeMedia.addEventListener("change", refreshColors);
+
+            resize();
+            refreshColors();
+        })();
 
         // ---------- Init ----------
         buildChips(document.getElementById("semesterChips"),
